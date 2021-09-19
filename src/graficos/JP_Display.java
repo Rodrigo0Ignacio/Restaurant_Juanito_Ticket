@@ -28,14 +28,21 @@ public class JP_Display extends JPanel implements Runnable {
 	
 	private JTable Grilla_Pedidos;
 	private Thread hilo;
+	private String mesa = null ;
 	
 	JPanel titulo = new JPanel();
 	JPanel subTitulo = new JPanel();
-	JLabel lblNewLabel = new JLabel("Restaurant Juantio");
-	JLabel lblNewLabel_1 = new JLabel("Ticket de pedido");
+	JLabel lbl_titulo = new JLabel("Restaurant Juantio");
+	JLabel lbl_subtitulo = new JLabel("Ticket de pedido");
+	JLabel lbl_nroMesa = new JLabel("N ");
 	JPanel Fecha_y_Hora = new JPanel();
 	JLabel lbl_hra = new JLabel("00:00:00");
 	Fecha fecha = new Fecha();
+	JLabel lblNewLabel_2 = new JLabel("Fecha:");
+	JLabel lbl_fecha = new JLabel("DD/MM/YYYY");
+	JLabel lblNewLabel_5 = new JLabel("Hora:");
+	JLabel lblNewLabel_4 = new JLabel("Mesa:");
+	JPanel grilla = new JPanel();
 	
 	
 	
@@ -55,47 +62,44 @@ public class JP_Display extends JPanel implements Runnable {
 		titulo.add(subTitulo);
 		subTitulo.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		subTitulo.add(lblNewLabel);
+		lbl_titulo.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbl_titulo.setHorizontalAlignment(SwingConstants.CENTER);
+		subTitulo.add(lbl_titulo);
 		
 		
-		lblNewLabel_1.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		subTitulo.add(lblNewLabel_1);
+		lbl_subtitulo.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbl_subtitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		subTitulo.add(lbl_subtitulo);
 		
 		
 		titulo.add(Fecha_y_Hora);
 		Fecha_y_Hora.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel("Fecha:");
+		
 		lblNewLabel_2.setFont(new Font("Dialog", Font.PLAIN, 16));
 		Fecha_y_Hora.add(lblNewLabel_2);
 		
-		JLabel lbl_fecha = new JLabel("DD/MM/YYYY");
+		
 		lbl_fecha.setFont(new Font("Dialog", Font.PLAIN, 16));
 		// ESTABLECE FECHA ACTUAL
 		lbl_fecha.setText(fecha.fechaActual());
 		
 		Fecha_y_Hora.add(lbl_fecha);
 		
-		JLabel lblNewLabel_5 = new JLabel("Hora:");
+		
 		lblNewLabel_5.setFont(new Font("Dialog", Font.PLAIN, 16));
 		Fecha_y_Hora.add(lblNewLabel_5);
 		lbl_hra.setFont(new Font("Dialog", Font.PLAIN, 16));
-		
-		
 		Fecha_y_Hora.add(lbl_hra);
 		
-		JLabel lblNewLabel_4 = new JLabel("Mesa:");
+		
 		lblNewLabel_4.setFont(new Font("Dialog", Font.PLAIN, 16));
 		Fecha_y_Hora.add(lblNewLabel_4);
 		
-		JLabel lbl_nroMesa = new JLabel("N\u00B0");
+		
 		lbl_nroMesa.setFont(new Font("Dialog", Font.PLAIN, 16));
 		Fecha_y_Hora.add(lbl_nroMesa);
 		
-		JPanel grilla = new JPanel();
 		add(grilla);
 		grilla.setLayout(new GridLayout(1, 0, 0, 0));
 		
@@ -135,9 +139,21 @@ public class JP_Display extends JPanel implements Runnable {
 		lblNewLabel_13.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totales.add(lblNewLabel_13);
 		this.setVisible(true);
+		
+		System.out.print(getMesa());
 
 	}
+	
+	public String getMesa() {
+		return mesa;
+	}
 
+	public void setMesa(String mesa) {
+		this.mesa = mesa;
+	}
+
+	
+	
 	@Override
 	public void run() {
 		Thread current = Thread.currentThread();
@@ -150,6 +166,8 @@ public class JP_Display extends JPanel implements Runnable {
 		}
 		
 	}
-	
+
+
+
 
 }
