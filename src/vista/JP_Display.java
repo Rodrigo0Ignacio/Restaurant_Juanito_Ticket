@@ -23,10 +23,10 @@ import javax.swing.BoxLayout;
 import java.awt.Component;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+import java.awt.ScrollPane;
+import javax.swing.JScrollPane;
 
 public class JP_Display extends JPanel implements Runnable {
-	
-	private JTable Grilla_Pedidos;
 	private Thread hilo;
 	private String mesa = null ;
 	private JLabel lbl_titulo = new JLabel("Restaurant Juantio");
@@ -50,6 +50,8 @@ public class JP_Display extends JPanel implements Runnable {
 	public static JLabel lbl_propina = new JLabel("$ 1500");
 	public static JLabel lbl_total = new JLabel("$ 15000");
 	public static JLabel lbl_totalMasPropina = new JLabel("$ 16500");
+	private final JScrollPane scrollPane = new JScrollPane();
+	private final JTable grillaProductos = new JTable();
 	
 	
 	
@@ -108,9 +110,23 @@ public class JP_Display extends JPanel implements Runnable {
 		add(grilla);
 		grilla.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		Grilla_Pedidos = new JTable();
-		Grilla_Pedidos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		grilla.add(Grilla_Pedidos);
+		grilla.add(scrollPane);
+		grillaProductos.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Unidad", "Nombre", "Valor"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		
+		scrollPane.setViewportView(grillaProductos);
 		
 		totales.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		add(totales);

@@ -32,8 +32,10 @@ public class Principal extends JFrame {
 
 	public static void main(String[] args) {
 		try {
-			Principal frame = new Principal();
-			frame.setVisible(true);	
+			Principal main = new Principal();
+			main.setVisible(true);
+			main.setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/cuchilleria.png")));
+			
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Error al iniciar el programa");
 			
@@ -42,12 +44,6 @@ public class Principal extends JFrame {
 	}
 
 	public Principal() {
-		try {
-			setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/cuchilleria.png")));
-			
-		}catch(Exception e){
-			
-		}
 		
 		setTitle("Restaurant Juanito");
 		setBounds(100, 100, 900, 600);
