@@ -28,6 +28,7 @@ public class JP_MenuComidas extends JPanel {
 	private final JButton Btn_1_7 = new JButton("Prueba");
 
 	public JP_MenuComidas() {
+		setBackground(Color.GRAY);
 		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Menu", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		Btn_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
