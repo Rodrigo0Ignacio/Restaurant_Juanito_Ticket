@@ -3,7 +3,8 @@ package vista;
 import javax.swing.JPanel;
 
 import controlador.Ticket;
-
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
@@ -38,7 +39,7 @@ public class JP_MenuHerramientas extends JPanel {
 		lbl_titulo.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 		
 		p_logo.add(lbl_titulo);
-		lbl_icono.setIcon(new ImageIcon("C:\\Users\\Rodrigo\\eclipse-workspace\\Restaurant_Juanito_Automatizacion\\src\\img\\mariscos.png"));
+		lbl_icono.setIcon(new ImageIcon("src/img/mariscos.png"));
 		
 		p_logo.add(lbl_icono);
 		
@@ -52,29 +53,44 @@ public class JP_MenuHerramientas extends JPanel {
 		p_herramienta.add(informeDiario);
 		
 		p_herramienta.add(mesa);
-		
 
+		/*Eventos*/
+		mesa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				Fr_MenuMesas mesas = new Fr_MenuMesas();
+				
+
+			}
+		});
+
+		imprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+			Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime", "items", "subTotal", "tax", "total", "recibo", "change");
+			ticket.print();
+
+			}
+		});
+
+		informeDiario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				Fr_Reporte informe = new Fr_Reporte();
+				informe.setVisible(true);
+
+			}
+		});
+		
+		/*ESTE BOTON RESBLACE LOS VALORES INICIALES DEL DISPLAY*/
+		borrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+
+				JP_Display.lbl_nroMesa.setText("N\u00B0");
+
+				
+
+			}
+		});
+		
+		
 	}
 
-	/*sub clase que establece la imagen*/
-	/*
-	private class P_logo extends JPanel{
-		private Image imagen;
-		
-		@Override
-		public void paint(Graphics g) {
-			imagen = new ImageIcon(getClass().getResource("/img/Junatio.png")).getImage();
-			g.drawImage(imagen,0,0,getWidth(),getHeight(), this);
-			setOpaque(false);
-			super.paint(g);
-			
-		}
-		
-	}
-	*/
-	
-	
-	
-	
-	
 }

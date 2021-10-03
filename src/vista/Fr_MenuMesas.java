@@ -180,7 +180,8 @@ public class Fr_MenuMesas extends JFrame {
 				if(txt_displayNumeros.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Ingrese un numero");
 				}else {
-					JP_Display.lbl_nroMesa.setText("N° "+txt_displayNumeros.getText());
+					JP_Display.lbl_nroMesa.setText("N\u00B0 "+txt_displayNumeros.getText());
+					setVisible(false);
 				}
 				
 				

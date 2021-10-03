@@ -51,6 +51,10 @@ public class Ticket {
 	    this.contentTicket = this.contentTicket.replace("{{recibo}}", recibo);
 	    this.contentTicket = this.contentTicket.replace("{{change}}", change);
 	  }
+
+	  public Ticket(){
+		  
+	  }
 	    
 	  public void print() {
 	    //Especificamos el tipo de dato a imprimir
@@ -81,7 +85,7 @@ public class Ticket {
 	    //el arreglo de bytes
 	    Doc doc = new SimpleDoc(bytes,flavor,null);
 	      
-	    //Creamos un trabajo de impresión
+	    //Creamos un trabajo de impresiï¿½n
 	    DocPrintJob job = service.createPrintJob();
 
 	    //Imprimimos dentro de un try de a huevo
