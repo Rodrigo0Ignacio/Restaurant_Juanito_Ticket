@@ -1,26 +1,12 @@
 package vista;
-
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
-import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 
 public class Principal extends JFrame {
 

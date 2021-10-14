@@ -1,22 +1,18 @@
 package vista;
 
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 public class JP_MenuComidas extends JPanel {
 	
 	private JButton Btn_entradas = new JButton("Entradas");
 	private JButton Btn_principales = new JButton("Principales");
-	private JButton Btn_acompaniamiento = new JButton("AcompaÃ±amientos");
+	private JButton Btn_acompaniamiento = new JButton("Acompañamiento");
 	private JButton Btn_bebidas = new JButton("Bebidas");
 	private JButton Btn_salsas = new JButton("Salsas");
 	private JButton Btn_aperitivos = new JButton("Aperitivos");

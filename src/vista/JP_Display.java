@@ -1,30 +1,19 @@
 package vista;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.GridLayout;
+
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.Fecha;
-
-import java.awt.Font;
-import javax.swing.BoxLayout;
-import java.awt.Component;
-import java.awt.Color;
-import javax.swing.border.LineBorder;
-import java.awt.ScrollPane;
-import javax.swing.JScrollPane;
 
 public class JP_Display extends JPanel implements Runnable {
 	private Thread hilo;
