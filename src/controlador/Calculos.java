@@ -5,26 +5,10 @@ public class Calculos {
 	private double total;
 	private final double PROPINA = 0.10;
 	private double totalMasPropina;
-	
-	Calculos(){
-		
-	}
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	Calculos() {
+
+	}
 
 	public double getUnidad() {
 		return unidad;
@@ -53,36 +37,5 @@ public class Calculos {
 	public double getPROPINA() {
 		return PROPINA;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

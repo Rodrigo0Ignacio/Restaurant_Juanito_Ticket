@@ -10,7 +10,6 @@ public class Fr_Reporte extends JFrame {
 
 	private JPanel contentPane;
 
-
 	public Fr_Reporte() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

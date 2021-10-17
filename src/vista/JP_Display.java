@@ -17,7 +17,7 @@ import controlador.Fecha;
 
 public class JP_Display extends JPanel implements Runnable {
 	private Thread hilo;
-	private String mesa = null ;
+	private String mesa = null;
 	private JLabel lbl_titulo = new JLabel("Restaurant Juantio");
 	private JLabel lbl_subtitulo = new JLabel("Ticket de pedido");
 	private JPanel titulo = new JPanel();
@@ -34,139 +34,113 @@ public class JP_Display extends JPanel implements Runnable {
 	private JLabel lblNewLabel_9 = new JLabel("PROPINA:");
 	private JLabel lblNewLabel_11 = new JLabel("TOTAL MAS PROPINA");
 	private JPanel totales = new JPanel();
-	
+
 	public static JLabel lbl_nroMesa = new JLabel("N\u00B0");
 	public static JLabel lbl_propina = new JLabel("$ 1500");
 	public static JLabel lbl_total = new JLabel("$ 15000");
 	public static JLabel lbl_totalMasPropina = new JLabel("$ 16500");
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable grillaProductos = new JTable();
-	
-	
-	
+
 	public JP_Display() {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
-		
+
 		hilo = new Thread(this);
 		hilo.start();
 		setVisible(true);
 
 		setBackground(Color.WHITE);
 		setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		add(titulo);
 		titulo.setLayout(new GridLayout(0, 1, 0, 0));
 
 		titulo.add(subTitulo);
 		subTitulo.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		lbl_titulo.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lbl_titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		subTitulo.add(lbl_titulo);
-		
-		
+
 		lbl_subtitulo.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lbl_subtitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		subTitulo.add(lbl_subtitulo);
-		
-		
+
 		titulo.add(Fecha_y_Hora);
 		Fecha_y_Hora.setLayout(new GridLayout(0, 2, 0, 0));
-		
-		
+
 		lblNewLabel_2.setFont(new Font("Dialog", Font.PLAIN, 16));
 		Fecha_y_Hora.add(lblNewLabel_2);
-		
-		
+
 		lbl_fecha.setFont(new Font("Dialog", Font.PLAIN, 16));
 		// ESTABLECE FECHA ACTUAL
 		lbl_fecha.setText(fecha.fechaActual());
 		Fecha_y_Hora.add(lbl_fecha);
-		
-		
+
 		lblNewLabel_5.setFont(new Font("Dialog", Font.PLAIN, 16));
 		Fecha_y_Hora.add(lblNewLabel_5);
 		lbl_hra.setFont(new Font("Dialog", Font.PLAIN, 16));
 		Fecha_y_Hora.add(lbl_hra);
-		
-		
+
 		lblNewLabel_4.setFont(new Font("Dialog", Font.PLAIN, 16));
 		Fecha_y_Hora.add(lblNewLabel_4);
-		
+
 		lbl_nroMesa.setFont(new Font("Dialog", Font.PLAIN, 16));
 		Fecha_y_Hora.add(lbl_nroMesa);
-		
+
 		add(grilla);
 		grilla.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		grilla.add(scrollPane);
-		grillaProductos.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Unidad", "Nombre", "Valor"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, true
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		
+		grillaProductos
+				.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Unidad", "Nombre", "Valor" }) {
+					boolean[] columnEditables = new boolean[] { false, false, true };
+
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+
 		scrollPane.setViewportView(grillaProductos);
-		
+
 		totales.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		add(totales);
 		totales.setLayout(new GridLayout(0, 2, -10, -10));
-		
-		
+
 		lblNewLabel_8.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totales.add(lblNewLabel_8);
-		
-		
+
 		lbl_total.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_total.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totales.add(lbl_total);
-		
-		
+
 		lblNewLabel_9.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totales.add(lblNewLabel_9);
-		
-		
+
 		lbl_propina.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_propina.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totales.add(lbl_propina);
-		
-		
+
 		lblNewLabel_11.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totales.add(lblNewLabel_11);
-		
-		
+
 		lbl_totalMasPropina.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_totalMasPropina.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totales.add(lbl_totalMasPropina);
 
-
 	}
-	
-	
+
 	@Override
 	public void run() {
 		Thread current = Thread.currentThread();
 		Fecha hora = new Fecha();
-		
-		while(current == hilo) {
-			
+
+		while (current == hilo) {
+
 			lbl_hra.setText(hora.horaActual());
-			
-			
+
 		}
-		
+
 	}
-
-
-
 
 }
