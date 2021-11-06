@@ -8,10 +8,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import modelo.Conexion;
 import modelo.Consultas;
+import java.awt.GridLayout;
 
 public class Fr_Comidas extends JFrame {
 
@@ -24,10 +26,11 @@ public class Fr_Comidas extends JFrame {
     private JButton btn;
     private JPanel panel_central = new JPanel();
     private JPanel panel_acciones = new JPanel();
+    private final JButton btnNewButton = new JButton("New button");
 
 	
 	public Fr_Comidas() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 554, 401);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -36,32 +39,35 @@ public class Fr_Comidas extends JFrame {
 		
 		
 		contentPane.add(panel_central, BorderLayout.CENTER);
-		
-		
 		contentPane.add(panel_acciones, BorderLayout.SOUTH);
-                
-                try{
-                    query = "SELECT * FROM comida";
-                    statement = (Statement) conexion.conectar().createStatement();
-                    rs = statement.executeQuery(query);
-                    
-                    while(rs.next()){
-                        btn = new JButton(rs.getString("nombre"));
-                        panel_central.add(btn);
-                        
-                        if(btn.getText() == "Hamburguesa"){
-                            System.out.println("1");
-                        if(btn.getText() == "Papas fritas"){
-                            System.out.println("2");
-                        }
-                            
-                        }
-  
-                    }
-                    
-                }catch(SQLException W){
-                    
-                }
+		
+               
 	}
+	
+	public void consultas(String categoria) {
+		
+		 try{
+             query = "SELECT DISTINCT * FROM comida WHERE categoria = '"+categoria+"' ";
+             statement = (Statement) conexion.conectar().createStatement();
+             rs = statement.executeQuery(query);
+             
+             while(rs.next()){
+                 btn = new JButton(rs.getString("nombre"));
+                	 panel_central.add(btn);
+     
+
+             }
+             
+         }catch(SQLException W){
+         	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
+             
+         }
+       //  panel_central.add(btn);
+         panel_central.setLayout(new GridLayout(0, 5, 0, 0));
+         conexion.desconectar();
+      
+		
+	}
+
 
 }

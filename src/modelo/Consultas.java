@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 public class Consultas extends Conexion {
 	public Statement statement;
 	public ResultSet rs;
-        public String query;
+    public String query;
         
         public ArrayList<Producto> listarProductos(){
              ArrayList<Producto> lista = new ArrayList();
