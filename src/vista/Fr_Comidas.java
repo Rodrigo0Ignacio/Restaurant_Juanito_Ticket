@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
+
 import modelo.Conexion;
 import modelo.Consultas;
 import java.awt.GridLayout;
@@ -27,6 +29,7 @@ public class Fr_Comidas extends JFrame {
     private JPanel panel_central = new JPanel();
     private JPanel panel_acciones = new JPanel();
     private final JButton btnNewButton = new JButton("New button");
+    private  ArrayList<String> productos;
 
 	
 	public Fr_Comidas() {
@@ -35,7 +38,7 @@ public class Fr_Comidas extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		setContentPane(contentPane); 
 		
 		
 		contentPane.add(panel_central, BorderLayout.CENTER);
@@ -45,6 +48,8 @@ public class Fr_Comidas extends JFrame {
 	}
 	
 	public void consultas(String categoria) {
+		/*REMUEVE LAS INTANCIAS ANTES COLOCADAS EN EL MARCO*/
+		panel_central.removeAll();
 		
 		 try{
              query = "SELECT DISTINCT * FROM comida WHERE categoria = '"+categoria+"' ";
@@ -52,22 +57,47 @@ public class Fr_Comidas extends JFrame {
              rs = statement.executeQuery(query);
              
              while(rs.next()){
-                 btn = new JButton(rs.getString("nombre"));
-                	 panel_central.add(btn);
-     
+            	 btn = new JButton(rs.getString("nombre"));
+            	 productos.add(rs.getString("nombre"));
+            	
+                 panel_central.add(btn);
+                 
+                 /*EVENTO DE BOTONES DINAMICOS*/
+                 btn.addActionListener(new ActionListener() {
+            			public void actionPerformed(ActionEvent e) {
+            				/*JButton b = (JButton)e;
+            				 * 
+            				 * NOTA ES POSIBLE COMVERTIR EL OBJETO "E" mas el metodo getSource(),
+            				 *  para obtener el nombre del boton
+            				 * https://es.stackoverflow.com/questions/245569/como-obtener-el-texto-de-un-jbutton-java
+            				 */
+
+            				
+            			}
+            		});
 
              }
+            
+             conexion.desconectar();
              
          }catch(SQLException W){
          	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
              
          }
-       //  panel_central.add(btn);
+
          panel_central.setLayout(new GridLayout(0, 5, 0, 0));
-         conexion.desconectar();
+         
+         
+         
+        
+         
+         
+		}
+
+	
+
       
 		
-	}
 
 
 }

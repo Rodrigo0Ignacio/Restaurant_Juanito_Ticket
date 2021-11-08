@@ -35,11 +35,10 @@ public class JP_MenuComidas extends JPanel {
 		
 		Btn_entradas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
 					subMenuComidas.setVisible(true);
-					subMenuComidas.consultas("Entradas");	
-				
-				
+					subMenuComidas.consultas("Entradas");
+					subMenuComidas.setTitle("Entrada");
 				
 			}
 		});
@@ -47,13 +46,22 @@ public class JP_MenuComidas extends JPanel {
 		add(Btn_entradas);
 		Btn_principales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
+
+				subMenuComidas.setVisible(true);
+				subMenuComidas.consultas("Principales");
+				subMenuComidas.setTitle("Principales");
+
+			}		
 		});
 		
 		
 		add(Btn_principales);
 		Btn_acompaniamiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				subMenuComidas.setVisible(true);
+				subMenuComidas.consultas("Acompañamiento");
+				subMenuComidas.setTitle("Acompañamiento"); 
 			}
 		});
 		
@@ -61,6 +69,10 @@ public class JP_MenuComidas extends JPanel {
 		add(Btn_acompaniamiento);
 		Btn_bebidas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				subMenuComidas.setVisible(true);
+				subMenuComidas.consultas("Bebidas");
+				subMenuComidas.setTitle("Bebidas");
 			}
 		});
 		
@@ -68,23 +80,39 @@ public class JP_MenuComidas extends JPanel {
 		add(Btn_bebidas);
 		Btn_salsas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				subMenuComidas.setVisible(true);
+				subMenuComidas.consultas("Salsas");
+				subMenuComidas.setTitle("Salsas");
 			}
 		});
 		add(Btn_salsas);
 		Btn_aperitivos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				subMenuComidas.setVisible(true);
+				subMenuComidas.consultas("Aperitivos");
+				subMenuComidas.setTitle("Aperitivos");
 			}
 		});
 		
 		add(Btn_aperitivos);
 		Btn_postres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				subMenuComidas.setVisible(true);
+				subMenuComidas.consultas("Postres");
+				subMenuComidas.setTitle("Postres");
 			}
 		});
 		
 		add(Btn_postres);
 		Btn_bCalientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				subMenuComidas.setVisible(true);
+				subMenuComidas.consultas("Bebidas Calientes");
+				subMenuComidas.setTitle("Bebidas Calientes");
 			}
 		});
 		
@@ -92,11 +120,19 @@ public class JP_MenuComidas extends JPanel {
 		
 		Btn_Sandwich.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				subMenuComidas.setVisible(true);
+				subMenuComidas.consultas("Sandwich");
+				subMenuComidas.setTitle("Sandwich");
 			}
 		});
 		
 		Btn_empanadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				subMenuComidas.setVisible(true);
+				subMenuComidas.consultas("Empanadas");
+				subMenuComidas.setTitle("Empanadas");
 			}
 		});
 		
