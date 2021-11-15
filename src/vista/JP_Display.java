@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,6 +14,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
+import controlador.Comida;
 import controlador.Fecha;
 
 public class JP_Display extends JPanel implements Runnable {
@@ -41,6 +45,7 @@ public class JP_Display extends JPanel implements Runnable {
 	public static JLabel lbl_totalMasPropina = new JLabel("$ 16500");
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JTable grillaProductos = new JTable();
+	private DefaultTableModel modelo = new DefaultTableModel();
 
 	public JP_Display() {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -87,19 +92,14 @@ public class JP_Display extends JPanel implements Runnable {
 
 		lbl_nroMesa.setFont(new Font("Dialog", Font.PLAIN, 16));
 		Fecha_y_Hora.add(lbl_nroMesa);
+		
 
+		cargaAutomatica();
 		add(grilla);
 		grilla.setLayout(new GridLayout(1, 0, 0, 0));
 
-		grilla.add(scrollPane);
-		grillaProductos
-				.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Unidad", "Nombre", "Valor" }) {
-					boolean[] columnEditables = new boolean[] { false, false, true };
-
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+		grilla.add(scrollPane);		
+		
 
 		scrollPane.setViewportView(grillaProductos);
 
@@ -129,6 +129,22 @@ public class JP_Display extends JPanel implements Runnable {
 		totales.add(lbl_totalMasPropina);
 
 	}
+	public void cargaAutomatica() {
+		ArrayList<Object> indice = new ArrayList<Object>();
+		
+		indice.add("Unidad");
+		indice.add("Nombre");
+		//indice.add("Precio Unitario");
+		for(Object in : indice) {
+			modelo.addColumn(in);
+			
+		}
+		this.grillaProductos.setModel(modelo);
+		/*POR TERMINAR*/
+
+		
+	}
+
 
 	@Override
 	public void run() {
@@ -142,5 +158,6 @@ public class JP_Display extends JPanel implements Runnable {
 		}
 
 	}
+
 
 }

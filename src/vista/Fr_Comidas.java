@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
+import controlador.Comida;
 import modelo.Conexion;
 import modelo.Consultas;
 import java.awt.GridLayout;
@@ -29,7 +30,8 @@ public class Fr_Comidas extends JFrame {
     private JPanel panel_central = new JPanel();
     private JPanel panel_acciones = new JPanel();
     private final JButton btnNewButton = new JButton("New button");
-    private  ArrayList<String> productos;
+
+
 
 	
 	public Fr_Comidas() {
@@ -48,6 +50,7 @@ public class Fr_Comidas extends JFrame {
 	}
 	
 	public void consultas(String categoria) {
+
 		/*REMUEVE LAS INTANCIAS ANTES COLOCADAS EN EL MARCO*/
 		panel_central.removeAll();
 		
@@ -58,20 +61,19 @@ public class Fr_Comidas extends JFrame {
              
              while(rs.next()){
             	 btn = new JButton(rs.getString("nombre"));
-            	 productos.add(rs.getString("nombre"));
+            	// productos.add(rs.getString("nombre"));
             	
                  panel_central.add(btn);
                  
                  /*EVENTO DE BOTONES DINAMICOS*/
                  btn.addActionListener(new ActionListener() {
             			public void actionPerformed(ActionEvent e) {
-            				/*JButton b = (JButton)e;
-            				 * 
-            				 * NOTA ES POSIBLE COMVERTIR EL OBJETO "E" mas el metodo getSource(),
-            				 *  para obtener el nombre del boton
-            				 * https://es.stackoverflow.com/questions/245569/como-obtener-el-texto-de-un-jbutton-java
-            				 */
+            				ArrayList<Comida> atributosComida = new ArrayList<Comida>();
 
+            				/*getActionCommand() obtiene la cadena del boton
+            				 * le pasamos la cadena del boton precionado*/
+            				atributosComida = consultas.comparaBtn(e.getActionCommand());
+            				/*POR TERMINAL*/
             				
             			}
             		});
@@ -87,16 +89,9 @@ public class Fr_Comidas extends JFrame {
 
          panel_central.setLayout(new GridLayout(0, 5, 0, 0));
          
-         
-         
-        
-         
-         
+
 		}
-
-	
-
-      
+    
 		
 
 

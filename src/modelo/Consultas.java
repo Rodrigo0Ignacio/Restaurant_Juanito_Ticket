@@ -1,5 +1,6 @@
 package modelo;
 
+import controlador.Comida;
 import controlador.Producto;
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,10 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class Consultas extends Conexion {
-	public Statement statement;
-	public ResultSet rs;
-    public String query;
+	private Statement statement = null;
+	private ResultSet rs = null;
+    private String query = null;
         
+       /*CON ESTE METODO PODEMOS LISTAR LOS PRODUCTOS*/
         public ArrayList<Producto> listarProductos(){
              ArrayList<Producto> lista = new ArrayList();
             try{
@@ -35,43 +37,37 @@ public class Consultas extends Conexion {
             return lista;
             
         }
-
-            
         
-      
         
-        /* PRUEBA DEL CODIGO
-        public static void main(String[] args) {
-            Consultas c = new Consultas();
+        /*ESTE METODO SE EMPLEA PARA COMPARAR EL BOTON PRECIONADO*/
+    	public ArrayList<Comida> comparaBtn(String nombre) {
+    		
+    		ArrayList<Comida> lista = new ArrayList<Comida>();
+    		
+    		 try{
+                 query = "SELECT * FROM comida WHERE nombre = '"+nombre+"'";
+                 statement = (Statement) conectar().createStatement();
+                 rs = statement.executeQuery(query);
+                 
+                 while(rs.next()){
+                	lista.add(new Comida(rs.getInt("id_comida"), rs.getString("categoria"),
+                			rs.getString("nombre"), rs.getDouble("precio"),rs.getString("descripcion")));
 
-        for(int i = 0 ; i < c.listarProducts().size() ; i++){
-            System.out.println(c.listarProducts().get(i).getNombre());
-            
-        }*/
-
-    public Statement getStatement() {
-        return statement;
+                 }
+                 desconectar();
+                 
+             }catch(SQLException W){
+             	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
+                 
+             }
+    		 return lista;
+              
     }
 
-    public void setStatement(Statement statement) {
-        this.statement = statement;
-    }
 
-    public ResultSet getRs() {
-        return rs;
-    }
-
-    public void setRs(ResultSet rs) {
-        this.rs = rs;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
         
+    	
+    	
+    	
         }
         
