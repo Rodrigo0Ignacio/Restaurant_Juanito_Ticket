@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -13,10 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
+import controlador.Calculos;
 import controlador.Comida;
 import modelo.Conexion;
 import modelo.Consultas;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 
 public class Fr_Comidas extends JFrame {
 
@@ -26,17 +30,25 @@ public class Fr_Comidas extends JFrame {
     private String query = "";
     private Statement statement;
     public ResultSet rs;
-    private JButton btn;
+    public static JButton btn;
     private JPanel panel_central = new JPanel();
     private JPanel panel_acciones = new JPanel();
     private final JButton btnNewButton = new JButton("New button");
+    public static boolean comprobarBtn = false;
+    
+    private ArrayList<Comida> atributosComida = new ArrayList<Comida>();
+    private ArrayList<String> indice = new ArrayList<String>();
+    Calculos cal = new Calculos();
+
 
 
 
 	
 	public Fr_Comidas() {
+		//Toolkit.getDefaultToolkit().getImage(Fr_Comidas.class.getResource("/img/cuchilleria.png"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 554, 401);
+		setBounds(300, 300, 800, 600);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -45,6 +57,15 @@ public class Fr_Comidas extends JFrame {
 		
 		contentPane.add(panel_central, BorderLayout.CENTER);
 		contentPane.add(panel_acciones, BorderLayout.SOUTH);
+		
+
+		indice.add("Unidad");
+		indice.add("Nombre");
+		indice.add("Precio Unitario");
+		for(Object in : indice) {
+			JP_Display.modelo.addColumn(in);
+		}
+		JP_Display.grillaProductos.setModel(JP_Display.modelo);
 		
                
 	}
@@ -68,13 +89,21 @@ public class Fr_Comidas extends JFrame {
                  /*EVENTO DE BOTONES DINAMICOS*/
                  btn.addActionListener(new ActionListener() {
             			public void actionPerformed(ActionEvent e) {
-            				ArrayList<Comida> atributosComida = new ArrayList<Comida>();
-
-            				/*getActionCommand() obtiene la cadena del boton
-            				 * le pasamos la cadena del boton precionado*/
             				atributosComida = consultas.comparaBtn(e.getActionCommand());
-            				/*POR TERMINAL*/
-            				
+            			        
+            				if(e.getSource() != null) {
+            					for(int z = 0 ; z < atributosComida.size() ; z++) {
+            						if(e.getActionCommand().equalsIgnoreCase(atributosComida.get(z).getNombre())) {
+            							
+                					JP_Display.modelo.addRow(new Object[] {"d",atributosComida.get(z).getNombre(),atributosComida.get(z).getPrecio()});
+                					
+                				}
+            						/*suma las filas (el total de los precios)*/
+            						cal.establecerValores();
+            					}
+            					comprobarBtn = true;
+
+            			}
             			}
             		});
 
@@ -88,11 +117,10 @@ public class Fr_Comidas extends JFrame {
          }
 
          panel_central.setLayout(new GridLayout(0, 5, 0, 0));
-         
 
 		}
-    
+	
+	
 		
-
-
-}
+	}
+    

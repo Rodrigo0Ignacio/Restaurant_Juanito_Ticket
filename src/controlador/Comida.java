@@ -4,12 +4,12 @@ public class Comida {
 	private int id_comida;
 	private String categoria;
 	private String nombre;
-	private double precio;
+	private int precio;
 	private String descripcion;
 	
 	public Comida() {}
 	
-	public Comida(int id_comida, String categoria, String nombre, double precio, String descripcion) {
+	public Comida(int id_comida, String categoria, String nombre, int precio, String descripcion) {
 		this.id_comida = id_comida;
 		this.categoria = categoria;
 		this.nombre = nombre;
@@ -17,7 +17,7 @@ public class Comida {
 		this.descripcion = descripcion;
 	}
 	
-	public Comida(int id_comida, String categoria, String nombre, double precio) {
+	public Comida(int id_comida, String categoria, String nombre, int precio) {
 		this.id_comida = id_comida;
 		this.categoria = categoria;
 		this.nombre = nombre;
@@ -48,11 +48,11 @@ public class Comida {
 		this.nombre = nombre;
 	}
 
-	public double getPrecio() {
+	public int getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(double precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
 

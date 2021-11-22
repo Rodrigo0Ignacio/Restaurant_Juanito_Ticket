@@ -26,7 +26,7 @@ public class Consultas extends Conexion {
                     rs.getInt("id_comida"),
                     rs.getString("categoria"),
                     rs.getString("nombre"),
-                    rs.getDouble("precio"),
+                    rs.getInt("precio"),
                     rs.getString("descripcion")));
                 }
             } catch(SQLException ex){
@@ -51,7 +51,7 @@ public class Consultas extends Conexion {
                  
                  while(rs.next()){
                 	lista.add(new Comida(rs.getInt("id_comida"), rs.getString("categoria"),
-                			rs.getString("nombre"), rs.getDouble("precio"),rs.getString("descripcion")));
+                			rs.getString("nombre"), rs.getInt("precio"),rs.getString("descripcion")));
 
                  }
                  desconectar();

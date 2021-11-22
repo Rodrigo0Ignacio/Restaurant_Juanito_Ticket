@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
+import controlador.Calculos;
 import controlador.Comida;
 import controlador.Fecha;
 
@@ -40,16 +41,23 @@ public class JP_Display extends JPanel implements Runnable {
 	private JPanel totales = new JPanel();
 
 	public static JLabel lbl_nroMesa = new JLabel("N\u00B0");
-	public static JLabel lbl_propina = new JLabel("$ 1500");
-	public static JLabel lbl_total = new JLabel("$ 15000");
-	public static JLabel lbl_totalMasPropina = new JLabel("$ 16500");
+	public static JLabel lbl_propina = new JLabel();
+	public static JLabel lbl_total = new JLabel("$ 0");
+	public static JLabel lbl_totalMasPropina = new JLabel("$ 0");
 	private final JScrollPane scrollPane = new JScrollPane();
-	private final JTable grillaProductos = new JTable();
-	private DefaultTableModel modelo = new DefaultTableModel();
+	
+	public static JTable grillaProductos = new JTable();
+	
+	/*MODELO DE LA TABLA*/
+	public static DefaultTableModel modelo = new DefaultTableModel() {
+		public boolean isCellEditable(int row, int column) {
+			return false;};
+	};
+	
 
 	public JP_Display() {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
-
+		
 		hilo = new Thread(this);
 		hilo.start();
 		setVisible(true);
@@ -93,14 +101,10 @@ public class JP_Display extends JPanel implements Runnable {
 		lbl_nroMesa.setFont(new Font("Dialog", Font.PLAIN, 16));
 		Fecha_y_Hora.add(lbl_nroMesa);
 		
-
-		cargaAutomatica();
 		add(grilla);
 		grilla.setLayout(new GridLayout(1, 0, 0, 0));
-
-		grilla.add(scrollPane);		
+		grilla.add(scrollPane);
 		
-
 		scrollPane.setViewportView(grillaProductos);
 
 		totales.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -127,24 +131,10 @@ public class JP_Display extends JPanel implements Runnable {
 		lbl_totalMasPropina.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_totalMasPropina.setFont(new Font("Dialog", Font.PLAIN, 16));
 		totales.add(lbl_totalMasPropina);
+		
+		
 
 	}
-	public void cargaAutomatica() {
-		ArrayList<Object> indice = new ArrayList<Object>();
-		
-		indice.add("Unidad");
-		indice.add("Nombre");
-		//indice.add("Precio Unitario");
-		for(Object in : indice) {
-			modelo.addColumn(in);
-			
-		}
-		this.grillaProductos.setModel(modelo);
-		/*POR TERMINAR*/
-
-		
-	}
-
 
 	@Override
 	public void run() {
@@ -154,10 +144,14 @@ public class JP_Display extends JPanel implements Runnable {
 		while (current == hilo) {
 
 			lbl_hra.setText(hora.horaActual());
+			
 
 		}
 
 	}
+	
+	
+
 
 
 }

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import controlador.Calculos;
 import controlador.Ticket;
 
 public class JP_MenuHerramientas extends JPanel {
@@ -27,8 +29,11 @@ public class JP_MenuHerramientas extends JPanel {
 	private final JButton mesa = new JButton("Mesa");
 	private final JLabel lbl_titulo = new JLabel("Restaurant Juanito");
 	private final JLabel lbl_icono = new JLabel("");
+	private ArrayList<String> indice = new ArrayList<String>();
 
 	public JP_MenuHerramientas() {
+		/*DESABILITAR BOTON DE IMPRESION*/
+		imprimir.setEnabled(false);
 		setLayout(new GridLayout(0, 2, 0, 0));
 
 		/* establece el borde */
@@ -69,26 +74,45 @@ public class JP_MenuHerramientas extends JPanel {
 
 		imprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime", "items",
-						"subTotal", "tax", "total", "recibo", "change");
-				ticket.print();
+				
+				/*por terminal*/
+				if(Fr_Comidas.comprobarBtn == true) {
+					
+					Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime", "items",
+							"subTotal", "tax", "total", "recibo", "change");
+					ticket.print();
+					
+				}
+				
 
 			}
 		});
 
 		informeDiario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				/*
 				Fr_Reporte informe = new Fr_Reporte();
 				informe.setVisible(true);
+				*/
 
 			}
 		});
+		
 
 		/* ESTE BOTON RESBLACE LOS VALORES INICIALES DEL DISPLAY */
 		borrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
+			public void actionPerformed(ActionEvent e) {				
 				JP_Display.lbl_nroMesa.setText("N\u00B0");
+				JP_Display.lbl_total.setText("$ 0");
+				JP_Display.lbl_propina.setText("$ 0");
+				JP_Display.lbl_totalMasPropina.setText("$ 0");
+				
+				/*Elimina las columnas agregadas*/
+				for(int i = JP_Display.modelo.getRowCount() - 1 ; i >= 0 ; i-- ) {
+					JP_Display.modelo.removeRow(i);	
+				}
+				
 
 			}
 		});

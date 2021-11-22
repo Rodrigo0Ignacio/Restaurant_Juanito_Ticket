@@ -1,41 +1,49 @@
 package controlador;
 
+import vista.JP_Display;
+
 public class Calculos {
-	private double unidad;
-	private double total;
-	private final double PROPINA = 0.10;
-	private double totalMasPropina;
-
-	Calculos() {
+	
+	private final double propina = 0.10;
+	private int totalPropina = 0;
+	
+	
+	public Calculos() {
 
 	}
-
-	public double getUnidad() {
-		return unidad;
+	public int sumaColumnas() {
+		int fila = 0;
+		int total = 0;
+		
+		for(int i = 0; i < JP_Display.grillaProductos.getRowCount(); i++) {
+			fila = Integer.parseInt(JP_Display.grillaProductos.getValueAt(i,2).toString());
+			total += fila;
+		}
+		return total;		
 	}
-
-	public void setUnidad(double unidad) {
-		this.unidad = unidad;
+	
+	public int propina() {
+		totalPropina = (int) (propina*sumaColumnas());
+		
+		return totalPropina;			
 	}
-
-	public double getTotal() {
+	
+	public int totalConPropina() {
+		int total = (sumaColumnas()+propina()); 
+		
 		return total;
 	}
-
-	public void setTotal(double total) {
-		this.total = total;
+	
+	
+	public void establecerValores() {
+		JP_Display.lbl_total.setText("$ "+sumaColumnas());
+		JP_Display.lbl_propina.setText("$ "+propina());
+		JP_Display.lbl_totalMasPropina.setText("$ "+totalConPropina());
 	}
+	
+	
 
-	public double getTotalMasPropina() {
-		return totalMasPropina;
-	}
-
-	public void setTotalMasPropina(double totalMasPropina) {
-		this.totalMasPropina = totalMasPropina;
-	}
-
-	public double getPROPINA() {
-		return PROPINA;
-	}
+	
+	
 
 }
