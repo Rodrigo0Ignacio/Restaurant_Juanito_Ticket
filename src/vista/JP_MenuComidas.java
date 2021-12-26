@@ -60,8 +60,8 @@ public class JP_MenuComidas extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				subMenuComidas.setVisible(true);
-				subMenuComidas.consultas("Acompañamiento");
-				subMenuComidas.setTitle("Acompañamiento"); 
+				subMenuComidas.consultas("AcompaÃ±amiento");
+				subMenuComidas.setTitle("AcompaÃ±amiento"); 
 			}
 		});
 		

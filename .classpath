@@ -9,5 +9,25 @@
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
 	<classpathentry kind="lib" path="Librerias/mysql-connector-java-8.0.26.jar"/>
+	<classpathentry kind="lib" path="Librerias/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="Librerias/commons-beanutils-1.9.4.jar"/>
+	<classpathentry kind="lib" path="Librerias/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="Librerias/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="Librerias/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="Librerias/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="Librerias/groovy-all-2.4.5.jar"/>
+	<classpathentry kind="lib" path="Librerias/itextpdf-5.5.4.jar"/>
+	<classpathentry kind="lib" path="Librerias/itext-pdfa-5.5.4.jar"/>
+	<classpathentry kind="lib" path="Librerias/jasperreports-6.11.0.jar"/>
+	<classpathentry kind="lib" path="Librerias/jfreechart-1.0.12.jar"/>
+	<classpathentry kind="lib" path="Librerias/jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="lib" path="Librerias/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="Librerias/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="Librerias/poi-3.16.jar"/>
+	<classpathentry kind="lib" path="Librerias/poi-excelant-3.16.jar"/>
+	<classpathentry kind="lib" path="Librerias/poi-ooxml-3.16.jar"/>
+	<classpathentry kind="lib" path="Librerias/poi-ooxml-schemas-3.16.jar"/>
+	<classpathentry kind="lib" path="Librerias/poi-scratchpad-3.16.jar"/>
+	<classpathentry kind="lib" path="Librerias/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

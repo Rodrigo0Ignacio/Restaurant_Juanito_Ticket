@@ -8,12 +8,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
+import javax.swing.table.DefaultTableModel;
 
 import controlador.Calculos;
 import controlador.Comida;
@@ -58,7 +60,7 @@ public class Fr_Comidas extends JFrame {
 		contentPane.add(panel_central, BorderLayout.CENTER);
 		contentPane.add(panel_acciones, BorderLayout.SOUTH);
 		
-
+        /*CARGA LOS NOMBRE DE LOS INDICES DE LA TABLA*/
 		indice.add("Unidad");
 		indice.add("Nombre");
 		indice.add("Precio Unitario");
@@ -71,6 +73,7 @@ public class Fr_Comidas extends JFrame {
 	}
 	
 	public void consultas(String categoria) {
+		
 
 		/*REMUEVE LAS INTANCIAS ANTES COLOCADAS EN EL MARCO*/
 		panel_central.removeAll();
@@ -80,30 +83,19 @@ public class Fr_Comidas extends JFrame {
              statement = (Statement) conexion.conectar().createStatement();
              rs = statement.executeQuery(query);
              
+             /*GENERERA BOTONES DE FORMA DINAMICA Y EXTRAE LOS NOMBRES DE LOS PLATOS DESDE LA BASE DE DATOS*/
              while(rs.next()){
             	 btn = new JButton(rs.getString("nombre"));
-            	// productos.add(rs.getString("nombre"));
-            	
                  panel_central.add(btn);
                  
                  /*EVENTO DE BOTONES DINAMICOS*/
                  btn.addActionListener(new ActionListener() {
             			public void actionPerformed(ActionEvent e) {
             				atributosComida = consultas.comparaBtn(e.getActionCommand());
-            			        
-            				if(e.getSource() != null) {
-            					for(int z = 0 ; z < atributosComida.size() ; z++) {
-            						if(e.getActionCommand().equalsIgnoreCase(atributosComida.get(z).getNombre())) {
-            							
-                					JP_Display.modelo.addRow(new Object[] {"d",atributosComida.get(z).getNombre(),atributosComida.get(z).getPrecio()});
-                					
-                				}
-            						/*suma las filas (el total de los precios)*/
-            						cal.establecerValores();
-            					}
-            					comprobarBtn = true;
+            				
+            				cargarTabla(e, atributosComida);
+	
 
-            			}
             			}
             		});
 
@@ -120,7 +112,35 @@ public class Fr_Comidas extends JFrame {
 
 		}
 	
-	
+
+		/*ESTE METODO CARGA LA TABLA SE LE DEBE PASAR UN ActionEvent para identificar el boton
+		 * tecleado y se le pasa un ArrayList de tipo comida del cual contiene los datos de cada plato
+		 * Nombre, precio, categoria*/
+		public void cargarTabla(ActionEvent e, ArrayList<Comida> atributosComida) {
+			Comida com = new Comida();
+			
+			if(e.getActionCommand() != null) {
+
+				for(int z = 0; z < atributosComida.size() ; z++) {
+						JP_Display.modelo.addRow(new Object[] {"",atributosComida.get(z).getNombre(),
+								atributosComida.get(z).getPrecio()});
+				
+						/*suma las filas (el total de los precios)*/
+						cal.establecerValores();
+						
+
+					}
+				}
+		}
 		
-	}
+		
+		
+
+		
+		
+		
+		
+		
+		}
+	
     
