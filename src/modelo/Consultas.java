@@ -18,13 +18,13 @@ public class Consultas extends Conexion {
              ArrayList<Producto> lista = new ArrayList();
             try{
                 query = "SELECT * FROM comida";
-                statement = (Statement) conectar().createStatement();
+                statement = (Statement) conectar().prepareStatement(query);
                 rs = statement.executeQuery(query);
                 
                 while(rs.next()){
                     lista.add(new Producto(
                     rs.getInt("id_comida"),
-                    rs.getString("categoria"),
+                    rs.getString("fk_categoria"),
                     rs.getString("nombre"),
                     rs.getInt("precio"),
                     rs.getString("descripcion")));
@@ -46,11 +46,11 @@ public class Consultas extends Conexion {
     		
     		 try{
                  query = "SELECT * FROM comida WHERE nombre = '"+nombre+"'";
-                 statement = (Statement) conectar().createStatement();
+                 statement = (Statement) conectar().prepareStatement(query);
                  rs = statement.executeQuery(query);
                  
                  while(rs.next()){
-                	lista.add(new Comida(rs.getInt("id_comida"), rs.getString("categoria"),
+                	lista.add(new Comida(rs.getInt("id_comida"), rs.getString("fk_categoria"),
                 			rs.getString("nombre"), rs.getInt("precio"),rs.getString("descripcion")));
 
                  }
@@ -61,6 +61,84 @@ public class Consultas extends Conexion {
                  
              }
     		 return lista;
+              
+    }
+        
+        public boolean verificaContenido(String parm1, String parm2) {
+    		
+    		 try{
+                     query = "SELECT fecha_hora , id_ticket, nro_mesa, valor_total FROM ticket"
+                             + " WHERE fecha_hora BETWEEN '"+parm1+"' and '"+parm2+"'"
+                             + " ORDER BY fecha_hora DESC";
+                    
+                 statement = (Statement) conectar().prepareStatement(query);
+                 rs = statement.executeQuery(query);
+                 if(rs.next()){
+                     return true;
+                         
+                     
+                 }else{
+                     return false;
+                 }
+                 
+                 
+             }catch(SQLException W){
+             	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
+                 
+             }
+                 desconectar();
+                 
+                 return false;
+    		 
+              
+    }
+        
+        public int sub_totales(String parm1, String parm2) {
+            
+            int sub_total = 0;
+
+    		 try{
+                 query = "SELECT fecha_hora , id_ticket, nro_mesa, valor_total, SUM(valor_total) AS 'su_total' FROM ticket"
+                             + " WHERE fecha_hora BETWEEN '"+parm1+"' and '"+parm2+"'"
+                             + " ORDER BY fecha_hora DESC";
+                 statement = (Statement) conectar().prepareStatement(query);
+                 rs = statement.executeQuery(query);
+                 
+                 while(rs.next()){
+                     sub_total = rs.getInt("su_total");
+                	
+                 }
+                 desconectar();
+                 
+             }catch(SQLException W){
+             	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
+                 
+             }
+    		 return sub_total;
+              
+    }
+        
+           public int contarRegistros(String parm1, String parm2) {
+            
+            int registros = 0;
+
+    		 try{
+                 query = "SELECT COUNT(*) AS 'total' FROM ticket WHERE fecha_hora BETWEEN '"+parm1+"' and '"+parm2+"'";
+                         
+                 statement = (Statement) conectar().prepareStatement(query);
+                 rs = statement.executeQuery(query);
+                 
+                 while(rs.next()){
+                     registros = rs.getInt("total");
+                	
+                 }
+                 desconectar();
+                 
+             }catch(SQLException W){
+             	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
+                 
+             }
+    		 return registros;
               
     }
 

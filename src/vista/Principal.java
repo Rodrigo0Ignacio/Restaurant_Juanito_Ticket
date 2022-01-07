@@ -49,6 +49,7 @@ public class Principal extends JFrame {
 
 		contentPane.add(menuC, BorderLayout.CENTER);
 		menuC.setLayout(new GridLayout(0, 3, 5, 5));
+		display.lbl_propina.setText("$ 0");
 
 		contentPane.add(display, BorderLayout.WEST);
 

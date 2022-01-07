@@ -91,10 +91,8 @@ public class JP_MenuHerramientas extends JPanel {
 		informeDiario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				/*
 				Fr_Reporte informe = new Fr_Reporte();
-				informe.setVisible(true);
-				*/
+
 
 			}
 		});

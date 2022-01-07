@@ -73,14 +73,12 @@ public class Fr_Comidas extends JFrame {
 	}
 	
 	public void consultas(String categoria) {
-		
-
 		/*REMUEVE LAS INTANCIAS ANTES COLOCADAS EN EL MARCO*/
 		panel_central.removeAll();
 		
 		 try{
-             query = "SELECT DISTINCT * FROM comida WHERE categoria = '"+categoria+"' ";
-             statement = (Statement) conexion.conectar().createStatement();
+             query = "SELECT DISTINCT * FROM comida WHERE fk_categoria = '"+categoria+"' ";
+             statement = (Statement) conexion.conectar().prepareStatement(query);
              rs = statement.executeQuery(query);
              
              /*GENERERA BOTONES DE FORMA DINAMICA Y EXTRAE LOS NOMBRES DE LOS PLATOS DESDE LA BASE DE DATOS*/
