@@ -19,11 +19,14 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import controlador.Calculos;
 import controlador.Comida;
 import controlador.Fecha;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.JProgressBar;
 
 public class JP_Display extends JPanel implements Runnable {
 	private Thread hilo;
 	private String mesa = null;
-	private JLabel lbl_titulo = new JLabel("Restaurant Juantio");
 	private JLabel lbl_subtitulo = new JLabel("Ticket de pedido");
 	private JPanel titulo = new JPanel();
 	private JPanel subTitulo = new JPanel();
@@ -35,9 +38,9 @@ public class JP_Display extends JPanel implements Runnable {
 	private JLabel lblNewLabel_5 = new JLabel("Hora:");
 	private JLabel lblNewLabel_4 = new JLabel("Mesa:");
 	private JPanel grilla = new JPanel();
-	private JLabel lblNewLabel_8 = new JLabel("TOTAL:");
-	private JLabel lblNewLabel_9 = new JLabel("PROPINA:");
-	private JLabel lblNewLabel_11 = new JLabel("TOTAL MAS PROPINA");
+	private JLabel lblNewLabel_8 = new JLabel("TOTAL VENTA:");
+	private JLabel lblNewLabel_9 = new JLabel("DESC. PROPINA:");
+	private JLabel lblNewLabel_11 = new JLabel("TOTAL:");
 	private JPanel totales = new JPanel();
 
 	public static JLabel lbl_nroMesa = new JLabel("N\u00B0");
@@ -56,14 +59,19 @@ public class JP_Display extends JPanel implements Runnable {
 	
 
 	public JP_Display() {
-		setBorder(new LineBorder(new Color(0, 0, 0)));
+		setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		
 		hilo = new Thread(this);
 		hilo.start();
 		setVisible(true);
 
-		setBackground(Color.WHITE);
-		setLayout(new GridLayout(0, 1, 0, 0));
+		setBackground(Color.LIGHT_GRAY);
+		setLayout(new GridLayout(0, 1, 6, 0));
+		/*
+		titulo.setBackground(new Color(43, 76, 111));
+		grilla.setBackground(new Color(43, 76, 111));
+		totales.setBackground(new Color(43, 76, 111));
+		*/
 
 		add(titulo);
 		titulo.setLayout(new GridLayout(0, 1, 0, 0));
@@ -71,34 +79,31 @@ public class JP_Display extends JPanel implements Runnable {
 		titulo.add(subTitulo);
 		subTitulo.setLayout(new GridLayout(0, 1, 0, 0));
 
-		lbl_titulo.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lbl_titulo.setHorizontalAlignment(SwingConstants.CENTER);
-		subTitulo.add(lbl_titulo);
-
-		lbl_subtitulo.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbl_subtitulo.setFont(new Font("Dialog", Font.PLAIN, 20));
 		lbl_subtitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		subTitulo.add(lbl_subtitulo);
+		Fecha_y_Hora.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 
 		titulo.add(Fecha_y_Hora);
-		Fecha_y_Hora.setLayout(new GridLayout(0, 2, 0, 0));
+		Fecha_y_Hora.setLayout(new GridLayout(0, 2, 6, 6));
 
-		lblNewLabel_2.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblNewLabel_2.setFont(new Font("Dialog", Font.PLAIN, 18));
 		Fecha_y_Hora.add(lblNewLabel_2);
 
-		lbl_fecha.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbl_fecha.setFont(new Font("Dialog", Font.PLAIN, 18));
 		// ESTABLECE FECHA ACTUAL
 		lbl_fecha.setText(fecha.fechaActual());
 		Fecha_y_Hora.add(lbl_fecha);
 
-		lblNewLabel_5.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblNewLabel_5.setFont(new Font("Dialog", Font.PLAIN, 18));
 		Fecha_y_Hora.add(lblNewLabel_5);
-		lbl_hra.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbl_hra.setFont(new Font("Dialog", Font.PLAIN, 18));
 		Fecha_y_Hora.add(lbl_hra);
 
-		lblNewLabel_4.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblNewLabel_4.setFont(new Font("Dialog", Font.PLAIN, 18));
 		Fecha_y_Hora.add(lblNewLabel_4);
 
-		lbl_nroMesa.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbl_nroMesa.setFont(new Font("Dialog", Font.PLAIN, 18));
 		Fecha_y_Hora.add(lbl_nroMesa);
 		
 		add(grilla);
@@ -106,30 +111,32 @@ public class JP_Display extends JPanel implements Runnable {
 		grilla.add(scrollPane);
 		
 		scrollPane.setViewportView(grillaProductos);
+		totales.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 
 		totales.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		add(totales);
 		totales.setLayout(new GridLayout(0, 2, -10, -10));
 
-		lblNewLabel_8.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblNewLabel_8.setFont(new Font("Dialog", Font.PLAIN, 20));
 		totales.add(lblNewLabel_8);
 
 		lbl_total.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_total.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbl_total.setFont(new Font("Dialog", Font.PLAIN, 20));
 		totales.add(lbl_total);
 
-		lblNewLabel_9.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblNewLabel_9.setFont(new Font("Dialog", Font.PLAIN, 20));
 		totales.add(lblNewLabel_9);
+		lbl_propina.setText("$ 0");
 
 		lbl_propina.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_propina.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbl_propina.setFont(new Font("Dialog", Font.PLAIN, 20));
 		totales.add(lbl_propina);
 
-		lblNewLabel_11.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblNewLabel_11.setFont(new Font("Dialog", Font.PLAIN, 20));
 		totales.add(lblNewLabel_11);
 
 		lbl_totalMasPropina.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_totalMasPropina.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbl_totalMasPropina.setFont(new Font("Dialog", Font.PLAIN, 20));
 		totales.add(lbl_totalMasPropina);
 		
 		

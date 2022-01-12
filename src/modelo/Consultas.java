@@ -141,6 +141,31 @@ public class Consultas extends Conexion {
     		 return registros;
               
     }
+           
+           public boolean verificarPasswrod(String pass) {
+               
+               boolean password = false;
+
+       		 try{
+                    query = "select * from admin WHERE password = '"+pass+"'";
+                            
+                    statement = (Statement) conectar().prepareStatement(query);
+                    rs = statement.executeQuery(query);
+                    
+                    while(rs.next()){
+                    	password = true;
+                   	
+                    }
+                    desconectar();
+                    
+                }catch(SQLException W){
+                	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
+                	password = false;
+                    
+                }
+       		 return password;
+                 
+       }
 
 
         

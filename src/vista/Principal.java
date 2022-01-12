@@ -37,6 +37,8 @@ public class Principal extends JFrame {
 		setLocationRelativeTo(null);
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 
 		contentPane = new JPanel();
 		contentPane.repaint(getBounds());
@@ -44,14 +46,18 @@ public class Principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-
+		
+		contentPane.setBackground(new Color(40, 83, 108));
+		menuC.setBackground(new Color(40, 83, 108));
+		menuH.setBackground(new Color(40, 83, 108));
+		
 		contentPane.add(menuH, BorderLayout.NORTH);
-
 		contentPane.add(menuC, BorderLayout.CENTER);
 		menuC.setLayout(new GridLayout(0, 3, 5, 5));
 		display.lbl_propina.setText("$ 0");
 
 		contentPane.add(display, BorderLayout.WEST);
+	
 
 	}
 

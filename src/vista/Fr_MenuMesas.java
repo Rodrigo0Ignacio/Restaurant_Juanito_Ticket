@@ -49,7 +49,7 @@ public class Fr_MenuMesas extends JFrame {
 		display_numeros.setLayout(new GridLayout(1, 0, 0, 0));
 		txt_displayNumeros.setEditable(false);
 
-		txt_displayNumeros.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txt_displayNumeros.setFont(new Font("Tahoma", Font.BOLD, 18));
 		txt_displayNumeros.setHorizontalAlignment(SwingConstants.CENTER);
 		display_numeros.add(txt_displayNumeros);
 		txt_displayNumeros.setColumns(10);
@@ -65,7 +65,7 @@ public class Fr_MenuMesas extends JFrame {
 
 			}
 		});
-		btn_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		numeros.add(btn_1);
 
 		JButton btn_2 = new JButton("2");
@@ -74,7 +74,7 @@ public class Fr_MenuMesas extends JFrame {
 				txt_displayNumeros.setText(txt_displayNumeros.getText() + "2");
 			}
 		});
-		btn_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_2.setFont(new Font("Tahoma", Font.BOLD, 20));
 		numeros.add(btn_2);
 
 		JButton btn_3 = new JButton("3");
@@ -83,7 +83,7 @@ public class Fr_MenuMesas extends JFrame {
 				txt_displayNumeros.setText(txt_displayNumeros.getText() + "3");
 			}
 		});
-		btn_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_3.setFont(new Font("Tahoma", Font.BOLD, 20));
 		numeros.add(btn_3);
 
 		JButton btn_4 = new JButton("4");
@@ -92,7 +92,7 @@ public class Fr_MenuMesas extends JFrame {
 				txt_displayNumeros.setText(txt_displayNumeros.getText() + "4");
 			}
 		});
-		btn_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_4.setFont(new Font("Tahoma", Font.BOLD, 20));
 		numeros.add(btn_4);
 
 		JButton btn_5 = new JButton("5");
@@ -101,7 +101,7 @@ public class Fr_MenuMesas extends JFrame {
 				txt_displayNumeros.setText(txt_displayNumeros.getText() + "5");
 			}
 		});
-		btn_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_5.setFont(new Font("Tahoma", Font.BOLD, 20));
 		numeros.add(btn_5);
 
 		JButton btn_6 = new JButton("6");
@@ -110,7 +110,7 @@ public class Fr_MenuMesas extends JFrame {
 				txt_displayNumeros.setText(txt_displayNumeros.getText() + "6");
 			}
 		});
-		btn_6.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_6.setFont(new Font("Tahoma", Font.BOLD, 20));
 		numeros.add(btn_6);
 
 		JButton btn_7 = new JButton("7");
@@ -119,7 +119,7 @@ public class Fr_MenuMesas extends JFrame {
 				txt_displayNumeros.setText(txt_displayNumeros.getText() + "7");
 			}
 		});
-		btn_7.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_7.setFont(new Font("Tahoma", Font.BOLD, 20));
 		numeros.add(btn_7);
 
 		JButton btn_8 = new JButton("8");
@@ -128,7 +128,7 @@ public class Fr_MenuMesas extends JFrame {
 				txt_displayNumeros.setText(txt_displayNumeros.getText() + "8");
 			}
 		});
-		btn_8.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_8.setFont(new Font("Tahoma", Font.BOLD, 20));
 		numeros.add(btn_8);
 
 		JButton btn_9 = new JButton("9");
@@ -137,7 +137,7 @@ public class Fr_MenuMesas extends JFrame {
 				txt_displayNumeros.setText(txt_displayNumeros.getText() + "9");
 			}
 		});
-		btn_9.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_9.setFont(new Font("Tahoma", Font.BOLD, 20));
 		numeros.add(btn_9);
 
 		JButton btn_0 = new JButton("0");
@@ -146,7 +146,7 @@ public class Fr_MenuMesas extends JFrame {
 				txt_displayNumeros.setText(txt_displayNumeros.getText() + "0");
 			}
 		});
-		btn_0.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_0.setFont(new Font("Tahoma", Font.BOLD, 20));
 		numeros.add(btn_0);
 
 		JPanel borrar = new JPanel();
@@ -162,15 +162,20 @@ public class Fr_MenuMesas extends JFrame {
 			}
 		});
 		borrar.add(btn_borrar);
-		btn_borrar.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btn_borrar.setFont(new Font("Dialog", Font.BOLD, 18));
 
 		JButton btn_aceptar = new JButton("Aceptar");
+		btn_aceptar.setFont(new Font("Dialog", Font.BOLD, 18));
 		btn_aceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if (txt_displayNumeros.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Ingrese un numero");
-				} else {
+					
+				}else if (Integer.parseInt(txt_displayNumeros.getText()) > 100 || Integer.parseInt(txt_displayNumeros.getText()) < 1){
+					JOptionPane.showMessageDialog(null, "Ingrese un numero entre 1 y 100");
+				}
+				else {
 					JP_Display.lbl_nroMesa.setText("N\u00B0 " + txt_displayNumeros.getText());
 					setVisible(false);
 				}
