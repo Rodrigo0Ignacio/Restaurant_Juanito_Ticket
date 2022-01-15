@@ -12,6 +12,7 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.JOptionPane;
 
 public class Ticket {
+	
 	// Ticket attribute content
 	private String contentTicket = "VINATERIA {{nameLocal}}\n" + "EXPEDIDO EN: {{expedition}}\n"
 			+ "DOMICILIO CONOCIDO MERIDA, YUC.\n" + "=============================\n" + "MERIDA, XXXXXXXXXXXX\n"
@@ -35,7 +36,7 @@ public class Ticket {
 		this.contentTicket = this.contentTicket.replace("{{tax}}", tax);
 		this.contentTicket = this.contentTicket.replace("{{total}}", total);
 		this.contentTicket = this.contentTicket.replace("{{recibo}}", recibo);
-		this.contentTicket = this.contentTicket.replace("{{change}}", change);
+		this.contentTicket = this.contentTicket.replace("{{change}}", change); 
 	}
 
 	public Ticket() {

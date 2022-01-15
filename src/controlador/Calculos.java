@@ -11,34 +11,41 @@ public class Calculos {
 	public Calculos() {
 
 	}
-	public int sumaColumnas() {
+	
+	protected int sumarValores() {
+		int suma = 0 ;
 		int fila = 0;
-		int total = 0;
-		
-		for(int i = 0; i < JP_Display.grillaProductos.getRowCount(); i++) {
-			fila = Integer.parseInt(JP_Display.grillaProductos.getValueAt(i,2).toString());
-			total += fila;
+		for(int i = 0 ; i < JP_Display.grillaProductos.getRowCount() ; i++ ) {
+			
+			fila = Integer.parseInt(JP_Display.grillaProductos.getValueAt(i, 3).toString());
+			suma += fila;
+			
 		}
-		return total;		
+		return suma;
 	}
 	
-	public int propina() {
-		totalPropina = (int) (propina*sumaColumnas());
+	protected int obtnerpropina() {
+		int resultado = 0;
+		resultado = (int) (sumarValores()*propina);
 		
-		return totalPropina;			
+		
+		return resultado;
 	}
 	
-	public int totalConPropina() {
-		int total = (sumaColumnas()+propina()); 
+	protected int total() {
+		int total = 0;
+		total = sumarValores()+obtnerpropina();
 		
 		return total;
 	}
 	
+
+	
 	
 	public void establecerValores() {
-		JP_Display.lbl_total.setText("$ "+sumaColumnas());
-		JP_Display.lbl_propina.setText("$ "+propina());
-		JP_Display.lbl_totalMasPropina.setText("$ "+totalConPropina());
+		JP_Display.lbl_total.setText("$ "+sumarValores());
+		JP_Display.lbl_propina.setText("$ "+obtnerpropina());
+		JP_Display.lbl_totalMasPropina.setText("$ "+total());
 	}
 	
 	

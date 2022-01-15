@@ -166,6 +166,32 @@ public class Consultas extends Conexion {
        		 return password;
                  
        }
+           
+           public int buscarPrecio(String id_btn) {
+        	   int precio = 0;
+        	   
+
+         		 try{
+                      query = "select precio from comida WHERE nombre = '"+id_btn+"'";
+                              
+                      statement = (Statement) conectar().prepareStatement(query);
+                      rs = statement.executeQuery(query);
+                      
+                      while(rs.next()){
+                      precio = rs.getInt("precio");
+                     	
+                      }
+                      desconectar();
+                      
+                  }catch(SQLException W){
+                  	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
+                      
+                  }
+         		 
+         		 return precio;
+         				 
+        	   
+           }
 
 
         

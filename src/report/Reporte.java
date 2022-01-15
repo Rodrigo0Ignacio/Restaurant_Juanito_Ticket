@@ -34,7 +34,7 @@ public class Reporte {
     public static void cargarReporte(String parm1, String parm2) throws JRException{
         
         Consultas consultas = new Consultas();
-    	Conexion con = new Conexion();
+    	Conexion con = new Conexion(); 
         
         Fecha fecha = new Fecha();
         File dir = new File("E:/Rodrigo/Escritorio/informes diarios");

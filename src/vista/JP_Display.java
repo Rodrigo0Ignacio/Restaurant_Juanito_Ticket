@@ -19,6 +19,7 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import controlador.Calculos;
 import controlador.Comida;
 import controlador.Fecha;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
@@ -47,41 +48,51 @@ public class JP_Display extends JPanel implements Runnable {
 	public static JLabel lbl_propina = new JLabel();
 	public static JLabel lbl_total = new JLabel("$ 0");
 	public static JLabel lbl_totalMasPropina = new JLabel("$ 0");
+
+	
+	
 	private final JScrollPane scrollPane = new JScrollPane();
-	
 	public static JTable grillaProductos = new JTable();
-	
 	/*MODELO DE LA TABLA*/
 	public static DefaultTableModel modelo = new DefaultTableModel() {
 		public boolean isCellEditable(int row, int column) {
-			return false;};
-	};
+			return false;}; 
+	}; 
 	
 
 	public JP_Display() {
+		
+		
 		setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		
 		hilo = new Thread(this);
 		hilo.start();
 		setVisible(true);
 
-		setBackground(Color.LIGHT_GRAY);
+		setBackground(new Color (195, 200, 208));
 		setLayout(new GridLayout(0, 1, 6, 0));
 		/*
 		titulo.setBackground(new Color(43, 76, 111));
 		grilla.setBackground(new Color(43, 76, 111));
 		totales.setBackground(new Color(43, 76, 111));
 		*/
+		establecerDiseñoTabla();
+		
+		
+		titulo.setBackground(new Color (195, 200, 208));
 
 		add(titulo);
 		titulo.setLayout(new GridLayout(0, 1, 0, 0));
+		subTitulo.setBackground(new Color (195, 200, 208));
 
 		titulo.add(subTitulo);
 		subTitulo.setLayout(new GridLayout(0, 1, 0, 0));
+		lbl_subtitulo.setBackground(Color.LIGHT_GRAY);
 
 		lbl_subtitulo.setFont(new Font("Dialog", Font.PLAIN, 20));
 		lbl_subtitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		subTitulo.add(lbl_subtitulo);
+		Fecha_y_Hora.setBackground(new Color (195, 200, 208));
 		Fecha_y_Hora.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 
 		titulo.add(Fecha_y_Hora);
@@ -105,12 +116,18 @@ public class JP_Display extends JPanel implements Runnable {
 
 		lbl_nroMesa.setFont(new Font("Dialog", Font.PLAIN, 18));
 		Fecha_y_Hora.add(lbl_nroMesa);
+		grilla.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		grilla.setBackground(Color.LIGHT_GRAY);
 		
 		add(grilla);
 		grilla.setLayout(new GridLayout(1, 0, 0, 0));
 		grilla.add(scrollPane);
+		grillaProductos.setForeground(new Color(0, 0, 0));
+		grillaProductos.setCellSelectionEnabled(true);
+		grillaProductos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		scrollPane.setViewportView(grillaProductos);
+		totales.setBackground(new Color (195, 200, 208));
 		totales.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 
 		totales.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -155,6 +172,11 @@ public class JP_Display extends JPanel implements Runnable {
 
 		}
 
+	}
+	
+	private void establecerDiseñoTabla() {
+		scrollPane.getViewport().setBackground(new Color(195, 200, 208));
+		grillaProductos.setBackground(new Color(195, 200, 208));
 	}
 	
 	

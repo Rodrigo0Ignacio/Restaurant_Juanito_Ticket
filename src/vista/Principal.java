@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,13 +35,12 @@ public class Principal extends JFrame {
 
 	public Principal() {
 
+		cerrarVentana();
 		setTitle("Restaurant Juanito");
 		setBounds(100, 100, 900, 600);
 		setLocationRelativeTo(null);
 		setExtendedState(MAXIMIZED_BOTH);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
+
 
 		contentPane = new JPanel();
 		contentPane.repaint(getBounds());
@@ -57,8 +59,37 @@ public class Principal extends JFrame {
 		display.lbl_propina.setText("$ 0");
 
 		contentPane.add(display, BorderLayout.WEST);
+		
+		/*CerrarPrograma();*/
 	
 
+	}
+	
+	public void cerrarVentana() {
+		try {
+			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent e) {
+					confirmarSalida();
+				}
+			});
+			this.setVisible(true);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	protected void confirmarSalida() {
+		int valor = JOptionPane.showConfirmDialog(this, "¿Está seguro de cerrar el programa?","advertencia",
+				JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+		
+		if(valor == JOptionPane.YES_OPTION) {
+			//JOptionPane.showMessageDialog(null, "Hasta pronto","cerrando programa...",JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0); 
+			
+		}
+		
 	}
 
 }

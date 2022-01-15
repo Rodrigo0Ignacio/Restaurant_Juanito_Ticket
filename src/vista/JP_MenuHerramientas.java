@@ -38,7 +38,6 @@ public class JP_MenuHerramientas extends JPanel {
 		setBackground(Color.GRAY);
 		/*DESABILITAR BOTON DE IMPRESION*/
 		imprimir.setFont(new Font("Tahoma", Font.BOLD, 18));
-		imprimir.setEnabled(false);
 		setLayout(new GridLayout(0, 2, 5, 5));
 
 		/* establece el borde */
@@ -46,6 +45,13 @@ public class JP_MenuHerramientas extends JPanel {
 		p_herramienta.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.DARK_GRAY));
 		p_herramienta.setBackground(Color.GRAY);
 		//p_logo.setBackground(Color.GRAY);
+		
+		/*establece color botones*/
+		borrar.setBackground(new Color(113, 142, 164));
+		imprimir.setBackground(new Color(113, 142, 164));
+		informeDiario.setBackground(new Color(113, 142, 164));
+		mesa.setBackground(new Color(113, 142, 164));
+		
 		
 		p_logo.setBackground(new Color(40, 83, 108));
 		p_herramienta.setBackground(new Color(40, 83, 108));
@@ -88,13 +94,12 @@ public class JP_MenuHerramientas extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				/*por terminal*/
-				if(Fr_Comidas.comprobarBtn == true) {
+			
 					
 					Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime", "items",
 							"subTotal", "tax", "total", "recibo", "change");
 					ticket.print();
 					
-				}
 				
 
 			}

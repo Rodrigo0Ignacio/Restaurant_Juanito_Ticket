@@ -2,6 +2,7 @@ package vista;
 
 import com.mysql.cj.x.protobuf.MysqlxExpect;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -37,13 +38,15 @@ import modelo.Consultas;
 public class Fr_Reporte extends JFrame {
 
 	private JPanel contentPane;
-	JDateChooser dateChooser_fecha1 = new JDateChooser();
+	JDateChooser dateChooser_fecha1 = new JDateChooser(); 
 	JDateChooser dateChooser_fecha2 = new JDateChooser();
 
 	public Fr_Reporte() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 308, 477);
 		contentPane = new JPanel();
+		setBackground(new Color(195, 200, 208));
+		contentPane.setBackground(new Color(195, 200, 208));
 		contentPane.setBorder(new TitledBorder(null, "Buscar Informes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -57,13 +60,18 @@ public class Fr_Reporte extends JFrame {
 		
 		dateChooser_fecha1.getCalendarButton().setFont(new Font("Tahoma", Font.BOLD, 16));
 		dateChooser_fecha1.setDateFormatString("yyyy-MM-dd HH:mm:ss");
-		dateChooser_fecha1.setBounds(30, 151, 239, 26);
+		dateChooser_fecha1.setBounds(30, 151, 239, 35); 
+		
+		dateChooser_fecha1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		dateChooser_fecha2.setFont(new Font("Tahoma", Font.BOLD, 16));
+		
 		contentPane.add(dateChooser_fecha1);
 		dateChooser_fecha2.setDateFormatString("yyyy-MM-dd HH:mm:ss");
-		dateChooser_fecha2.setBounds(30, 252, 239, 26);
+		dateChooser_fecha2.setBounds(30, 252, 239, 35);
 		contentPane.add(dateChooser_fecha2);
 		
 		JButton btn_buscar = new JButton("Buscar");
+		btn_buscar.setBackground(new Color(113, 142, 164));
 		btn_buscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
                             
