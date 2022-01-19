@@ -13,7 +13,7 @@
 			<style backcolor="#E6DAC3"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="sub_total" class="java.lang.Integer"/>
+	<parameter name="sub_total" class="java.lang.String"/>
 	<parameter name="fecha1" class="java.sql.Timestamp">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -21,6 +21,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="registros" class="java.lang.Integer"/>
+	<parameter name="propina" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT id_ticket AS 'Codigo de Ticket',nro_mesa AS 'Numero de mesa', fecha_hora AS 'Fecha / Hora', valor_total AS 'Total' FROM ticket WHERE fecha_hora BETWEEN $P{fecha1} and $P{fecha2} ORDER BY fecha_hora DESC;]]>
 	</queryString>
@@ -114,7 +115,7 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="36" splitType="Stretch">
+		<band height="105" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="555eb61f-05d3-465d-b797-d4c880f2c843"/>
 				<graphicElement>
@@ -122,32 +123,46 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement style="Column header" x="1" y="4" width="197" height="32" forecolor="#736343" uuid="42bccb72-ccb5-452c-bdfc-90ec40e42b53"/>
+				<reportElement style="Column header" x="525" y="36" width="118" height="28" forecolor="#736343" uuid="31766655-6109-4cfa-a4ff-f45eff06809a"/>
 				<textElement verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
-				<text><![CDATA[Sub Total:]]></text>
+				<text><![CDATA[Propina 10%:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="198" y="3" width="182" height="32" uuid="234f0e91-7fad-40b6-ada0-89c0adbfe5bd"/>
-				<textElement>
-					<font size="18" isBold="true"/>
+				<reportElement x="644" y="8" width="159" height="28" uuid="088b52d5-2355-46fc-8873-0a90de29fee7"/>
+				<textElement textAlignment="Right">
+					<font size="18"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{sub_total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{registros}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Column header" x="380" y="4" width="197" height="32" forecolor="#736343" uuid="31766655-6109-4cfa-a4ff-f45eff06809a"/>
+				<reportElement style="Column header" x="524" y="64" width="119" height="28" forecolor="#736343" uuid="42bccb72-ccb5-452c-bdfc-90ec40e42b53"/>
+				<textElement verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Total ventas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="526" y="8" width="118" height="28" forecolor="#736343" uuid="44763a6e-fffd-40b7-8e63-4bff3af33552"/>
 				<textElement verticalAlignment="Middle">
 					<font size="18"/>
 				</textElement>
 				<text><![CDATA[Registros:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="577" y="4" width="159" height="31" uuid="088b52d5-2355-46fc-8873-0a90de29fee7"/>
-				<textElement>
+				<reportElement x="644" y="64" width="159" height="28" uuid="234f0e91-7fad-40b6-ada0-89c0adbfe5bd"/>
+				<textElement textAlignment="Right">
+					<font size="18" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sub_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="644" y="36" width="158" height="28" uuid="2c1ca1c9-d363-4a31-84be-691749d9d17b"/>
+				<textElement textAlignment="Right">
 					<font size="18"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{registros}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{propina}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

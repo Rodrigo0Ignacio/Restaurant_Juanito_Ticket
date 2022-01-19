@@ -184,19 +184,20 @@ public class JP_MenuComidas extends JPanel {
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
 				subMenuComidas.lbl_titulo.setText(consulta);
-				
+				//Fr_Comidas.existePlato();
 			}
 		});
 		Btn_empanadas.setFont(new Font("Tahoma", Font.BOLD, 24));
 		
 		Btn_empanadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consulta = "Empanadas";
 				
+				consulta = "Empanadas";
 				subMenuComidas.setVisible(true);
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
 				subMenuComidas.lbl_titulo.setText(consulta);
+				//Fr_Comidas.existePlato();
 				
 			}
 		});

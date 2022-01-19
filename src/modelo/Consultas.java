@@ -192,6 +192,33 @@ public class Consultas extends Conexion {
          				 
         	   
            }
+           
+           public boolean verificarSiExitenPlatos(String parm1) {
+       		
+      		 try{
+                       query = "SELECT DISTINCT * FROM comida WHERE fk_categoria = '"+parm1+"' ";
+                      
+                   statement = (Statement) conectar().prepareStatement(query);
+                   rs = statement.executeQuery(query);
+                   if(rs.next()){
+                       return true;
+                           
+                       
+                   }else{
+                       return false;
+                   }
+                   
+                   
+               }catch(SQLException W){
+               	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
+                   
+               }
+                   desconectar();
+                   
+                   return false;
+      		 
+                
+      }
 
 
         

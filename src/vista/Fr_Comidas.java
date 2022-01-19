@@ -126,7 +126,10 @@ public class Fr_Comidas extends JFrame {
 	
 		/*REMUEVE LAS INTANCIAS ANTES COLOCADAS EN EL MARCO*/
 		//principal.removeAll();
-		pn_dinamicos.removeAll(); 
+		pn_dinamicos.removeAll();
+		Consultas consultas = new Consultas();
+		
+		if(consultas.verificarSiExitenPlatos(categoria)) { // verifica si exiten platos 
 		
 		 try{
              query = "SELECT DISTINCT * FROM comida WHERE fk_categoria = '"+categoria+"' ";
@@ -135,6 +138,7 @@ public class Fr_Comidas extends JFrame {
              
              /*GENERERA BOTONES DE FORMA DINAMICA Y EXTRAE LOS NOMBRES DE LOS PLATOS DESDE LA BASE DE DATOS*/
              while(rs.next()){
+           	 
             	 btn = new JButton(rs.getString("nombre"));
             	 btn.setFont(new Font("Tahoma", Font.BOLD, 16));
             	 
@@ -154,8 +158,7 @@ public class Fr_Comidas extends JFrame {
 							
 
 							
-            			}});        	
-
+            			}});  
              }
              
              
@@ -166,6 +169,11 @@ public class Fr_Comidas extends JFrame {
          	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
              
          }
+		}else {
+			
+			JOptionPane.showMessageDialog(null,"No existen platos");
+			this.setVisible(false);
+		}
 
 
 		} 
@@ -183,6 +191,8 @@ public class Fr_Comidas extends JFrame {
 							atributosComida.get(z).getPrecio(),importe});
 				}
 		}
+		
+
 		
 		
 }

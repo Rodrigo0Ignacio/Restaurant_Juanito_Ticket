@@ -139,7 +139,7 @@ public class Cantidad extends JFrame {
 				
 				
 				
-				if(incremento > 50) {
+				if(incremento >= 30) {
 					JOptionPane.showInternalMessageDialog(null,"Excede el rango");
 				}else {
 					
@@ -157,6 +157,9 @@ public class Cantidad extends JFrame {
 							int importeCelda = Integer.parseInt(JP_Display.grillaProductos.getValueAt(filaExiste, 3).toString());
 							
 							incremento += unidadCelda;
+							
+							if(incremento <= 30) {
+							
 							JP_Display.grillaProductos.setValueAt(incremento,filaExiste,0);
 							
 							importe += importeCelda;
@@ -165,6 +168,11 @@ public class Cantidad extends JFrame {
 							cerrarVentana();
 							resetCantidad();
 							cal.establecerValores();
+							}else {
+								JOptionPane.showInternalMessageDialog(null,"Excede el rango");
+							}
+						
+
 							
 							
 						}
