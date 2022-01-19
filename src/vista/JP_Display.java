@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -12,7 +13,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
+import org.jfree.chart.block.CenterArrangement;
 
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
@@ -44,13 +49,14 @@ public class JP_Display extends JPanel implements Runnable {
 	private JLabel lblNewLabel_11 = new JLabel("TOTAL:");
 	private JPanel totales = new JPanel();
 
-	public static JLabel lbl_nroMesa = new JLabel("N\u00B0");
+	public static JLabel lbl_nroMesa = new JLabel("N\u00B0 ");
+	
 	public static JLabel lbl_propina = new JLabel();
 	public static JLabel lbl_total = new JLabel("$ 0");
 	public static JLabel lbl_totalMasPropina = new JLabel("$ 0");
-
-	
-	
+ 
+	 
+	 
 	private final JScrollPane scrollPane = new JScrollPane();
 	public static JTable grillaProductos = new JTable();
 	/*MODELO DE LA TABLA*/
@@ -76,7 +82,13 @@ public class JP_Display extends JPanel implements Runnable {
 		grilla.setBackground(new Color(43, 76, 111));
 		totales.setBackground(new Color(43, 76, 111));
 		*/
-		establecerDiseñoTabla();
+		centrar_datos(0);
+		centrar_datos(2);
+		centrar_datos(3);
+		establece_anchoColumnas();
+		establecerDisenoTabla();
+
+		
 		
 		
 		titulo.setBackground(new Color (195, 200, 208));
@@ -122,10 +134,7 @@ public class JP_Display extends JPanel implements Runnable {
 		add(grilla);
 		grilla.setLayout(new GridLayout(1, 0, 0, 0));
 		grilla.add(scrollPane);
-		grillaProductos.setForeground(new Color(0, 0, 0));
-		grillaProductos.setCellSelectionEnabled(true);
-		grillaProductos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
+				
 		scrollPane.setViewportView(grillaProductos);
 		totales.setBackground(new Color (195, 200, 208));
 		totales.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
@@ -174,13 +183,44 @@ public class JP_Display extends JPanel implements Runnable {
 
 	}
 	
-	private void establecerDiseñoTabla() {
+	private void establecerDisenoTabla() {
+		/*establece el color, ancho y algo de las cabeseras de la tabla*/
+		grillaProductos.getTableHeader().setPreferredSize(new Dimension(30, 30));
+		grillaProductos.getTableHeader().setBackground(new Color(171, 174, 180));
+		grillaProductos.getTableHeader().setFont(new Font("Dialog", Font.BOLD, 13));
+		
 		scrollPane.getViewport().setBackground(new Color(195, 200, 208));
 		grillaProductos.setBackground(new Color(195, 200, 208));
 	}
 	
+	protected void establece_anchoColumnas() {	
+		
+		grillaProductos.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		grillaProductos.getColumnModel().getColumn(0).setPreferredWidth(5);
+		grillaProductos.getColumnModel().getColumn(1).setPreferredWidth(100);
+		grillaProductos.getColumnModel().getColumn(2).setPreferredWidth(25);
+		grillaProductos.getColumnModel().getColumn(3).setPreferredWidth(10);
+		
+		
+	}
 	
+	public void centrar_datos(int col){  
+		DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer(); 
+		modelocentrar.setHorizontalAlignment(SwingConstants.CENTER);
+		grillaProductos.getColumnModel().getColumn(col).setCellRenderer(modelocentrar);
+		
 
-
-
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

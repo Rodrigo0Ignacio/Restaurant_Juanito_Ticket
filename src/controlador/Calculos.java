@@ -1,19 +1,23 @@
 package controlador;
 
+import java.text.NumberFormat;
+
 import vista.JP_Display;
 
 public class Calculos {
 	
-	private final double propina = 0.10;
-	private int totalPropina = 0;
+	private final double PROPINA = 0.10;
+	private NumberFormat formatoImporte = NumberFormat.getCurrencyInstance();
+	private NumberFormat formatoPropina = NumberFormat.getCurrencyInstance();
+	private NumberFormat formatoTotal = NumberFormat.getCurrencyInstance();
 	
 	
 	public Calculos() {
 
 	}
 	
-	protected int sumarValores() {
-		int suma = 0 ;
+	protected double sumarValores() {
+		double suma = 0 ;
 		int fila = 0;
 		for(int i = 0 ; i < JP_Display.grillaProductos.getRowCount() ; i++ ) {
 			
@@ -24,28 +28,35 @@ public class Calculos {
 		return suma;
 	}
 	
-	protected int obtnerpropina() {
-		int resultado = 0;
-		resultado = (int) (sumarValores()*propina);
+	protected double obtnerpropina() {
+		double resultado = 0;
+		resultado = sumarValores()*PROPINA;
 		
 		
 		return resultado;
 	}
 	
-	protected int total() {
-		int total = 0;
+	protected double total() {
+		double total = 0;
 		total = sumarValores()+obtnerpropina();
 		
 		return total;
 	}
 	
+	public String establecerFormato(double moneda) {
+		NumberFormat formatoMoneda = NumberFormat.getCurrencyInstance();
+		return formatoMoneda.format(moneda);
+
+	}
+	
+	
 
 	
 	
 	public void establecerValores() {
-		JP_Display.lbl_total.setText("$ "+sumarValores());
-		JP_Display.lbl_propina.setText("$ "+obtnerpropina());
-		JP_Display.lbl_totalMasPropina.setText("$ "+total());
+		JP_Display.lbl_total.setText(""+formatoTotal.format(sumarValores()));
+		JP_Display.lbl_propina.setText(""+formatoPropina.format(obtnerpropina()));
+		JP_Display.lbl_totalMasPropina.setText(""+formatoImporte.format(total()));
 	}
 	
 	

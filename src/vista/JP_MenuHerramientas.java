@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -33,6 +34,8 @@ public class JP_MenuHerramientas extends JPanel {
 	private final JLabel lbl_titulo = new JLabel("Restaurant Juanito");
 	private final JLabel lbl_icono = new JLabel("");
 	private ArrayList<String> indice = new ArrayList<String>();
+
+	
 
 	public JP_MenuHerramientas() {
 		setBackground(Color.GRAY);
@@ -87,19 +90,36 @@ public class JP_MenuHerramientas extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Fr_MenuMesas mesas = new Fr_MenuMesas();
 
-			}
+			} 
 		});
 
 		imprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+
+				if(JP_Display.grillaProductos.getRowCount() == 0 && JP_Display.grillaProductos.getSelectedRow() == -1) {
+					JOptionPane.showMessageDialog(null, "Ingrese al menos un plato");
+
+					
+				}else if(JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ")){
+					JOptionPane.showMessageDialog(null, "Ingrese el Numero de mesa");
+					
+				}else {
+					try {
+						Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime", "items",
+								"subTotal", "tax", "total", "recibo", "change");
+						ticket.print();
+						
+						resetDisplay();
+						
+						
+					}catch (NullPointerException q) {
+					System.out.print(q);
+					}
 				
-				/*por terminal*/
-			
 					
-					Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime", "items",
-							"subTotal", "tax", "total", "recibo", "change");
-					ticket.print();
-					
+				}
+				
 				
 
 			}
@@ -108,7 +128,6 @@ public class JP_MenuHerramientas extends JPanel {
 		informeDiario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//Fr_Reporte informe = new Fr_Reporte();
 				Login login = new Login();
 				login.setVisible(true);
 
@@ -120,20 +139,25 @@ public class JP_MenuHerramientas extends JPanel {
 		/* ESTE BOTON RESBLACE LOS VALORES INICIALES DEL DISPLAY */
 		borrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
-				JP_Display.lbl_nroMesa.setText("N\u00B0");
-				JP_Display.lbl_total.setText("$ 0");
-				JP_Display.lbl_propina.setText("$ 0");
-				JP_Display.lbl_totalMasPropina.setText("$ 0");
 				
-				/*Elimina las columnas agregadas*/
-				for(int i = JP_Display.modelo.getRowCount() - 1 ; i >= 0 ; i-- ) {
-					JP_Display.modelo.removeRow(i);	
-				}
-				
+				resetDisplay();
 
 			}
 		});
 
+	}
+	
+	public void resetDisplay() {
+		JP_Display.lbl_nroMesa.setText("N\u00B0 ");
+		JP_Display.lbl_total.setText("$ 0");
+		JP_Display.lbl_propina.setText("$ 0");
+		JP_Display.lbl_totalMasPropina.setText("$ 0");
+		Fr_MenuMesas.txt_displayNumeros.setText("");
+		
+		/*Elimina las columnas agregadas*/
+		for(int i = JP_Display.modelo.getRowCount() - 1 ; i >= 0 ; i-- ) {
+			JP_Display.modelo.removeRow(i);	
+		}
 	}
 
 }

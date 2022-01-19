@@ -51,6 +51,8 @@ public class Cantidad extends JFrame {
 	private final JPanel panel_abajo = new JPanel();
 	private final JButton btn_aceptar = new JButton("Aceptar");
 	
+	private int filaExiste = 0;
+	
 	Consultas consultas = new Consultas();
 	
 
@@ -105,7 +107,7 @@ public class Cantidad extends JFrame {
 		btn_mas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				lbl_cantidad.setText(String.valueOf(incremento +=1));
+				lbl_cantidad.setText(String.valueOf(incremento +=1));  
 				
 			}
 		});
@@ -128,22 +130,46 @@ public class Cantidad extends JFrame {
 		/*INSERTA UN ELEMENTO*/
 		btn_aceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				Calculos cal = new Calculos();
 				int precio = consultas.buscarPrecio(Fr_Comidas.idBoton);
 				int cantidad = obtenerCantidad();
 				
 				int importe = precio*cantidad;
-
+				
+				
 				
 				if(incremento > 50) {
 					JOptionPane.showInternalMessageDialog(null,"Excede el rango");
 				}else {
+					
 					if(incremento != 0) {
 						
-						Fr_Comidas.cargarTabla(null, incremento,importe);
-						cerrarVentana();
-						resetCantidad();
-						cal.establecerValores();
+						if(!existeProducto(Fr_Comidas.idBoton, 1)) {
+							
+							Fr_Comidas.cargarTabla(null, incremento,importe);
+							
+							cerrarVentana();
+							resetCantidad();
+							cal.establecerValores();
+						}else {
+							int unidadCelda = Integer.parseInt(JP_Display.grillaProductos.getValueAt(filaExiste, 0).toString());
+							int importeCelda = Integer.parseInt(JP_Display.grillaProductos.getValueAt(filaExiste, 3).toString());
+							
+							incremento += unidadCelda;
+							JP_Display.grillaProductos.setValueAt(incremento,filaExiste,0);
+							
+							importe += importeCelda;
+							JP_Display.grillaProductos.setValueAt(importe,filaExiste,3);
+							
+							cerrarVentana();
+							resetCantidad();
+							cal.establecerValores();
+							
+							
+						}
+						
+						
 						
 					}else {
 						JOptionPane.showInternalMessageDialog(null,"Ingrese un numero diferente de 0");
@@ -224,6 +250,19 @@ private void propiedadesBotones(){
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(false);
 		this.dispose();
+	}
+	
+	public boolean existeProducto(String dato, int columna){
+		boolean existe = false;
+		
+		for(int i = 0; i < JP_Display.grillaProductos.getRowCount() ; i++) {
+			if(JP_Display.grillaProductos.getValueAt(i, columna).equals(dato)) {			
+				existe = true; filaExiste = i;
+			}
+			
+		}
+		return existe;
+		
 	}
 	
 

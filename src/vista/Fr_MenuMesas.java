@@ -19,10 +19,10 @@ import javax.swing.border.MatteBorder;
 public class Fr_MenuMesas extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txt_displayNumeros = new JTextField();
+	public static JTextField txt_displayNumeros = new JTextField();
 	private JButton btn_1 = new JButton("1");
 	private JButton btn_2 = new JButton("2");
-	private JButton btn_3 = new JButton("3");
+	private JButton btn_3 = new JButton("3"); 
 	private JButton btn_4 = new JButton("4");
 	private JButton btn_5 = new JButton("5");
 	private JButton btn_6 = new JButton("6");
@@ -222,5 +222,12 @@ public class Fr_MenuMesas extends JFrame {
 		borrar.add(btn_aceptar);
 
 	}
+
+	
+	
+
+
+	
+	
 
 }

@@ -99,8 +99,6 @@ public class Fr_Comidas extends JFrame {
 		fl_pn_dinamicos.setAlignOnBaseline(true);
 		pn_dinamicos.setLayout(fl_pn_dinamicos);
 		
-	    
-        /*CARGA LOS NOMBRE DE LOS INDICES DE LA TABLA*/
 		indice.add("Unidad");
 		indice.add("Nombre");
 		indice.add("Precio Unitario");
@@ -109,6 +107,7 @@ public class Fr_Comidas extends JFrame {
 			JP_Display.modelo.addColumn(in);
 		}
 		JP_Display.grillaProductos.setModel(JP_Display.modelo);
+
 		
 		/*EVENTO DE CIERRE*/
 		addWindowListener(new WindowAdapter() {
@@ -127,7 +126,7 @@ public class Fr_Comidas extends JFrame {
 	
 		/*REMUEVE LAS INTANCIAS ANTES COLOCADAS EN EL MARCO*/
 		//principal.removeAll();
-		pn_dinamicos.removeAll();
+		pn_dinamicos.removeAll(); 
 		
 		 try{
              query = "SELECT DISTINCT * FROM comida WHERE fk_categoria = '"+categoria+"' ";
