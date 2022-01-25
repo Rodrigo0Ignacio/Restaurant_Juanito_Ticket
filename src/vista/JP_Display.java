@@ -64,6 +64,8 @@ public class JP_Display extends JPanel implements Runnable {
 		public boolean isCellEditable(int row, int column) {
 			return false;}; 
 	}; 
+	private final JLabel lblNewLabel = new JLabel("Estado");
+	private final JLabel lbl_estadoMesa = new JLabel("");
 	
 
 	public JP_Display() {
@@ -128,6 +130,12 @@ public class JP_Display extends JPanel implements Runnable {
 
 		lbl_nroMesa.setFont(new Font("Dialog", Font.PLAIN, 18));
 		Fecha_y_Hora.add(lbl_nroMesa);
+		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+		
+		Fecha_y_Hora.add(lblNewLabel);
+		lbl_estadoMesa.setFont(new Font("Dialog", Font.PLAIN, 18));
+		
+		Fecha_y_Hora.add(lbl_estadoMesa);
 		grilla.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		grilla.setBackground(Color.LIGHT_GRAY);
 		

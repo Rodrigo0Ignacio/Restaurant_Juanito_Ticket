@@ -10,6 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+import controlador.Mesa;
+import modelo.Consultas;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -74,6 +78,15 @@ public class JP_MenuComidas extends JPanel {
 		Btn_principales.setFont(new Font("Tahoma", Font.BOLD, 24));
 		Btn_principales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				/*// PRUEBA DE METODOS DE LA CLASE CONSULTAS
+				Mesa mesas = new Mesa();
+				Consultas con = new Consultas();
+				
+				for(Mesa m : con.obtenerMesa()) {
+					System.out.println(m.getId_mesa()+" "+" "+m.getEstado());
+				}
+				*/
 
 				consulta = "Principales";
 				

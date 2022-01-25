@@ -28,8 +28,8 @@ public class JP_MenuHerramientas extends JPanel {
 	private JPanel p_logo = new JPanel();
 	private final JPanel p_herramienta = new JPanel();
 	private final JButton borrar = new JButton("Borrar");
-	private final JButton imprimir = new JButton("Imprimir");
-	private final JButton informeDiario = new JButton("Informe Diario");
+	private final JButton imprimir = new JButton("Comandar");
+	private final JButton informeDiario = new JButton("Informe");
 	private final JButton mesa = new JButton("Mesa");
 	private final JLabel lbl_titulo = new JLabel("Restaurant Juanito");
 	private final JLabel lbl_icono = new JLabel("");

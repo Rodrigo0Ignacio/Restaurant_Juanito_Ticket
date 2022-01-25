@@ -8,9 +8,9 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
 	private Connection conectar = null;
-	private final String URI = "jdbc:mysql://localhost:3306/juanito";
-	private final String USER = "root";
-	private final String PASSWORD = "";
+	private final String URI = "jdbc:mysql://192.168.1.100:3306/juanito";
+	private final String USER = "rodrigo";
+	private final String PASSWORD = "210655";
 
 	public Connection conectar() {
 		try {

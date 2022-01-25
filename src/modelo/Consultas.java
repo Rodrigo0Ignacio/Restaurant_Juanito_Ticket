@@ -1,6 +1,7 @@
 package modelo;
 
 import controlador.Comida;
+import controlador.Mesa;
 import controlador.Producto;
 import java.sql.*;
 import java.util.ArrayList;
@@ -219,6 +220,50 @@ public class Consultas extends Conexion {
       		 
                 
       }
+           
+           public ArrayList<Mesa> listarMesas() {
+        	   ArrayList<Mesa> lista = new ArrayList<Mesa>();
+          		
+        		 try{
+                         query = "SELECT id_mesa FROM mesa";
+                        
+                     statement = (Statement) conectar().prepareStatement(query);
+                     rs = statement.executeQuery(query);
+                     while(rs.next()){
+                    	 lista.add(new Mesa(rs.getInt(1)));
+   
+                     }
+                     
+                 }catch(SQLException W){
+                 	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
+                     
+                 }
+                     desconectar();
+					return lista;
+                                      
+        }
+           
+           public ArrayList<Mesa> obtenerMesa() {
+        	   ArrayList<Mesa> lista = new ArrayList<Mesa>();
+          		
+        		 try{
+                         query = "SELECT * FROM mesa";
+                        
+                     statement = (Statement) conectar().prepareStatement(query);
+                     rs = statement.executeQuery(query);
+                     while(rs.next()){
+                    	 lista.add(new Mesa(rs.getInt(1),rs.getString(2)));
+   
+                     }
+                     
+                 }catch(SQLException W){
+                 	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
+                     
+                 }
+                     desconectar();
+					return lista;
+                                      
+        }
 
 
         
