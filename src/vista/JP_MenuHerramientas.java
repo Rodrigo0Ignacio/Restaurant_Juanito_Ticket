@@ -88,7 +88,8 @@ public class JP_MenuHerramientas extends JPanel {
 		/* Eventos */
 		mesa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Fr_MenuMesas mesas = new Fr_MenuMesas();
+				Mesas mesas = new Mesas();
+				mesas.setVisible(true);
 
 			} 
 		});
