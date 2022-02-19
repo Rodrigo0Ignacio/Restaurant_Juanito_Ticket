@@ -1,5 +1,6 @@
 package modelo;
 
+import controlador.Color_RGB;
 import controlador.Comida;
 import controlador.Mesa;
 import controlador.Producto;
@@ -10,12 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class Consultas extends Conexion {
-	
+
 	public Statement statement = null;
 	public ResultSet rs = null;
-    public String query = null;
-    public int resultado = 0;
-        
+	public String query = null;
+	public int resultado = 0;
+
 	/* CON ESTE METODO PODEMOS LISTAR LOS PRODUCTOS */
 	public ArrayList<Producto> listarProductos() {
 		ArrayList<Producto> lista = new ArrayList();
@@ -223,7 +224,7 @@ public class Consultas extends Conexion {
 			}
 
 		} catch (SQLException W) {
-			JOptionPane.showMessageDialog(null, "Error al ejecutar BD");
+			JOptionPane.showMessageDialog(null, "Error al ejecutar BD - listarMesas");
 
 		}
 		desconectar();
@@ -231,29 +232,4 @@ public class Consultas extends Conexion {
 
 	}
 
-	public ArrayList<Mesa> obtenerMesa() {
-		ArrayList<Mesa> lista = new ArrayList<Mesa>();
-
-		try {
-			query = "SELECT * FROM mesa";
-
-			statement = (Statement) conectar().prepareStatement(query);
-			rs = statement.executeQuery(query);
-			while (rs.next()) {
-				lista.add(new Mesa(rs.getInt(1), rs.getString(2)));
-
-			}
-
-		} catch (SQLException W) {
-			JOptionPane.showMessageDialog(null, "Error al ejecutar BD");
-
-		}
-		desconectar();
-		return lista;
-
-	}
-    	
-    	
-    	
-        }
-        
+}

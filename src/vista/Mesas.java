@@ -20,8 +20,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.bouncycastle.jcajce.provider.asymmetric.ec.SignatureSpi.ecDetDSA512;
 import org.bouncycastle.jcajce.provider.symmetric.CAST5;
 
+import controlador.Color_RGB;
 import controlador.Mesa;
 import modelo.Consultas;
 import modelo.Edicion;
@@ -32,7 +34,7 @@ public class Mesas extends JFrame {
 
 	private JPanel contentPane;
 	private JButton btn_mesas;
-	
+
 	private Consultas sql = new Consultas();
 	private ArrayList<Mesa> listaMesa = new ArrayList<>();
 	private JPanel panel_mesas = new JPanel();
@@ -42,29 +44,28 @@ public class Mesas extends JFrame {
 	private Mesa_Eleccion eleccion = new Mesa_Eleccion();
 	private Edicion edicion = new Edicion();
 	private JButton detecta_btn;
-	
-	private String[] lista_Disponibilidad = {"Disponible","Ocupado"};
-	
 
+	private String[] lista_Disponibilidad = { "Disponible", "Ocupado" };
+	private Color_RGB colorRGB = new Color_RGB();
 
 	public Mesas() {
 		propiedades();
 		btn_Eventos();
-		
+
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				
+
 				eleccion.cerrarVentana();
 				setVisible(false);
 
 			}
 		});
-		
+
 	}
-	
+
 	private void propiedades() {
-		//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1027, 562);
+		// setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 1077, 641);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -76,66 +77,57 @@ public class Mesas extends JFrame {
 		contentPane.add(panel_mesas, BorderLayout.CENTER);
 		setTitle("Mesas");
 	}
-	
+
 	public void btn_Eventos() {
-		//panel_mesas.removeAll();
-		
+
 		listaMesa = sql.listarMesas();
-		
-		for(Mesa m : listaMesa) {
-			
-			btn_mesas = new JButton("Mesa: "+m.getId_mesa());
-			/*EDITA LOS BOTONES*/
+
+		for (Mesa m : listaMesa) {
+
+			btn_mesas = new JButton("Mesa: " + m.getId_mesa());
+
+			/* EDITA LOS BOTONES */
 			btn_mesas.setPreferredSize(new Dimension(200, 100));
-			btn_mesas.setBackground(new Color(0, 128, 0));
-			/*---*/
+
+			if (m.getEstado().equalsIgnoreCase("Disponible")) {
+				btn_mesas.setBackground(colorRGB.rgbColor_verde());
+
+			} else if (m.getEstado().equalsIgnoreCase("Ocupado")) {
+				btn_mesas.setBackground(colorRGB.rgbColor_rojo());
+
+			}
 
 			btn_mesas.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					identificador_btn = e.getActionCommand();
 
-                    identificador_Mesa = Integer.parseInt(identificador_btn.substring(6,7).trim());
-					//edicion.mesa_Disponibilidad(identificador_Mesa, lista_Disponibilidad[0]); 
-                    
-                      detecta_btn = (JButton) e.getSource();
-                      
-                      detecta_btn.setBackground(new Color(255,035,001));
-                      
-                      
-                     
-                     
-                     
-					
+					identificador_Mesa = Integer.parseInt(identificador_btn.substring(6, 7).trim());
+
+					detecta_btn = (JButton) e.getSource();
+
+					if (e.getActionCommand() != null) {
+
+						if (m.getEstado().equalsIgnoreCase("Disponible")) {
+							detecta_btn.setBackground(colorRGB.rgbColor_rojo());
+							edicion.mesa_Disponibilidad(m.getId_mesa(), lista_Disponibilidad[1]);
+
+						}
+						if (m.getEstado().equalsIgnoreCase("Ocupado")) {
+							detecta_btn.setBackground(colorRGB.rgbColor_verde());
+							edicion.mesa_Disponibilidad(m.getId_mesa(), lista_Disponibilidad[0]);
+
+						}
+
+					}
+
 				}
-			});		
-			panel_mesas.add(btn_mesas);						
+			});
+
+			panel_mesas.add(btn_mesas);
+
 		}
-		
-		
-			
+
 	}
-	
-	
-	
-	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -35,11 +35,9 @@ public class JP_MenuHerramientas extends JPanel {
 	private final JLabel lbl_icono = new JLabel("");
 	private ArrayList<String> indice = new ArrayList<String>();
 
-	
-
 	public JP_MenuHerramientas() {
 		setBackground(Color.GRAY);
-		/*DESABILITAR BOTON DE IMPRESION*/
+		/* DESABILITAR BOTON DE IMPRESION */
 		imprimir.setFont(new Font("Tahoma", Font.BOLD, 18));
 		setLayout(new GridLayout(0, 2, 5, 5));
 
@@ -47,18 +45,16 @@ public class JP_MenuHerramientas extends JPanel {
 		p_herramienta.setForeground(Color.BLACK);
 		p_herramienta.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.DARK_GRAY));
 		p_herramienta.setBackground(Color.GRAY);
-		//p_logo.setBackground(Color.GRAY);
-		
-		/*establece color botones*/
+		// p_logo.setBackground(Color.GRAY);
+
+		/* establece color botones */
 		borrar.setBackground(new Color(113, 142, 164));
 		imprimir.setBackground(new Color(113, 142, 164));
 		informeDiario.setBackground(new Color(113, 142, 164));
 		mesa.setBackground(new Color(113, 142, 164));
-		
-		
+
 		p_logo.setBackground(new Color(40, 83, 108));
 		p_herramienta.setBackground(new Color(40, 83, 108));
-		
 
 		add(p_logo);
 		p_logo.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -91,73 +87,66 @@ public class JP_MenuHerramientas extends JPanel {
 				Mesas mesas = new Mesas();
 				mesas.setVisible(true);
 
-			} 
+			}
 		});
 
 		imprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-
-				if(JP_Display.grillaProductos.getRowCount() == 0 && JP_Display.grillaProductos.getSelectedRow() == -1) {
+				if (JP_Display.grillaProductos.getRowCount() == 0
+						&& JP_Display.grillaProductos.getSelectedRow() == -1) {
 					JOptionPane.showMessageDialog(null, "Ingrese al menos un plato");
 
-					
-				}else if(JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ")){
+				} else if (JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ")) {
 					JOptionPane.showMessageDialog(null, "Ingrese el Numero de mesa");
-					
-				}else {
+
+				} else {
 					try {
-						Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime", "items",
-								"subTotal", "tax", "total", "recibo", "change");
+						Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime",
+								"items", "subTotal", "tax", "total", "recibo", "change");
 						ticket.print();
-						
+
 						resetDisplay();
-						
-						
-					}catch (NullPointerException q) {
-					System.out.print(q);
+
+					} catch (NullPointerException q) {
+						System.out.print(q);
 					}
-				
-					
+
 				}
-				
-				
 
 			}
 		});
 
 		informeDiario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Login login = new Login();
 				login.setVisible(true);
 
-
 			}
 		});
-		
 
 		/* ESTE BOTON RESBLACE LOS VALORES INICIALES DEL DISPLAY */
 		borrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				
+			public void actionPerformed(ActionEvent e) {
+
 				resetDisplay();
 
 			}
 		});
 
 	}
-	
+
 	public void resetDisplay() {
 		JP_Display.lbl_nroMesa.setText("N\u00B0 ");
 		JP_Display.lbl_total.setText("$ 0");
 		JP_Display.lbl_propina.setText("$ 0");
 		JP_Display.lbl_totalMasPropina.setText("$ 0");
 		Fr_MenuMesas.txt_displayNumeros.setText("");
-		
-		/*Elimina las columnas agregadas*/
-		for(int i = JP_Display.modelo.getRowCount() - 1 ; i >= 0 ; i-- ) {
-			JP_Display.modelo.removeRow(i);	
+
+		/* Elimina las columnas agregadas */
+		for (int i = JP_Display.modelo.getRowCount() - 1; i >= 0; i--) {
+			JP_Display.modelo.removeRow(i);
 		}
 	}
 

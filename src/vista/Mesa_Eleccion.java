@@ -19,17 +19,15 @@ public class Mesa_Eleccion extends JFrame {
 	private JPanel contentPane;
 	private JButton btn_cerrar = new JButton("Cerrar");
 	private JButton btn_editar = new JButton("Editar");
-	
-	
+
 	public Mesa_Eleccion() {
-		
+
 		propiedades();
 		propiedades_btn();
 		cerrarVentana();
-		
-		
+
 	}
-	
+
 	protected void propiedades() {
 		setType(Type.UTILITY);
 		setResizable(false);
@@ -42,16 +40,15 @@ public class Mesa_Eleccion extends JFrame {
 		contentPane.add(btn_cerrar);
 		contentPane.add(btn_editar);
 	}
-	
-	
+
 	private void propiedades_btn() {
 		btn_cerrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btn_editar.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		
+
 		btn_cerrar.setPreferredSize(new Dimension(200, 80));
 		btn_editar.setPreferredSize(new Dimension(200, 80));
 	}
-	
+
 	public void cerrarVentana() {
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(false);

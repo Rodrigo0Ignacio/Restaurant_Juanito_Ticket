@@ -1,14 +1,14 @@
 package controlador;
 
 public class Comanda {
-	
+
 	private String id;
 	private int precio;
 	private String plato;
 	private int cantidad;
 	private int id_comida;
 	private int mesa;
-	
+
 	public Comanda(String id, int precio, String plato, int cantidad, int id_comida, int mesa) {
 		this.id = id;
 		this.precio = precio;
@@ -21,9 +21,6 @@ public class Comanda {
 	public Comanda() {
 
 	}
-	
-	
-	
 
 	public String getId() {
 		return id;
@@ -72,28 +69,5 @@ public class Comanda {
 	public void setMesa(int mesa) {
 		this.mesa = mesa;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

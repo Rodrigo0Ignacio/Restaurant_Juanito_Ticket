@@ -8,19 +8,19 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
 	private Connection conectar = null;
-	private final String URI = "jdbc:mysql://192.168.1.100:3306/juanito";
-	private final String USER = "rodrigo";
-	private final String PASSWORD = "210655";
+	private final String URI = "jdbc:mysql://localhost:3306/juanito";
+	private final String USER = "root";
+	private final String PASSWORD = "";
 
 	public Connection conectar() {
 		try {
 			/* DRIVER */
-		    Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			conectar = DriverManager.getConnection(URI, USER, PASSWORD);
 
 		} catch (SQLException | ClassNotFoundException s) {
 			JOptionPane.showMessageDialog(null, "Error en la conexion: " + s);
-                }
+		}
 		return conectar;
 
 	}
@@ -35,7 +35,5 @@ public class Conexion {
 		}
 		return conectar;
 	}
-	
-
 
 }

@@ -32,7 +32,6 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JPasswordField passwordField;
 
-
 	public Login() {
 		setTitle("Administrador");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/cuchilleria.png")));
@@ -44,46 +43,41 @@ public class Login extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(195, 200, 208));
 		contentPane.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		setContentPane(contentPane); 
+		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel_cntral = new JPanel();
 		panel_cntral.setBackground(new Color(195, 200, 208));
 		contentPane.add(panel_cntral, BorderLayout.CENTER);
 		panel_cntral.setLayout(null);
-		
-		JLabel lblNewLabel_1 = new JLabel("Contrase\u00F1a:"); 
+
+		JLabel lblNewLabel_1 = new JLabel("Contrase\u00F1a:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_1.setBounds(103, 11, 166, 23);
 		panel_cntral.add(lblNewLabel_1);
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setHorizontalAlignment(SwingConstants.CENTER);
 		passwordField.setBounds(103, 45, 166, 23);
 		passwordField.setColumns(20);
 		panel_cntral.add(passwordField);
-		
+
 		JButton btn_entrar = new JButton("Acceder");
 		btn_entrar.setBackground(new Color(113, 142, 164));
 		btn_entrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Consultas consultas = new Consultas();
-				
-				
-				
-				if(consultas.verificarPasswrod(passwordField.getText())) {
+
+				if (consultas.verificarPasswrod(passwordField.getText())) {
 					Fr_Reporte report = new Fr_Reporte();
 					report.setVisible(true);
-					setVisible(false);	
-					
-				}else {
+					setVisible(false);
+
+				} else {
 					JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
 				}
-				
-				
-				
-				
+
 			}
 		});
 		btn_entrar.setFont(new Font("Tahoma", Font.PLAIN, 18));

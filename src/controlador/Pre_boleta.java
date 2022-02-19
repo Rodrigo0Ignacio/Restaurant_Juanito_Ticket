@@ -7,7 +7,7 @@ public class Pre_boleta {
 	private int propina;
 	private int mesa;
 	private int registro_comanda;
-	
+
 	public Pre_boleta(String id, String fecha_Hora, int total, int propina, int mesa, int registro_comanda) {
 		this.id = id;
 		this.fecha_Hora = fecha_Hora;
@@ -68,8 +68,5 @@ public class Pre_boleta {
 	public void setRegistro_comanda(int registro_comanda) {
 		this.registro_comanda = registro_comanda;
 	}
-	
-
-	
 
 }

@@ -16,8 +16,6 @@ public class Fecha {
 
 		return formatoFecha.format(fecha);
 	}
-	
-	
 
 	public String horaActual() {
 		Calendar calendario = new GregorianCalendar();
@@ -36,14 +34,14 @@ public class Fecha {
 		return hra;
 
 	}
-	
+
 	public String fechaActual_reporte() {
 		Date fecha = new Date();
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-YYYY");
 
 		return formatoFecha.format(fecha);
 	}
-	
+
 	public String horaActual_reporte() {
 		Calendar calendario = new GregorianCalendar();
 		Date horaActual = new Date();

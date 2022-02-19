@@ -49,30 +49,25 @@ import javax.swing.border.EtchedBorder;
 
 public class Fr_Comidas extends JFrame {
 
-    private Consultas consultas = new Consultas();
-    private Conexion conexion = new Conexion();
-    private String query = "";
-    private Statement statement;
-    public ResultSet rs;
-    public static JButton btn;
-    public static boolean comprobarBtn = false;
-    public static JPanel contentPane = new JPanel();
-    
-    public static ArrayList<Comida> atributosComida = new ArrayList<Comida>();
-    private ArrayList<String> indice = new ArrayList<String>();
-    
-    JPanel pn_dinamicos = new JPanel();
-    JPanel panel = new JPanel();
-    public static JLabel lbl_titulo = new JLabel("");
-    
-    Cantidad cantidad = new Cantidad();
-    public static String idBoton = null;
+	private Consultas consultas = new Consultas();
+	private Conexion conexion = new Conexion();
+	private String query = "";
+	private Statement statement;
+	public ResultSet rs;
+	public static JButton btn;
+	public static boolean comprobarBtn = false;
+	public static JPanel contentPane = new JPanel();
 
+	public static ArrayList<Comida> atributosComida = new ArrayList<Comida>();
+	private ArrayList<String> indice = new ArrayList<String>();
 
+	JPanel pn_dinamicos = new JPanel();
+	JPanel panel = new JPanel();
+	public static JLabel lbl_titulo = new JLabel("");
 
+	Cantidad cantidad = new Cantidad();
+	public static String idBoton = null;
 
- 
-	
 	public Fr_Comidas() {
 		setType(Type.POPUP);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -81,128 +76,110 @@ public class Fr_Comidas extends JFrame {
 		setIconImage(new ImageIcon(getClass().getResource("/img/cuchilleria.png")).getImage());
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(10, 10));
-		
+
 		contentPane.setBackground(new Color(109, 146, 160));
 		pn_dinamicos.setBackground(new Color(40, 83, 108));
 		panel.setBackground(new Color(109, 146, 160));
-		
+
 		contentPane.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		
+
 		lbl_titulo.setFont(new Font("Tahoma", Font.PLAIN, 36));
 		panel.add(lbl_titulo);
 		pn_dinamicos.setBorder(new EtchedBorder(EtchedBorder.RAISED, Color.BLACK, Color.BLACK));
-		
+
 		contentPane.add(pn_dinamicos, BorderLayout.CENTER);
 		FlowLayout fl_pn_dinamicos = new FlowLayout(FlowLayout.LEFT, 5, 5);
 		fl_pn_dinamicos.setAlignOnBaseline(true);
 		pn_dinamicos.setLayout(fl_pn_dinamicos);
-		
+
 		indice.add("Unidad");
 		indice.add("Nombre");
 		indice.add("Precio Unitario");
 		indice.add("Importe");
-		for(Object in : indice) {
+		for (Object in : indice) {
 			JP_Display.modelo.addColumn(in);
 		}
 		JP_Display.grillaProductos.setModel(JP_Display.modelo);
 
-		
-		/*EVENTO DE CIERRE*/
+		/* EVENTO DE CIERRE */
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				
+
 				cantidad.cerrarVentana();
-					
-				
+
 			}
 		});
-		
-               
+
 	}
-	
+
 	public void consultas(String categoria) {
-	
-		/*REMUEVE LAS INTANCIAS ANTES COLOCADAS EN EL MARCO*/
-		//principal.removeAll();
+
+		/* REMUEVE LAS INTANCIAS ANTES COLOCADAS EN EL MARCO */
+		// principal.removeAll();
 		pn_dinamicos.removeAll();
 		Consultas consultas = new Consultas();
-		
-		if(consultas.verificarSiExitenPlatos(categoria)) { // verifica si exiten platos 
-		
-		 try{
-             query = "SELECT DISTINCT * FROM comida WHERE fk_categoria = '"+categoria+"' ";
-             statement = (Statement) conexion.conectar().prepareStatement(query);
-             rs = statement.executeQuery(query);
-             
-             /*GENERERA BOTONES DE FORMA DINAMICA Y EXTRAE LOS NOMBRES DE LOS PLATOS DESDE LA BASE DE DATOS*/
-             while(rs.next()){
-           	 
-            	 btn = new JButton(rs.getString("nombre"));
-            	 btn.setFont(new Font("Tahoma", Font.BOLD, 16));
-            	 
-            	 pn_dinamicos.add(btn);
-            	 
-            	 btn.setPreferredSize(new Dimension(250, 150));
-            	 btn.setBackground(new Color(134, 147, 147));
-            	                  
-                 /*EVENTO DE BOTONES DINAMICOS*/
-                 btn.addActionListener(new ActionListener() {
-            			public void actionPerformed(ActionEvent e) {
+
+		if (consultas.verificarSiExitenPlatos(categoria)) { // verifica si exiten platos
+
+			try {
+				query = "SELECT DISTINCT * FROM comida WHERE fk_categoria = '" + categoria + "' ";
+				statement = (Statement) conexion.conectar().prepareStatement(query);
+				rs = statement.executeQuery(query);
+
+				/*
+				 * GENERERA BOTONES DE FORMA DINAMICA Y EXTRAE LOS NOMBRES DE LOS PLATOS DESDE
+				 * LA BASE DE DATOS
+				 */
+				while (rs.next()) {
+
+					btn = new JButton(rs.getString("nombre"));
+					btn.setFont(new Font("Tahoma", Font.BOLD, 16));
+
+					pn_dinamicos.add(btn);
+
+					btn.setPreferredSize(new Dimension(250, 150));
+					btn.setBackground(new Color(134, 147, 147));
+
+					/* EVENTO DE BOTONES DINAMICOS */
+					btn.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
 							atributosComida = consultas.comparaBtn(e.getActionCommand());
 							idBoton = e.getActionCommand();
-							 
+
 							cantidad = new Cantidad();
 							cantidad.setVisible(true);
-							
 
-							
-            			}});  
-             }
-             
-             
-            // contentPane.setLayout(new GridLayout(10, 10, 10, 10));
-             conexion.desconectar();
-             
-         }catch(SQLException W){
-         	JOptionPane.showMessageDialog(null,"Error al ejecutar BD");
-             
-         }
-		}else {
-			
-			JOptionPane.showMessageDialog(null,"No existen platos");
+						}
+					});
+				}
+
+				// contentPane.setLayout(new GridLayout(10, 10, 10, 10));
+				conexion.desconectar();
+
+			} catch (SQLException W) {
+				JOptionPane.showMessageDialog(null, "Error al ejecutar BD");
+
+			}
+		} else {
+
+			JOptionPane.showMessageDialog(null, "No existen platos");
 			this.setVisible(false);
 		}
 
+	}
 
-		} 
-	
-	
+	/*
+	 * ESTE METODO CARGA LA TABLA SE LE DEBE PASAR UN ActionEvent para identificar
+	 * el boton tecleado y se le pasa un ArrayList de tipo comida del cual contiene
+	 * los datos de cada plato Nombre, precio, categoria
+	 */
+	public static void cargarTabla(String e, int cantidad, int importe) {
 
-		/*ESTE METODO CARGA LA TABLA SE LE DEBE PASAR UN ActionEvent para identificar el boton
-		 * tecleado y se le pasa un ArrayList de tipo comida del cual contiene los datos de cada plato
-		 * Nombre, precio, categoria*/
-		public static void cargarTabla(String e, int cantidad, int importe) {
-
-			
-				for(int z = 0; z < atributosComida.size() ; z++) {
-					JP_Display.modelo.addRow(new Object[] {cantidad,atributosComida.get(z).getNombre(),
-							atributosComida.get(z).getPrecio(),importe});
-				}
+		for (int z = 0; z < atributosComida.size(); z++) {
+			JP_Display.modelo.addRow(new Object[] { cantidad, atributosComida.get(z).getNombre(),
+					atributosComida.get(z).getPrecio(), importe });
 		}
-		
+	}
 
-		
-		
 }
-		
-
-
-      
-      
-		
-
-		
-	
-    

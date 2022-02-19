@@ -20,18 +20,19 @@ public class Principal extends JFrame {
 	JP_Display display = new JP_Display();
 
 	public static void main(String[] args) {
-		/*try {*/
-			Principal main = new Principal();
-			main.setVisible(true);
-			main.setIconImage(
-			Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/cuchilleria.png")));
+		/* try { */
+		Principal main = new Principal();
+		main.setVisible(true);
+		main.setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/cuchilleria.png")));
 
-	/*	} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al iniciar el programa");
+		/*
+		 * } catch (Exception e) { JOptionPane.showMessageDialog(null,
+		 * "Error al iniciar el programa");
+		 * 
+		 * }
+		 */
 
-		}*/
-
-	} 
+	}
 
 	public Principal() {
 
@@ -41,30 +42,28 @@ public class Principal extends JFrame {
 		setLocationRelativeTo(null);
 		setExtendedState(MAXIMIZED_BOTH);
 
-
 		contentPane = new JPanel();
 		contentPane.repaint(getBounds());
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
+
 		contentPane.setBackground(new Color(40, 83, 108));
 		menuC.setBackground(new Color(40, 83, 108));
 		menuH.setBackground(new Color(40, 83, 108));
-		
+
 		contentPane.add(menuH, BorderLayout.NORTH);
 		contentPane.add(menuC, BorderLayout.CENTER);
 		menuC.setLayout(new GridLayout(0, 3, 5, 5));
 		display.lbl_propina.setText("$ 0");
 
 		contentPane.add(display, BorderLayout.WEST);
-		
-		/*CerrarPrograma();*/
-	
+
+		/* CerrarPrograma(); */
 
 	}
-	
+
 	public void cerrarVentana() {
 		try {
 			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -74,22 +73,23 @@ public class Principal extends JFrame {
 				}
 			});
 			this.setVisible(true);
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	protected void confirmarSalida() {
-		int valor = JOptionPane.showConfirmDialog(this, "¿Está seguro de cerrar el programa?","advertencia",
-				JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-		
-		if(valor == JOptionPane.YES_OPTION) {
-			//JOptionPane.showMessageDialog(null, "Hasta pronto","cerrando programa...",JOptionPane.INFORMATION_MESSAGE);
-			System.exit(0); 
-			
+		int valor = JOptionPane.showConfirmDialog(this, "¿Está seguro de cerrar el programa?", "advertencia",
+				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+		if (valor == JOptionPane.YES_OPTION) {
+			// JOptionPane.showMessageDialog(null, "Hasta pronto","cerrando
+			// programa...",JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
+
 		}
-		
+
 	}
 
 }

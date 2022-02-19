@@ -50,54 +50,47 @@ public class JP_Display extends JPanel implements Runnable {
 	private JPanel totales = new JPanel();
 
 	public static JLabel lbl_nroMesa = new JLabel("N\u00B0 ");
-	
+
 	public static JLabel lbl_propina = new JLabel();
 	public static JLabel lbl_total = new JLabel("$ 0");
 	public static JLabel lbl_totalMasPropina = new JLabel("$ 0");
- 
-	 
-	 
+
 	private final JScrollPane scrollPane = new JScrollPane();
 	public static JTable grillaProductos = new JTable();
-	/*MODELO DE LA TABLA*/
+	/* MODELO DE LA TABLA */
 	public static DefaultTableModel modelo = new DefaultTableModel() {
 		public boolean isCellEditable(int row, int column) {
-			return false;}; 
-	}; 
+			return false;
+		};
+	};
 	private final JLabel lblNewLabel = new JLabel("Estado");
 	private final JLabel lbl_estadoMesa = new JLabel("");
-	
 
 	public JP_Display() {
-		
-		
+
 		setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		
+
 		hilo = new Thread(this);
 		hilo.start();
 		setVisible(true);
 
-		setBackground(new Color (195, 200, 208));
+		setBackground(new Color(195, 200, 208));
 		setLayout(new GridLayout(0, 1, 6, 0));
 		/*
-		titulo.setBackground(new Color(43, 76, 111));
-		grilla.setBackground(new Color(43, 76, 111));
-		totales.setBackground(new Color(43, 76, 111));
-		*/
+		 * titulo.setBackground(new Color(43, 76, 111)); grilla.setBackground(new
+		 * Color(43, 76, 111)); totales.setBackground(new Color(43, 76, 111));
+		 */
 		centrar_datos(0);
 		centrar_datos(2);
 		centrar_datos(3);
 		establece_anchoColumnas();
 		establecerDisenoTabla();
 
-		
-		
-		
-		titulo.setBackground(new Color (195, 200, 208));
+		titulo.setBackground(new Color(195, 200, 208));
 
 		add(titulo);
 		titulo.setLayout(new GridLayout(0, 1, 0, 0));
-		subTitulo.setBackground(new Color (195, 200, 208));
+		subTitulo.setBackground(new Color(195, 200, 208));
 
 		titulo.add(subTitulo);
 		subTitulo.setLayout(new GridLayout(0, 1, 0, 0));
@@ -106,7 +99,7 @@ public class JP_Display extends JPanel implements Runnable {
 		lbl_subtitulo.setFont(new Font("Dialog", Font.PLAIN, 20));
 		lbl_subtitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		subTitulo.add(lbl_subtitulo);
-		Fecha_y_Hora.setBackground(new Color (195, 200, 208));
+		Fecha_y_Hora.setBackground(new Color(195, 200, 208));
 		Fecha_y_Hora.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 
 		titulo.add(Fecha_y_Hora);
@@ -131,20 +124,20 @@ public class JP_Display extends JPanel implements Runnable {
 		lbl_nroMesa.setFont(new Font("Dialog", Font.PLAIN, 18));
 		Fecha_y_Hora.add(lbl_nroMesa);
 		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
-		
+
 		Fecha_y_Hora.add(lblNewLabel);
 		lbl_estadoMesa.setFont(new Font("Dialog", Font.PLAIN, 18));
-		
+
 		Fecha_y_Hora.add(lbl_estadoMesa);
 		grilla.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		grilla.setBackground(Color.LIGHT_GRAY);
-		
+
 		add(grilla);
 		grilla.setLayout(new GridLayout(1, 0, 0, 0));
 		grilla.add(scrollPane);
-				
+
 		scrollPane.setViewportView(grillaProductos);
-		totales.setBackground(new Color (195, 200, 208));
+		totales.setBackground(new Color(195, 200, 208));
 		totales.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 
 		totales.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -172,8 +165,6 @@ public class JP_Display extends JPanel implements Runnable {
 		lbl_totalMasPropina.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_totalMasPropina.setFont(new Font("Dialog", Font.PLAIN, 20));
 		totales.add(lbl_totalMasPropina);
-		
-		
 
 	}
 
@@ -185,50 +176,36 @@ public class JP_Display extends JPanel implements Runnable {
 		while (current == hilo) {
 
 			lbl_hra.setText(hora.horaActual());
-			
 
 		}
 
 	}
-	
+
 	private void establecerDisenoTabla() {
-		/*establece el color, ancho y algo de las cabeseras de la tabla*/
+		/* establece el color, ancho y algo de las cabeseras de la tabla */
 		grillaProductos.getTableHeader().setPreferredSize(new Dimension(30, 30));
 		grillaProductos.getTableHeader().setBackground(new Color(171, 174, 180));
 		grillaProductos.getTableHeader().setFont(new Font("Dialog", Font.BOLD, 13));
-		
+
 		scrollPane.getViewport().setBackground(new Color(195, 200, 208));
 		grillaProductos.setBackground(new Color(195, 200, 208));
 	}
-	
-	protected void establece_anchoColumnas() {	
-		
+
+	protected void establece_anchoColumnas() {
+
 		grillaProductos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		grillaProductos.getColumnModel().getColumn(0).setPreferredWidth(5);
 		grillaProductos.getColumnModel().getColumn(1).setPreferredWidth(100);
 		grillaProductos.getColumnModel().getColumn(2).setPreferredWidth(25);
 		grillaProductos.getColumnModel().getColumn(3).setPreferredWidth(10);
-		
-		
+
 	}
-	
-	public void centrar_datos(int col){  
-		DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer(); 
+
+	public void centrar_datos(int col) {
+		DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
 		modelocentrar.setHorizontalAlignment(SwingConstants.CENTER);
 		grillaProductos.getColumnModel().getColumn(col).setCellRenderer(modelocentrar);
-		
 
-		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
+
 }
