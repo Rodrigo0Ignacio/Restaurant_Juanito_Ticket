@@ -20,17 +20,17 @@ public class Principal extends JFrame {
 	JP_Display display = new JP_Display();
 
 	public static void main(String[] args) {
-		/* try { */
+		try {
 		Principal main = new Principal();
 		main.setVisible(true);
 		main.setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/cuchilleria.png")));
 
-		/*
-		 * } catch (Exception e) { JOptionPane.showMessageDialog(null,
-		 * "Error al iniciar el programa");
-		 * 
-		 * }
-		 */
+		
+		  } catch (Exception e) { 
+			  JOptionPane.showMessageDialog(null,"Error al iniciar el programa");
+		  }
+		  
+		
 
 	}
 

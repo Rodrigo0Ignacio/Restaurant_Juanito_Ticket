@@ -76,6 +76,8 @@ public class Login extends JFrame {
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+					passwordField.setText("");
+					passwordField.requestFocus();
 				}
 
 			}

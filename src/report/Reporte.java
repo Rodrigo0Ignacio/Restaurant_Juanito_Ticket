@@ -52,16 +52,17 @@ public class Reporte {
 
 			int sub_total = consultas.sub_totales(parm1, parm2);
 			int cantidad_registros = consultas.contarRegistros(parm1, parm2);
+			System.out.print(cantidad_registros);
 
 			double totalpropina = sub_total * 0.10;
 
-			JasperReport archivo = JasperCompileManager.compileReport("src\\report\\informe.jrxml");
+			JasperReport archivo = JasperCompileManager.compileReport("src\\report\\informe_ventas.jrxml");
 			Map<String, Object> map = new HashMap<String, Object>();
 
 			map.put("fecha1", Reporte.convierte_fechas(parm1));
 			map.put("fecha2", Reporte.convierte_fechas(parm2));
-			map.put("sub_total", calculos.establecerFormato(sub_total));
-			map.put("registros", cantidad_registros);
+			map.put("total", calculos.establecerFormato(sub_total));
+			map.put("registros", String.valueOf(cantidad_registros));
 			map.put("propina", calculos.establecerFormato(totalpropina));
 
 			JasperPrint print = JasperFillManager.fillReport(archivo, map, con.conectar());

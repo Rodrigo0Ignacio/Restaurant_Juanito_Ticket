@@ -9,10 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.jvnet.substance.SubstanceLookAndFeel;
-import org.jvnet.substance.api.SubstanceConstants;
-import org.jvnet.substance.shaper.StandardButtonShaper;
-
 import controlador.Calculos;
 import controlador.Comida;
 import controlador.RoundedBorder;

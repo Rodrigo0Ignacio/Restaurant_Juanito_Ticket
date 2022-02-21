@@ -29,6 +29,8 @@ import modelo.Consultas;
 import modelo.Edicion;
 
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Toolkit;
 
 public class Mesas extends JFrame {
 
@@ -66,6 +68,7 @@ public class Mesas extends JFrame {
 	private void propiedades() {
 		// setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1077, 641);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -76,6 +79,7 @@ public class Mesas extends JFrame {
 		flowLayout.setAlignOnBaseline(true);
 		contentPane.add(panel_mesas, BorderLayout.CENTER);
 		setTitle("Mesas");
+		establecerIcono();
 	}
 
 	public void btn_Eventos() {
@@ -88,6 +92,9 @@ public class Mesas extends JFrame {
 
 			/* EDITA LOS BOTONES */
 			btn_mesas.setPreferredSize(new Dimension(200, 100));
+			/*ESTABLE FUENTES*/
+			btn_mesas.setFont(new Font("Tahoma", Font.BOLD, 18));
+			btn_mesas.setForeground(new Color(255,255,255));
 
 			if (m.getEstado().equalsIgnoreCase("Disponible")) {
 				btn_mesas.setBackground(colorRGB.rgbColor_verde());
@@ -111,6 +118,9 @@ public class Mesas extends JFrame {
 						if (m.getEstado().equalsIgnoreCase("Disponible")) {
 							detecta_btn.setBackground(colorRGB.rgbColor_rojo());
 							edicion.mesa_Disponibilidad(m.getId_mesa(), lista_Disponibilidad[1]);
+							/*sub occiones*/
+							Mesa_Eleccion me = new Mesa_Eleccion();
+							me.setVisible(true);
 
 						}
 						if (m.getEstado().equalsIgnoreCase("Ocupado")) {
@@ -128,6 +138,10 @@ public class Mesas extends JFrame {
 
 		}
 
+	}
+	public void establecerIcono() {
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(Mesas.class.getResource("/img/cuchilleria.png")));
 	}
 
 }
