@@ -7,7 +7,6 @@ package report;
 import controlador.Calculos;
 import controlador.Fecha;
 import modelo.Conexion;
-
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

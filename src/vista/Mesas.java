@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
 import org.bouncycastle.jcajce.provider.asymmetric.ec.SignatureSpi.ecDetDSA512;
@@ -25,12 +26,15 @@ import org.bouncycastle.jcajce.provider.symmetric.CAST5;
 
 import controlador.Color_RGB;
 import controlador.Mesa;
+import groovyjarjarantlr.debug.NewLineEvent;
 import modelo.Consultas;
 import modelo.Edicion;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.lang.System;
+
 
 public class Mesas extends JFrame {
 
@@ -45,10 +49,13 @@ public class Mesas extends JFrame {
 	private int identificador_Mesa = 0;
 	private Mesa_Eleccion eleccion = new Mesa_Eleccion();
 	private Edicion edicion = new Edicion();
-	private JButton detecta_btn;
+	private JButton  detecta_btn;
+	private ActionEvent evento;
 
 	private String[] lista_Disponibilidad = { "Disponible", "Ocupado" };
 	private Color_RGB colorRGB = new Color_RGB();
+	private int cont_click = 0;
+	
 
 	public Mesas() {
 		propiedades();
@@ -88,48 +95,48 @@ public class Mesas extends JFrame {
 
 		for (Mesa m : listaMesa) {
 
-			btn_mesas = new JButton("Mesa: " + m.getId_mesa());
+			btn_mesas = new JButton ("Mesa: " + m.getId_mesa());
 
 			/* EDITA LOS BOTONES */
 			btn_mesas.setPreferredSize(new Dimension(200, 100));
 			/*ESTABLE FUENTES*/
 			btn_mesas.setFont(new Font("Tahoma", Font.BOLD, 18));
 			btn_mesas.setForeground(new Color(255,255,255));
-
+			
 			if (m.getEstado().equalsIgnoreCase("Disponible")) {
 				btn_mesas.setBackground(colorRGB.rgbColor_verde());
+
 
 			} else if (m.getEstado().equalsIgnoreCase("Ocupado")) {
 				btn_mesas.setBackground(colorRGB.rgbColor_rojo());
 
+
 			}
 
+						
 			btn_mesas.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
 					identificador_btn = e.getActionCommand();
-
-					identificador_Mesa = Integer.parseInt(identificador_btn.substring(6, 7).trim());
-
+					identificador_Mesa = extraerNumeros(e.getActionCommand());
 					detecta_btn = (JButton) e.getSource();
-
-					if (e.getActionCommand() != null) {
-
-						if (m.getEstado().equalsIgnoreCase("Disponible")) {
+					
+					
+					if(e.getActionCommand().equalsIgnoreCase(identificador_btn)) {
+						
+						if(detecta_btn.getBackground().equals(colorRGB.rgbColor_verde())) {
+							
 							detecta_btn.setBackground(colorRGB.rgbColor_rojo());
 							edicion.mesa_Disponibilidad(m.getId_mesa(), lista_Disponibilidad[1]);
-							/*sub occiones*/
-							Mesa_Eleccion me = new Mesa_Eleccion();
-							me.setVisible(true);
-
-						}
-						if (m.getEstado().equalsIgnoreCase("Ocupado")) {
+							
+						}else {
 							detecta_btn.setBackground(colorRGB.rgbColor_verde());
 							edicion.mesa_Disponibilidad(m.getId_mesa(), lista_Disponibilidad[0]);
-
 						}
-
+						
 					}
+					
 
 				}
 			});
@@ -139,9 +146,27 @@ public class Mesas extends JFrame {
 		}
 
 	}
+	
 	public void establecerIcono() {
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(Mesas.class.getResource("/img/cuchilleria.png")));
+	}
+	
+	public int extraerNumeros(String frase) {
+		char[] cadena = frase.toCharArray();
+		String nros = "";
+		
+		for(int i = 0; i < cadena.length ; i++) {
+			if(Character.isDigit(cadena[i])) {
+				nros+=cadena[i];
+				
+			}
+			
+		}
+		
+		return Integer.parseInt(nros);
+
+		
 	}
 
 }

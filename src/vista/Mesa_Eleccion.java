@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Window.Type;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.FlowLayout;
@@ -25,6 +27,7 @@ public class Mesa_Eleccion extends JFrame {
 		propiedades();
 		propiedades_btn();
 		cerrarVentana();
+		eventos_btn();
 
 	}
 
@@ -54,5 +57,30 @@ public class Mesa_Eleccion extends JFrame {
 		this.setVisible(false);
 		this.dispose();
 	}
+	
+	private void eventos_btn() {
+		btn_cerrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("evento cerrar");
+				
+			}
+		});
+		
+		btn_editar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("evento editar");
+				
+			}
+		});
+	}
+	
+	
+	
+	
+	
+	
 
 }
+
