@@ -66,7 +66,8 @@ public class Consultas extends Conexion {
 	public boolean verificaContenido(String parm1, String parm2) {
 
 		try {
-			query = "SELECT id_boleta,fecha_hora,total,fk_mesa FROM pre_boleta WHERE fecha_hora BETWEEN '"+parm1+"' AND '"+parm2+"' ORDER BY fecha_hora DESC";
+			query = "SELECT id_boleta,fecha_hora,total,fk_mesa FROM pre_boleta WHERE fecha_hora BETWEEN '" + parm1
+					+ "' AND '" + parm2 + "' ORDER BY fecha_hora DESC";
 
 			statement = (Statement) conectar().prepareStatement(query);
 			rs = statement.executeQuery(query);
@@ -92,7 +93,8 @@ public class Consultas extends Conexion {
 		int sub_total = 0;
 
 		try {
-			query = "SELECT SUM(total) AS 'su_total' FROM pre_boleta WHERE fecha_hora BETWEEN '"+parm1+"' and '"+parm2+"' ORDER BY fecha_hora DESC;";
+			query = "SELECT SUM(total) AS 'su_total' FROM pre_boleta WHERE fecha_hora BETWEEN '" + parm1 + "' and '"
+					+ parm2 + "' ORDER BY fecha_hora DESC;";
 			statement = (Statement) conectar().prepareStatement(query);
 			rs = statement.executeQuery(query);
 
@@ -115,7 +117,8 @@ public class Consultas extends Conexion {
 		int registros = 0;
 
 		try {
-			query = "SELECT COUNT(*) AS 'total' FROM pre_boleta WHERE fecha_hora BETWEEN '"+parm1+"' and '"+ parm2+"'";
+			query = "SELECT COUNT(*) AS 'total' FROM pre_boleta WHERE fecha_hora BETWEEN '" + parm1 + "' and '" + parm2
+					+ "'";
 
 			statement = (Statement) conectar().prepareStatement(query);
 			rs = statement.executeQuery(query);

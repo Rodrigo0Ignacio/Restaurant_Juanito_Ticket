@@ -87,7 +87,7 @@ public class Fr_MenuMesas extends JFrame {
 		txt_displayNumeros.setHorizontalAlignment(SwingConstants.CENTER);
 		display_numeros.add(txt_displayNumeros);
 		txt_displayNumeros.setColumns(10);
-
+ 
 		numeros.setBounds(0, 109, 796, 325);
 		contentPane.add(numeros);
 		numeros.setLayout(new GridLayout(0, 5, 4, 4));

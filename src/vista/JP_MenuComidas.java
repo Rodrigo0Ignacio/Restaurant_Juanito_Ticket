@@ -348,4 +348,17 @@ public class JP_MenuComidas extends JPanel {
 
 	}
 
+	public void estado_botones(boolean activa) {
+		Btn_entradas.setEnabled(activa);
+		Btn_principales.setEnabled(activa);
+		Btn_acompaniamiento.setEnabled(activa);
+		Btn_bebidas.setEnabled(activa);
+		Btn_salsas.setEnabled(activa);
+		Btn_aperitivos.setEnabled(activa);
+		Btn_postres.setEnabled(activa);
+		Btn_bCalientes.setEnabled(activa);
+		Btn_Sandwich.setEnabled(activa);
+		Btn_empanadas.setEnabled(activa);
+	}
+
 }

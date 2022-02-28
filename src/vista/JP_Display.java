@@ -37,7 +37,7 @@ public class JP_Display extends JPanel implements Runnable {
 	private JPanel titulo = new JPanel();
 	private JPanel subTitulo = new JPanel();
 	private JPanel Fecha_y_Hora = new JPanel();
-	private JLabel lbl_hra = new JLabel("00:00:00");
+	private JLabel lbl_hra = new JLabel("00:00:00"); 
 	private Fecha fecha = new Fecha();
 	private JLabel lblNewLabel_2 = new JLabel("Fecha:");
 	private JLabel lbl_fecha = new JLabel("DD/MM/YYYY");
@@ -64,7 +64,7 @@ public class JP_Display extends JPanel implements Runnable {
 		};
 	};
 	private final JLabel lblNewLabel = new JLabel("Estado");
-	private final JLabel lbl_estadoMesa = new JLabel("");
+	public static JLabel lbl_estadoMesa = new JLabel("");
 
 	public JP_Display() {
 
@@ -129,6 +129,8 @@ public class JP_Display extends JPanel implements Runnable {
 		lbl_estadoMesa.setFont(new Font("Dialog", Font.PLAIN, 18));
 
 		Fecha_y_Hora.add(lbl_estadoMesa);
+		Fecha_y_Hora.updateUI();
+
 		grilla.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		grilla.setBackground(Color.LIGHT_GRAY);
 
@@ -199,12 +201,18 @@ public class JP_Display extends JPanel implements Runnable {
 		grillaProductos.getColumnModel().getColumn(2).setPreferredWidth(25);
 		grillaProductos.getColumnModel().getColumn(3).setPreferredWidth(10);
 
-	}
+	} 
 
 	public void centrar_datos(int col) {
 		DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
 		modelocentrar.setHorizontalAlignment(SwingConstants.CENTER);
 		grillaProductos.getColumnModel().getColumn(col).setCellRenderer(modelocentrar);
+
+	}
+
+	public static void estados_Pedidos(int index) {
+		String[] estados = { "", "Agregando Mesa", "Agrenado Productos", "Finalizado" };
+		JP_Display.lbl_estadoMesa.setText(estados[index]);
 
 	}
 

@@ -21,13 +21,13 @@ public class Mesa_Eleccion extends JFrame {
 	private JPanel contentPane;
 	private JButton btn_cerrar = new JButton("Cerrar");
 	private JButton btn_editar = new JButton("Editar");
+	private Mesas mesas;
 
 	public Mesa_Eleccion() {
 
 		propiedades();
 		propiedades_btn();
 		cerrarVentana();
-		eventos_btn();
 
 	}
 
@@ -57,30 +57,21 @@ public class Mesa_Eleccion extends JFrame {
 		this.setVisible(false);
 		this.dispose();
 	}
-	
-	private void eventos_btn() {
-		btn_cerrar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("evento cerrar");
-				
-			}
-		});
-		
-		btn_editar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("evento editar");
-				
-			}
-		});
+
+	public JButton getBtn_cerrar() {
+		return btn_cerrar;
 	}
-	
-	
-	
-	
-	
-	
+
+	public void setBtn_cerrar(JButton btn_cerrar) {
+		this.btn_cerrar = btn_cerrar; 
+	}
+
+	public JButton getBtn_editar() {
+		return btn_editar;
+	}
+
+	public void setBtn_editar(JButton btn_editar) {
+		this.btn_editar = btn_editar;
+	}
 
 }
-

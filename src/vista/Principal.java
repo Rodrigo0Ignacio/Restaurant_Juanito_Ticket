@@ -21,16 +21,14 @@ public class Principal extends JFrame {
 
 	public static void main(String[] args) {
 		try {
-		Principal main = new Principal();
-		main.setVisible(true);
-		main.setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/cuchilleria.png")));
+			Principal main = new Principal();
+			main.setVisible(true);
+			main.setIconImage(
+					Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/cuchilleria.png")));
 
-		
-		  } catch (Exception e) { 
-			  JOptionPane.showMessageDialog(null,"Error al iniciar el programa");
-		  }
-		  
-		
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Error al iniciar el programa");
+		}
 
 	}
 
@@ -86,7 +84,7 @@ public class Principal extends JFrame {
 		if (valor == JOptionPane.YES_OPTION) {
 			// JOptionPane.showMessageDialog(null, "Hasta pronto","cerrando
 			// programa...",JOptionPane.INFORMATION_MESSAGE);
-			System.exit(0);
+			System.exit(0); 
 
 		}
 

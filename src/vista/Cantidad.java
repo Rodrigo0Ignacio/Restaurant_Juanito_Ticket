@@ -88,7 +88,7 @@ public class Cantidad extends JFrame {
 		panel_abajo.setBorder(new MatteBorder(10, 1, 1, 1, (Color) new Color(195, 200, 208)));
 
 		contentPane.add(panel_abajo, BorderLayout.SOUTH);
-		btn_aceptar.setBackground(new Color(95, 158, 160));
+		btn_aceptar.setBackground(new Color(95, 158, 160)); 
 		btn_aceptar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
 		panel_abajo.add(btn_aceptar);
@@ -137,9 +137,12 @@ public class Cantidad extends JFrame {
 
 							Fr_Comidas.cargarTabla(null, incremento, importe);
 
+							JP_Display.estados_Pedidos(2);
+
 							cerrarVentana();
 							resetCantidad();
 							cal.establecerValores();
+
 						} else {
 							int unidadCelda = Integer
 									.parseInt(JP_Display.grillaProductos.getValueAt(filaExiste, 0).toString());
@@ -155,9 +158,12 @@ public class Cantidad extends JFrame {
 								importe += importeCelda;
 								JP_Display.grillaProductos.setValueAt(importe, filaExiste, 3);
 
+								JP_Display.estados_Pedidos(2);
+
 								cerrarVentana();
 								resetCantidad();
 								cal.establecerValores();
+
 							} else {
 								JOptionPane.showInternalMessageDialog(null, "Excede el rango");
 							}

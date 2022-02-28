@@ -62,7 +62,7 @@ public class Fr_Comidas extends JFrame {
 	public static JLabel lbl_titulo = new JLabel("");
 
 	Cantidad cantidad = new Cantidad();
-	public static String idBoton = null;
+	public static String idBoton = null; 
 
 	public Fr_Comidas() {
 		setType(Type.POPUP);

@@ -12,7 +12,7 @@ public class Calculos {
 	private NumberFormat formatoTotal = NumberFormat.getCurrencyInstance();
 
 	public Calculos() {
-
+ 
 	}
 
 	protected double sumarValores() {

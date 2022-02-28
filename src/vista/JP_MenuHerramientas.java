@@ -18,7 +18,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import controlador.Calculos;
+import controlador.Comida;
 import controlador.Ticket;
+import modelo.Edicion;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
@@ -34,6 +37,14 @@ public class JP_MenuHerramientas extends JPanel {
 	private final JLabel lbl_titulo = new JLabel("Restaurant Juanito");
 	private final JLabel lbl_icono = new JLabel("");
 	private ArrayList<String> indice = new ArrayList<String>();
+	private Edicion edicionsql = new Edicion();
+	private Fr_Comidas comidas;
+	
+	private int unidad = 0;
+	private String plato = null;
+	private int precio_u = 0;
+	private int total = 0;
+
 
 	public JP_MenuHerramientas() {
 		setBackground(Color.GRAY);
@@ -98,14 +109,31 @@ public class JP_MenuHerramientas extends JPanel {
 					JOptionPane.showMessageDialog(null, "Ingrese al menos un plato");
 
 				} else if (JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ")) {
-					JOptionPane.showMessageDialog(null, "Ingrese el Numero de mesa");
+					JOptionPane.showMessageDialog(null, "Ingrese una mesa");
 
 				} else {
 					try {
+						JP_Display.estados_Pedidos(3);
+						/*GUARDAR EN LA BASE DE DATOS
+						 * por terminar*/
+						for(int i = 0 ; i < JP_Display.grillaProductos.getRowCount(); i++) {
+							
+						 unidad = (int) JP_Display.grillaProductos.getValueAt(i, 0);
+						 plato = (String) JP_Display.grillaProductos.getValueAt(i, 1);
+						 precio_u = (int) JP_Display.grillaProductos.getValueAt(i, 2);
+						 total = (int) JP_Display.grillaProductos.getValueAt(i, 3);
+						 
+						 edicionsql.insertar_comanda("0101", precio_u,plato, unidad, 3, 2);
+						
+						}
+						
+						
+						
+
 						Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime",
 								"items", "subTotal", "tax", "total", "recibo", "change");
 						ticket.print();
-
+ 
 						resetDisplay();
 
 					} catch (NullPointerException q) {
@@ -142,7 +170,9 @@ public class JP_MenuHerramientas extends JPanel {
 		JP_Display.lbl_total.setText("$ 0");
 		JP_Display.lbl_propina.setText("$ 0");
 		JP_Display.lbl_totalMasPropina.setText("$ 0");
+		JP_Display.lbl_estadoMesa.setText("");
 		Fr_MenuMesas.txt_displayNumeros.setText("");
+		JP_Display.estados_Pedidos(0);
 
 		/* Elimina las columnas agregadas */
 		for (int i = JP_Display.modelo.getRowCount() - 1; i >= 0; i--) {
