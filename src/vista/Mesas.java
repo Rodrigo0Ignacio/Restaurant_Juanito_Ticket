@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -45,36 +46,78 @@ public class Mesas extends JFrame {
 	private JPanel panel_mesas = new JPanel();
 	private JPanel panel_cabecera = new JPanel();
 	private String identificador_btn = null;
-	private int identificador_Mesa = 0;
+	public static int identificador_Mesa = 0;
 	private Mesa_Eleccion eleccion = new Mesa_Eleccion();
 	private Edicion edicion = new Edicion();
 	private JButton detecta_btn;
 
-	private String[] lista_Disponibilidad = { "Disponible", "Ocupado" };
+	public static String[] lista_Disponibilidad = { "Disponible", "Ocupado" };
 	private Color_RGB colorRGB = new Color_RGB();
-	private int cont_click = 0;
 	public static int id_mesa_dinamico = 0;
 	private JP_MenuComidas menuComidas;
-	private JP_MenuHerramientas meHerramientas = new JP_MenuHerramientas();
+	private JP_MenuHerramientas meHerramientas;
+	private int contadorVentana = 0;
 	
 
 	public Mesas() {
 		propiedades();
 		btn_Eventos();
 		eventos_Mesa_Eleccion();
+		meHerramientas = new JP_MenuHerramientas();
 
-		this.addWindowListener(new WindowAdapter() {
+
+		this.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				contadorVentana+=1;
+				
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
 			public void windowClosing(WindowEvent e) {
-
 				eleccion.cerrarVentana();
 				setVisible(false);
-
+				JP_Display.lbl_verificar.setText("");
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
+			
 
 	}
 
-	private void propiedades() {
+	protected void propiedades() {
 		// setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1077, 641);
 		setLocationRelativeTo(null);
@@ -89,6 +132,7 @@ public class Mesas extends JFrame {
 		contentPane.add(panel_mesas, BorderLayout.CENTER);
 		setTitle("Mesas");
 		establecerIcono();
+		
 	}
 
 	public void btn_Eventos() {
@@ -107,43 +151,51 @@ public class Mesas extends JFrame {
 
 			if (m.getEstado().equalsIgnoreCase("Disponible")) {
 				btn_mesas.setBackground(colorRGB.rgbColor_verde());
+				
+				if(!JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ")) {
+					btn_mesas.setEnabled(false);
+				}
 
 			} else if (m.getEstado().equalsIgnoreCase("Ocupado")) {
 				btn_mesas.setBackground(colorRGB.rgbColor_rojo());
-
+				
 			}
 
 			btn_mesas.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-
+					
 					identificador_btn = e.getActionCommand();
 					identificador_Mesa = extraerNumeros(e.getActionCommand());
 					detecta_btn = (JButton) e.getSource();
 					id_mesa_dinamico = m.getId_mesa();
+					
+					if (detecta_btn.getBackground().equals(colorRGB.rgbColor_verde())) {
+						
+					    if(JP_Display.grillaProductos.getRowCount() == 0
+					            && JP_Display.grillaProductos.getSelectedRow() == -1) {
+					        
+					        JOptionPane.showMessageDialog(null, "Ingrese almenos un producto");
+					        
+					        
+					    } else if(JP_Display.lbl_verificar.getText().equalsIgnoreCase("")){
+					                    
+					                    estado_Ocupado();
+					                    JP_Display.lbl_nroMesa.setText("N\u00B0 " + identificador_Mesa);
+					                    JP_Display.estados_Pedidos(1);
+					                    cerrarVentana_mesas();
+					                    JP_Display.lbl_verificar.setText("0");
+					                    
+					                }
+					                
 
-					if (e.getActionCommand().equalsIgnoreCase(identificador_btn)) {
+					        } else {
+					            eleccion.setVisible(true);
 
-						if (detecta_btn.getBackground().equals(colorRGB.rgbColor_verde())) {
-							
-							if(JP_Display.grillaProductos.getRowCount() == 0
-									&& JP_Display.grillaProductos.getSelectedRow() == -1) {
-								
-								
-							}else{
-
-									estado_Ocupado();
-									JP_Display.lbl_nroMesa.setText("N\u00B0 " + identificador_Mesa);
-									JP_Display.estados_Pedidos(1);		
-							}
-							
-
-						} else {
-							eleccion.setVisible(true);
-
-						}
-
-					}
+					        }
+					
+					
+					
 
 				}
 			});
@@ -187,21 +239,25 @@ public class Mesas extends JFrame {
 
 	}
 
+
 	/* EVENTOS DE BOTON DE LA CLASE MESA_ELECCION */
 	public void eventos_Mesa_Eleccion() {
 
 		eleccion.getBtn_cerrar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				estado_disponible();
-				eleccion.setVisible(false);
-				JP_Display.lbl_nroMesa.setText("N\u00B0 ");
+					estado_disponible();
+					eleccion.setVisible(false);
+					
+					JP_Display.lbl_nroMesa.setText("N\u00B0 ");
+					cerrarVentana();
 
-				/*
-				 * IMPRIME BOLETA FINAL . . .
-				 */
+					/*
+					 * IMPRIME BOLETA FINAL . . .
+					 */
+					meHerramientas.resetDisplay();
+					
 				
-				meHerramientas.resetDisplay();
 				
 
 			}
@@ -213,5 +269,39 @@ public class Mesas extends JFrame {
 			}
 		});
 	}
+	
+	public void cerrarVentana() {
+		this.setVisible(false);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
 
+	public int getIdentificador_Mesa() {
+		return identificador_Mesa;
+	}
+
+	public void setIdentificador_Mesa(int identificador_Mesa) {
+		this.identificador_Mesa = identificador_Mesa;
+	}
+
+	
+
+	public void cerrarVentana_mesas() {
+		this.setVisible(false);
+		
+	}
+
+	public int getContadorVentana() {
+		return contadorVentana;
+	}
+
+	public void setContadorVentana(int contadorVentana) {
+		this.contadorVentana = contadorVentana;
+	}
+	
+	
+
+
+	
 }
+
+

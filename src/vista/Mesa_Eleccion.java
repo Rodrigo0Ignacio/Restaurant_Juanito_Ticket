@@ -21,7 +21,6 @@ public class Mesa_Eleccion extends JFrame {
 	private JPanel contentPane;
 	private JButton btn_cerrar = new JButton("Cerrar");
 	private JButton btn_editar = new JButton("Editar");
-	private Mesas mesas;
 
 	public Mesa_Eleccion() {
 

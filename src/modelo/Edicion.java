@@ -51,5 +51,6 @@ public class Edicion extends Consultas {
 		}
 
 	}
+	
 
 }

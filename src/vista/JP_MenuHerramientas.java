@@ -6,10 +6,13 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,7 +20,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
 import controlador.Calculos;
+import controlador.Codigo_Aleatorio;
+import controlador.Color_RGB;
 import controlador.Comida;
 import controlador.Ticket;
 import modelo.Edicion;
@@ -29,28 +36,39 @@ import javax.swing.border.MatteBorder;
 public class JP_MenuHerramientas extends JPanel {
 
 	private JPanel p_logo = new JPanel();
-	private final JPanel p_herramienta = new JPanel();
-	private final JButton borrar = new JButton("Borrar");
-	private final JButton imprimir = new JButton("Comandar");
-	private final JButton informeDiario = new JButton("Informe");
-	private final JButton mesa = new JButton("Mesa");
-	private final JLabel lbl_titulo = new JLabel("Restaurant Juanito");
-	private final JLabel lbl_icono = new JLabel("");
+	private  JPanel p_herramienta = new JPanel();
+	private JButton borrar = new JButton("Borrar");
+	private JButton imprimir = new JButton("Comandar");
+	private JButton informeDiario = new JButton("Informe");
+	private JButton mesa = new JButton("Mesa");
+	private JLabel lbl_titulo = new JLabel("Restaurant Juanito");
+	private JLabel lbl_icono = new JLabel("");
 	private ArrayList<String> indice = new ArrayList<String>();
 	private Edicion edicionsql = new Edicion();
-	private Fr_Comidas comidas;
 	
 	private int unidad = 0;
 	private String plato = null;
 	private int precio_u = 0;
 	private int total = 0;
+	private int id_mesa = 0;
+
+	
 
 
 	public JP_MenuHerramientas() {
+		
+		propiedades();
+		eventos();
+		
+		
+	}
+	
+	protected void propiedades() {
 		setBackground(Color.GRAY);
 		/* DESABILITAR BOTON DE IMPRESION */
 		imprimir.setFont(new Font("Tahoma", Font.BOLD, 18));
 		setLayout(new GridLayout(0, 2, 5, 5));
+
 
 		/* establece el borde */
 		p_herramienta.setForeground(Color.BLACK);
@@ -91,12 +109,16 @@ public class JP_MenuHerramientas extends JPanel {
 		mesa.setFont(new Font("Tahoma", Font.BOLD, 18));
 
 		p_herramienta.add(mesa);
+		
 
-		/* Eventos */
+	}
+	
+	private void eventos() {
 		mesa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Mesas mesas = new Mesas();
 				mesas.setVisible(true);
+	
 
 			}
 		});
@@ -106,7 +128,7 @@ public class JP_MenuHerramientas extends JPanel {
 
 				if (JP_Display.grillaProductos.getRowCount() == 0
 						&& JP_Display.grillaProductos.getSelectedRow() == -1) {
-					JOptionPane.showMessageDialog(null, "Ingrese al menos un plato");
+					JOptionPane.showMessageDialog(null, "Ingrese al menos un producto");
 
 				} else if (JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ")) {
 					JOptionPane.showMessageDialog(null, "Ingrese una mesa");
@@ -115,19 +137,22 @@ public class JP_MenuHerramientas extends JPanel {
 					try {
 						JP_Display.estados_Pedidos(3);
 						/*GUARDAR EN LA BASE DE DATOS
-						 * por terminar*/
+						 * guarda la comanda en la bd*/
+						String codigoUnico = Codigo_Aleatorio.codigo_alfanumerico_caracter();
+			
+						
 						for(int i = 0 ; i < JP_Display.grillaProductos.getRowCount(); i++) {
 							
 						 unidad = (int) JP_Display.grillaProductos.getValueAt(i, 0);
 						 plato = (String) JP_Display.grillaProductos.getValueAt(i, 1);
 						 precio_u = (int) JP_Display.grillaProductos.getValueAt(i, 2);
 						 total = (int) JP_Display.grillaProductos.getValueAt(i, 3);
+						 id_mesa = (int) JP_Display.grillaProductos.getValueAt(i, 4);
 						 
-						 edicionsql.insertar_comanda("0101", precio_u,plato, unidad, 3, 2);
+						 edicionsql.insertar_comanda(codigoUnico,
+								 precio_u,plato, unidad, id_mesa,Mesas.identificador_Mesa);
 						
-						}
-						
-						
+						}					
 						
 
 						Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime",
@@ -153,17 +178,29 @@ public class JP_MenuHerramientas extends JPanel {
 
 			}
 		});
-
-		/* ESTE BOTON RESBLACE LOS VALORES INICIALES DEL DISPLAY */
 		borrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				resetDisplay();
-
+				
+				limpiaGUI();
+			
+				
 			}
 		});
-
+		
+	
 	}
+	
+	public void limpiaGUI() {
+		resetDisplay();
+		/*restablecela mesa*/
+		Edicion edicion = new Edicion();
+		edicion.mesa_Disponibilidad(Mesas.id_mesa_dinamico, Mesas.lista_Disponibilidad[0]);
+		
+	}
+	
+	
+
+
 
 	public void resetDisplay() {
 		JP_Display.lbl_nroMesa.setText("N\u00B0 ");
@@ -173,11 +210,46 @@ public class JP_MenuHerramientas extends JPanel {
 		JP_Display.lbl_estadoMesa.setText("");
 		Fr_MenuMesas.txt_displayNumeros.setText("");
 		JP_Display.estados_Pedidos(0);
+		
+			/* Elimina las columnas agregadas */
+			for (int i = JP_Display.modelo.getRowCount() - 1; i >= 0; i--) {
+				JP_Display.modelo.removeRow(i);
+			}
+		
+		
+	}
+	
 
-		/* Elimina las columnas agregadas */
-		for (int i = JP_Display.modelo.getRowCount() - 1; i >= 0; i--) {
-			JP_Display.modelo.removeRow(i);
-		}
+	public JButton getMesa() {
+		return mesa;
 	}
 
+	public void setMesa(JButton mesa) {
+		this.mesa = mesa;
+	}
+
+	
+	
+	
+	
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

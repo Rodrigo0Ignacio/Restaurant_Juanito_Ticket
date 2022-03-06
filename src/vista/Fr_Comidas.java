@@ -93,6 +93,8 @@ public class Fr_Comidas extends JFrame {
 		indice.add("Nombre");
 		indice.add("Precio Unitario");
 		indice.add("Importe");
+		indice.add("id");
+		
 		for (Object in : indice) {
 			JP_Display.modelo.addColumn(in);
 		}
@@ -174,7 +176,8 @@ public class Fr_Comidas extends JFrame {
 
 		for (int z = 0; z < atributosComida.size(); z++) {
 			JP_Display.modelo.addRow(new Object[] { cantidad, atributosComida.get(z).getNombre(),
-					atributosComida.get(z).getPrecio(), importe });
+					atributosComida.get(z).getPrecio(),importe,atributosComida.get(z).getId_comida()});
+
 		}
 	}
 

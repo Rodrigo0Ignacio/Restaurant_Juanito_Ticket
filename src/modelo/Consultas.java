@@ -231,5 +231,27 @@ public class Consultas extends Conexion {
 		return lista;
 
 	}
+	public int contrar_mesas(String parm1) {
+
+		int total = 0;
+
+		try {
+			query = "SELECT COUNT(*) as total FROM mesa WHERE estado = '"+parm1+"';";
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				total = rs.getInt("total");
+
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar BD - sub totales");
+
+		}
+		return total;
+
+	}
 
 }

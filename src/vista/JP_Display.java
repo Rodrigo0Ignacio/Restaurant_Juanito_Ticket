@@ -45,8 +45,11 @@ public class JP_Display extends JPanel implements Runnable {
 	private JLabel lblNewLabel_4 = new JLabel("Mesa:");
 	private JPanel grilla = new JPanel();
 	private JLabel lblNewLabel_8 = new JLabel("TOTAL VENTA:");
-	private JLabel lblNewLabel_9 = new JLabel("DESC. PROPINA:");
+	private JLabel lblNewLabel_9 = new JLabel("PROPINA 10%:");
 	private JLabel lblNewLabel_11 = new JLabel("TOTAL:");
+	
+	public static JLabel lbl_verificar = new JLabel("");
+	
 	private JPanel totales = new JPanel();
 
 	public static JLabel lbl_nroMesa = new JLabel("N\u00B0 ");
@@ -200,6 +203,11 @@ public class JP_Display extends JPanel implements Runnable {
 		grillaProductos.getColumnModel().getColumn(1).setPreferredWidth(100);
 		grillaProductos.getColumnModel().getColumn(2).setPreferredWidth(25);
 		grillaProductos.getColumnModel().getColumn(3).setPreferredWidth(10);
+		
+		/*mantiene "oculto" el id*/
+		grillaProductos.getColumnModel().getColumn(4).setMaxWidth(0);
+		grillaProductos.getColumnModel().getColumn(4).setMinWidth(0);
+		grillaProductos.getColumnModel().getColumn(4).setPreferredWidth(0);
 
 	} 
 
