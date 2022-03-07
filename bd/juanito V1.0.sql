@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-02-2022 a las 07:38:08
+-- Tiempo de generación: 07-03-2022 a las 09:42:07
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -42,6 +42,30 @@ INSERT INTO `admin` (`password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cap_datos`
+--
+
+CREATE TABLE `cap_datos` (
+  `id_datos` int(11) NOT NULL,
+  `comanda_ref` varchar(100) NOT NULL,
+  `mesa_ref` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `cap_datos`
+--
+
+INSERT INTO `cap_datos` (`id_datos`, `comanda_ref`, `mesa_ref`) VALUES
+(19, '6A31E885D5-P', 3),
+(20, 'FD7C10DCC3-O', 9),
+(21, '1C1F3CF111-Z', 14),
+(22, 'B7C2F52B9B-I', 9),
+(23, '86B04BBD0F-R', 4),
+(24, '405BC6C4E4-N', 20);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `categoria`
 --
 
@@ -75,8 +99,10 @@ INSERT INTO `categoria` (`id_cat`, `categoria`) VALUES
 CREATE TABLE `comanda` (
   `id_comanda` varchar(100) NOT NULL,
   `precio_unitario` int(11) NOT NULL,
+  `fecha_hora` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `plato` varchar(100) NOT NULL,
   `cantidad` int(11) NOT NULL,
+  `importe` int(11) NOT NULL,
   `fk_comida` int(11) NOT NULL,
   `fk_mesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -85,11 +111,28 @@ CREATE TABLE `comanda` (
 -- Volcado de datos para la tabla `comanda`
 --
 
-INSERT INTO `comanda` (`id_comanda`, `precio_unitario`, `plato`, `cantidad`, `fk_comida`, `fk_mesa`) VALUES
-('EEEE1212', 3000, 'ARROS', 3, 33, 1),
-('EEEE1212', 3000, 'Pure', 4, 34, 1),
-('ERERERE333', 3000, 'Aperol', 1, 53, 25),
-('ERERERE333', 3000, 'XD', 4, 5, 25);
+INSERT INTO `comanda` (`id_comanda`, `precio_unitario`, `fecha_hora`, `plato`, `cantidad`, `importe`, `fk_comida`, `fk_mesa`) VALUES
+('D36C502FA0-G', 1800, '2022-03-07 06:51:17', 'arroz', 5, 9000, 33, 9),
+('D36C502FA0-G', 4800, '2022-03-07 06:51:17', 'papas fritas grandes', 3, 14400, 36, 9),
+('D36C502FA0-G', 3000, '2022-03-07 06:51:17', 'papas fritas pequeñas', 3, 9000, 35, 9),
+('D36C502FA0-G', 3500, '2022-03-07 06:51:17', 'menu niños nuggetys', 3, 10500, 39, 9),
+('CFEECFED0C-U', 10500, '2022-03-07 06:59:07', 'caldillo de congrio nerudiano', 2, 21000, 22, 9),
+('CFEECFED0C-U', 13500, '2022-03-07 06:59:07', 'chupe de locos', 2, 27000, 19, 9),
+('B3FDEE7770-L', 8900, '2022-03-07 07:02:11', 'chupe de camaron', 3, 26700, 18, 9),
+('B3FDEE7770-L', 13500, '2022-03-07 07:02:11', 'chupe de locos', 6, 81000, 19, 9),
+('6A31E885D5-P', 1800, '2022-03-07 07:04:35', 'arroz', 4, 7200, 33, 3),
+('6A31E885D5-P', 5500, '2022-03-07 07:04:35', 'pollo a la planca con', 3, 16500, 38, 3),
+('6A31E885D5-P', 2400, '2022-03-07 07:04:35', 'pure', 3, 7200, 34, 3),
+('FD7C10DCC3-O', 2800, '2022-03-07 07:05:06', 'helados', 3, 8400, 52, 9),
+('FD7C10DCC3-O', 3800, '2022-03-07 07:05:06', 'Papayas con crema', 2, 7600, 51, 9),
+('1C1F3CF111-Z', 8900, '2022-03-07 07:05:40', 'camaron al til-til', 3, 26700, 6, 14),
+('1C1F3CF111-Z', 8900, '2022-03-07 07:05:40', 'ensalada de camarones', 4, 35600, 7, 14),
+('B7C2F52B9B-I', 2800, '2022-03-07 07:06:31', 'helados', 3, 8400, 52, 9),
+('B7C2F52B9B-I', 3800, '2022-03-07 07:06:31', 'Papayas con crema', 2, 7600, 51, 9),
+('B7C2F52B9B-I', 2800, '2022-03-07 07:06:31', 'pisco sour', 2, 5600, 54, 9),
+('86B04BBD0F-R', 10500, '2022-03-07 07:09:18', 'caldillo de congrio nerudiano', 3, 31500, 22, 4),
+('86B04BBD0F-R', 8500, '2022-03-07 07:09:18', 'caldillo de congrio', 3, 25500, 21, 4),
+('405BC6C4E4-N', 10500, '2022-03-07 07:11:05', 'caldillo de congrio nerudiano', 3, 31500, 22, 20);
 
 -- --------------------------------------------------------
 
@@ -179,7 +222,7 @@ INSERT INTO `comida` (`id_comida`, `nombre`, `precio`, `descripcion`, `fk_catego
 CREATE TABLE `mesa` (
   `id_mesa` int(11) NOT NULL,
   `estado` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ;
 
 --
 -- Volcado de datos para la tabla `mesa`
@@ -189,17 +232,17 @@ INSERT INTO `mesa` (`id_mesa`, `estado`) VALUES
 (1, 'Disponible'),
 (2, 'Disponible'),
 (3, 'Disponible'),
-(4, 'Disponible'),
+(4, 'Ocupado'),
 (5, 'Disponible'),
 (6, 'Disponible'),
 (7, 'Disponible'),
 (8, 'Disponible'),
-(9, 'Disponible'),
+(9, 'Ocupado'),
 (10, 'Disponible'),
 (11, 'Disponible'),
 (12, 'Disponible'),
 (13, 'Disponible'),
-(14, 'Disponible'),
+(14, 'Ocupado'),
 (15, 'Disponible'),
 (16, 'Disponible'),
 (17, 'Disponible'),
@@ -209,8 +252,7 @@ INSERT INTO `mesa` (`id_mesa`, `estado`) VALUES
 (21, 'Disponible'),
 (22, 'Disponible'),
 (23, 'Disponible'),
-(24, 'Disponible'),
-(25, 'Disponible');
+(24, 'Disponible');
 
 -- --------------------------------------------------------
 
@@ -228,40 +270,16 @@ CREATE TABLE `pre_boleta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `pre_boleta`
---
-
-INSERT INTO `pre_boleta` (`id_boleta`, `fecha_hora`, `total`, `propina`, `fk_mesa`, `fk_comanda`) VALUES
-('ERERERERERE', '2022-01-25 06:00:37', 8000, 800, 1, 1),
-('ewfewfwfqwfew', '2022-03-17 03:52:51', 300, 40000, 23, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `registro_comanda`
---
-
-CREATE TABLE `registro_comanda` (
-  `id_registro` int(11) NOT NULL,
-  `fk_comanda` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `registro_comanda`
---
-
-INSERT INTO `registro_comanda` (`id_registro`, `fk_comanda`) VALUES
-(1, 'EEEE1212');
-
---
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `admin`
+-- Indices de la tabla `cap_datos`
 --
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`password`);
+ALTER TABLE `cap_datos`
+  ADD PRIMARY KEY (`id_datos`),
+  ADD UNIQUE KEY `fk_comanda_2` (`comanda_ref`),
+  ADD KEY `fk_comanda` (`comanda_ref`);
 
 --
 -- Indices de la tabla `categoria`
@@ -274,9 +292,9 @@ ALTER TABLE `categoria`
 -- Indices de la tabla `comanda`
 --
 ALTER TABLE `comanda`
-  ADD KEY `FK_comanda` (`fk_comida`),
-  ADD KEY `fk_mesa` (`fk_mesa`) USING BTREE,
-  ADD KEY `id_comanda` (`id_comanda`);
+  ADD KEY `id_comanda` (`id_comanda`),
+  ADD KEY `fk_comida` (`fk_comida`),
+  ADD KEY `fk_mesa` (`fk_mesa`);
 
 --
 -- Indices de la tabla `comida`
@@ -284,8 +302,7 @@ ALTER TABLE `comanda`
 ALTER TABLE `comida`
   ADD PRIMARY KEY (`id_comida`),
   ADD UNIQUE KEY `nombre` (`nombre`),
-  ADD KEY `FK_comida` (`fk_categoria`),
-  ADD KEY `fk_categoria` (`fk_categoria`);
+  ADD KEY `fk_categoria_2` (`fk_categoria`);
 
 --
 -- Indices de la tabla `mesa`
@@ -298,37 +315,24 @@ ALTER TABLE `mesa`
 --
 ALTER TABLE `pre_boleta`
   ADD PRIMARY KEY (`id_boleta`),
-  ADD KEY `fk_mesa` (`fk_mesa`),
-  ADD KEY `fk_comanda` (`fk_comanda`);
-
---
--- Indices de la tabla `registro_comanda`
---
-ALTER TABLE `registro_comanda`
-  ADD PRIMARY KEY (`id_registro`),
-  ADD UNIQUE KEY `fk_comanda` (`fk_comanda`);
+  ADD KEY `fk_comanda` (`fk_comanda`),
+  ADD KEY `fk_mesa` (`fk_mesa`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `comida`
+-- AUTO_INCREMENT de la tabla `cap_datos`
 --
-ALTER TABLE `comida`
-  MODIFY `id_comida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+ALTER TABLE `cap_datos`
+  MODIFY `id_datos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `mesa`
 --
 ALTER TABLE `mesa`
-  MODIFY `id_mesa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT de la tabla `registro_comanda`
---
-ALTER TABLE `registro_comanda`
-  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_mesa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -338,27 +342,14 @@ ALTER TABLE `registro_comanda`
 -- Filtros para la tabla `comanda`
 --
 ALTER TABLE `comanda`
-  ADD CONSTRAINT `FK2_comanda` FOREIGN KEY (`fk_mesa`) REFERENCES `mesa` (`id_mesa`),
-  ADD CONSTRAINT `FK_comanda` FOREIGN KEY (`fk_comida`) REFERENCES `comida` (`id_comida`);
+  ADD CONSTRAINT `fk_comanda1` FOREIGN KEY (`fk_comida`) REFERENCES `comida` (`id_comida`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_comanda2` FOREIGN KEY (`fk_mesa`) REFERENCES `mesa` (`id_mesa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `comida`
 --
 ALTER TABLE `comida`
-  ADD CONSTRAINT `FK_comida` FOREIGN KEY (`fk_categoria`) REFERENCES `categoria` (`categoria`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `pre_boleta`
---
-ALTER TABLE `pre_boleta`
-  ADD CONSTRAINT `FK_mesa` FOREIGN KEY (`fk_mesa`) REFERENCES `mesa` (`id_mesa`),
-  ADD CONSTRAINT `pre_boleta_ibfk_1` FOREIGN KEY (`fk_comanda`) REFERENCES `registro_comanda` (`id_registro`);
-
---
--- Filtros para la tabla `registro_comanda`
---
-ALTER TABLE `registro_comanda`
-  ADD CONSTRAINT `registro_comanda_ibfk_1` FOREIGN KEY (`fk_comanda`) REFERENCES `comanda` (`id_comanda`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_comida` FOREIGN KEY (`fk_categoria`) REFERENCES `categoria` (`categoria`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

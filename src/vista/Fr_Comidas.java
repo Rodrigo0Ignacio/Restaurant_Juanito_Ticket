@@ -179,6 +179,8 @@ public class Fr_Comidas extends JFrame {
 					atributosComida.get(z).getPrecio(),importe,atributosComida.get(z).getId_comida()});
 
 		}
+		
 	}
+
 
 }

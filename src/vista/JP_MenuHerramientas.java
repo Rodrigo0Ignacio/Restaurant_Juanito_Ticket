@@ -26,8 +26,10 @@ import controlador.Calculos;
 import controlador.Codigo_Aleatorio;
 import controlador.Color_RGB;
 import controlador.Comida;
+import controlador.Fecha;
 import controlador.Ticket;
 import modelo.Edicion;
+import report.Reporte;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
@@ -45,6 +47,8 @@ public class JP_MenuHerramientas extends JPanel {
 	private JLabel lbl_icono = new JLabel("");
 	private ArrayList<String> indice = new ArrayList<String>();
 	private Edicion edicionsql = new Edicion();
+	private Fecha fecha = new Fecha();
+	
 	
 	private int unidad = 0;
 	private String plato = null;
@@ -139,6 +143,7 @@ public class JP_MenuHerramientas extends JPanel {
 						/*GUARDAR EN LA BASE DE DATOS
 						 * guarda la comanda en la bd*/
 						String codigoUnico = Codigo_Aleatorio.codigo_alfanumerico_caracter();
+						
 			
 						
 						for(int i = 0 ; i < JP_Display.grillaProductos.getRowCount(); i++) {
@@ -149,10 +154,14 @@ public class JP_MenuHerramientas extends JPanel {
 						 total = (int) JP_Display.grillaProductos.getValueAt(i, 3);
 						 id_mesa = (int) JP_Display.grillaProductos.getValueAt(i, 4);
 						 
+						 /*llenamos la tabla comanda */
 						 edicionsql.insertar_comanda(codigoUnico,
-								 precio_u,plato, unidad, id_mesa,Mesas.identificador_Mesa);
+								 precio_u,fecha.fechaHora_formato2(),
+								 plato, unidad,total, id_mesa,Mesas.identificador_Mesa);
 						
-						}					
+						}	
+						/*llenamos cap_datos TABLA DE REFERENCIA*/
+						edicionsql.insertar_cap_datos(codigoUnico, Mesas.identificador_Mesa);
 						
 
 						Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime",

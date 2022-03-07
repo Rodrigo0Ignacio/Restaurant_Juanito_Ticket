@@ -37,10 +37,10 @@ public class JP_Display extends JPanel implements Runnable {
 	private JPanel titulo = new JPanel();
 	private JPanel subTitulo = new JPanel();
 	private JPanel Fecha_y_Hora = new JPanel();
-	private JLabel lbl_hra = new JLabel("00:00:00"); 
+	public static JLabel lbl_hra = new JLabel("00:00:00"); 
 	private Fecha fecha = new Fecha();
 	private JLabel lblNewLabel_2 = new JLabel("Fecha:");
-	private JLabel lbl_fecha = new JLabel("DD/MM/YYYY");
+	public static JLabel lbl_fecha = new JLabel("DD/MM/YYYY");
 	private JLabel lblNewLabel_5 = new JLabel("Hora:");
 	private JLabel lblNewLabel_4 = new JLabel("Mesa:");
 	private JPanel grilla = new JPanel();

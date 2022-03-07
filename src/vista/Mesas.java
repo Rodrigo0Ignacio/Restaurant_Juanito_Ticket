@@ -25,7 +25,9 @@ import javax.swing.border.EmptyBorder;
 import org.bouncycastle.jcajce.provider.asymmetric.ec.SignatureSpi.ecDetDSA512;
 import org.bouncycastle.jcajce.provider.symmetric.CAST5;
 
+import controlador.Calculos;
 import controlador.Color_RGB;
+import controlador.Comanda;
 import controlador.Mesa;
 import groovyjarjarantlr.debug.NewLineEvent;
 import modelo.Consultas;
@@ -57,7 +59,7 @@ public class Mesas extends JFrame {
 	private JP_MenuComidas menuComidas;
 	private JP_MenuHerramientas meHerramientas;
 	private int contadorVentana = 0;
-	
+	private Edicion edicionsql = new Edicion();
 
 	public Mesas() {
 		propiedades();
@@ -65,55 +67,52 @@ public class Mesas extends JFrame {
 		eventos_Mesa_Eleccion();
 		meHerramientas = new JP_MenuHerramientas();
 
-
 		this.addWindowListener(new WindowListener() {
-			
+
 			@Override
 			public void windowOpened(WindowEvent e) {
-				contadorVentana+=1;
-				
-				
+				contadorVentana += 1;
+
 			}
-			
+
 			@Override
 			public void windowIconified(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowDeiconified(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowDeactivated(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowClosing(WindowEvent e) {
 				eleccion.cerrarVentana();
 				setVisible(false);
 				JP_Display.lbl_verificar.setText("");
-				
+
 			}
-			
+
 			@Override
 			public void windowClosed(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowActivated(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
-			
 
 	}
 
@@ -132,7 +131,7 @@ public class Mesas extends JFrame {
 		contentPane.add(panel_mesas, BorderLayout.CENTER);
 		setTitle("Mesas");
 		establecerIcono();
-		
+
 	}
 
 	public void btn_Eventos() {
@@ -151,51 +150,46 @@ public class Mesas extends JFrame {
 
 			if (m.getEstado().equalsIgnoreCase("Disponible")) {
 				btn_mesas.setBackground(colorRGB.rgbColor_verde());
-				
-				if(!JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ")) {
+
+				if (!JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ")) {
 					btn_mesas.setEnabled(false);
 				}
 
 			} else if (m.getEstado().equalsIgnoreCase("Ocupado")) {
 				btn_mesas.setBackground(colorRGB.rgbColor_rojo());
-				
+
 			}
 
 			btn_mesas.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+
 					identificador_btn = e.getActionCommand();
 					identificador_Mesa = extraerNumeros(e.getActionCommand());
 					detecta_btn = (JButton) e.getSource();
 					id_mesa_dinamico = m.getId_mesa();
-					
+
 					if (detecta_btn.getBackground().equals(colorRGB.rgbColor_verde())) {
-						
-					    if(JP_Display.grillaProductos.getRowCount() == 0
-					            && JP_Display.grillaProductos.getSelectedRow() == -1) {
-					        
-					        JOptionPane.showMessageDialog(null, "Ingrese almenos un producto");
-					        
-					        
-					    } else if(JP_Display.lbl_verificar.getText().equalsIgnoreCase("")){
-					                    
-					                    estado_Ocupado();
-					                    JP_Display.lbl_nroMesa.setText("N\u00B0 " + identificador_Mesa);
-					                    JP_Display.estados_Pedidos(1);
-					                    cerrarVentana_mesas();
-					                    JP_Display.lbl_verificar.setText("0");
-					                    
-					                }
-					                
 
-					        } else {
-					            eleccion.setVisible(true);
+						if (JP_Display.grillaProductos.getRowCount() == 0
+								&& JP_Display.grillaProductos.getSelectedRow() == -1) {
 
-					        }
-					
-					
-					
+							JOptionPane.showMessageDialog(null, "Ingrese almenos un producto");
+
+						} else if (JP_Display.lbl_verificar.getText().equalsIgnoreCase("")) {
+
+							estado_Ocupado();
+							JP_Display.lbl_nroMesa.setText("N\u00B0 " + identificador_Mesa);
+							JP_Display.estados_Pedidos(1);
+							cerrarVentana_mesas();
+							JP_Display.lbl_verificar.setText("0");
+
+						}
+
+					} else {
+						eleccion.setVisible(true);
+
+					}
 
 				}
 			});
@@ -239,18 +233,24 @@ public class Mesas extends JFrame {
 
 	}
 
-
 	/* EVENTOS DE BOTON DE LA CLASE MESA_ELECCION */
 	public void eventos_Mesa_Eleccion() {
 
 		eleccion.getBtn_cerrar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				
+				
 					estado_disponible();
 					eleccion.setVisible(false);
 					
 					JP_Display.lbl_nroMesa.setText("N\u00B0 ");
 					cerrarVentana();
+					/*borramos los datos almacenados temporalmente de la bd de la tabla cap_datos*/
+					edicionsql.eliminar_cap_datos(identificador_Mesa);
+					
+					
 
 					/*
 					 * IMPRIME BOLETA FINAL . . .
@@ -265,11 +265,40 @@ public class Mesas extends JFrame {
 		eleccion.getBtn_editar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ArrayList<Comanda> listaComanda = new ArrayList<Comanda>();
+				Calculos cal = new Calculos();
+				
+				String id_comanda = sql.buscar_id_comanda(id_mesa_dinamico);
+				listaComanda = sql.buscar_productos(id_comanda);
+				int nroMesa = 0;
+				
+				/*cargar datos al jtable*/
+				for(int i = 0; i < listaComanda.size() ; i++ ) {
+					JP_Display.modelo.addRow(new Object[] {
+							listaComanda.get(i).getCantidad(),
+							listaComanda.get(i).getPlato(),
+							listaComanda.get(i).getPrecio(),
+							listaComanda.get(i).getImporte(),
+							listaComanda.get(i).getId_comida()
+							});
+					nroMesa = listaComanda.get(i).getMesa();
+						
+				
+				}
+				
+				JP_Display.lbl_nroMesa.setText("N\u00B0 "+nroMesa);
+				cal.establecerValores();
+				
+				
+
+				
+				
 
 			}
 		});
+
 	}
-	
+
 	public void cerrarVentana() {
 		this.setVisible(false);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -283,11 +312,9 @@ public class Mesas extends JFrame {
 		this.identificador_Mesa = identificador_Mesa;
 	}
 
-	
-
 	public void cerrarVentana_mesas() {
 		this.setVisible(false);
-		
+
 	}
 
 	public int getContadorVentana() {
@@ -297,11 +324,5 @@ public class Mesas extends JFrame {
 	public void setContadorVentana(int contadorVentana) {
 		this.contadorVentana = contadorVentana;
 	}
-	
-	
 
-
-	
 }
-
-

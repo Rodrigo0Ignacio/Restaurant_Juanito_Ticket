@@ -1,6 +1,7 @@
 package modelo;
 
 import controlador.Color_RGB;
+import controlador.Comanda;
 import controlador.Comida;
 import controlador.Mesa;
 import controlador.Producto;
@@ -253,5 +254,81 @@ public class Consultas extends Conexion {
 		return total;
 
 	}
+	
+	public String buscar_id_comanda(int mesa) {
 
+		String id_comanda = null;
+
+		try {
+			query = "SELECT * FROM cap_datos where mesa_ref = "+mesa+";";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				id_comanda = rs.getString("comanda_ref");
+
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar BD");
+
+
+		}
+		return id_comanda;
+
+	}
+
+	
+	
+	public ArrayList<Comanda> buscar_productos(String id_comanda) {
+		ArrayList<Comanda> listaComanda = new ArrayList<Comanda>();
+
+
+		try {
+			query = "SELECT * FROM comanda WHERE id_comanda = '"+id_comanda+"';";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				listaComanda.add(new Comanda(
+						rs.getString("id_comanda"),
+						rs.getInt("precio_unitario"),
+						rs.getString("plato"),
+						rs.getInt("cantidad"),
+						rs.getInt("importe"),
+						rs.getInt("fk_comida"),
+						rs.getInt("fk_mesa")));	
+
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar BD");
+
+
+		}
+		return listaComanda;
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
