@@ -50,7 +50,7 @@ public class Cantidad extends JFrame {
 	private int filaExiste = 0;
 
 	Consultas consultas = new Consultas();
-
+ 
 	public Cantidad() {
 		setType(Type.UTILITY);
 
@@ -61,6 +61,8 @@ public class Cantidad extends JFrame {
 		establecerColorFondo();
 		propiedadesBotones();
 		Eventos();
+		
+		 
 
 	}
 
@@ -93,7 +95,7 @@ public class Cantidad extends JFrame {
 
 		panel_abajo.add(btn_aceptar);
 
-	}
+	} 
 
 	public void Eventos() {
 		btn_mas.addActionListener(new ActionListener() {

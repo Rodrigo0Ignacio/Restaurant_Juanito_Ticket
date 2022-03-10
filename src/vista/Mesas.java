@@ -22,14 +22,15 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
-import org.bouncycastle.jcajce.provider.asymmetric.ec.SignatureSpi.ecDetDSA512;
-import org.bouncycastle.jcajce.provider.symmetric.CAST5;
+//import org.bouncycastle.jcajce.provider.asymmetric.ec.SignatureSpi.ecDetDSA512;
+//import org.bouncycastle.jcajce.provider.symmetric.CAST5;
 
 import controlador.Calculos;
 import controlador.Color_RGB;
 import controlador.Comanda;
+import controlador.Comida;
 import controlador.Mesa;
-import groovyjarjarantlr.debug.NewLineEvent;
+//import groovyjarjarantlr.debug.NewLineEvent;
 import modelo.Consultas;
 import modelo.Edicion;
 
@@ -188,6 +189,13 @@ public class Mesas extends JFrame {
 
 					} else {
 						eleccion.setVisible(true);
+						Principal.cont++;
+						
+						if(Principal.cont == 2) {
+							eleccion.getBtn_editar().setEnabled(false);
+							Principal.cont = 0;
+							
+						}
 
 					}
 
@@ -240,8 +248,6 @@ public class Mesas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				
-				
 					estado_disponible();
 					eleccion.setVisible(false);
 					
@@ -266,28 +272,26 @@ public class Mesas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Comanda> listaComanda = new ArrayList<Comanda>();
-				Calculos cal = new Calculos();
 				
+				Calculos cal = new Calculos();
+
 				String id_comanda = sql.buscar_id_comanda(id_mesa_dinamico);
 				listaComanda = sql.buscar_productos(id_comanda);
 				int nroMesa = 0;
+				JP_Display.estados_Pedidos(4);
 				
-				/*cargar datos al jtable*/
-				for(int i = 0; i < listaComanda.size() ; i++ ) {
-					JP_Display.modelo.addRow(new Object[] {
-							listaComanda.get(i).getCantidad(),
-							listaComanda.get(i).getPlato(),
-							listaComanda.get(i).getPrecio(),
-							listaComanda.get(i).getImporte(),
-							listaComanda.get(i).getId_comida()
-							});
-					nroMesa = listaComanda.get(i).getMesa();
-						
-				
+				if(JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
+					
+					JP_Display.lbl_nroMesa.setText("N\u00B0 "+identificador_Mesa);
+					cal.establecerValores();
+					
+					
+					eleccion.cerrarVentana();
+					cerrarVentana();
+	
+					
 				}
 				
-				JP_Display.lbl_nroMesa.setText("N\u00B0 "+nroMesa);
-				cal.establecerValores();
 				
 				
 
@@ -324,5 +328,7 @@ public class Mesas extends JFrame {
 	public void setContadorVentana(int contadorVentana) {
 		this.contadorVentana = contadorVentana;
 	}
+	
+
 
 }

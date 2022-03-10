@@ -45,7 +45,7 @@ public class JP_MenuComidas extends JPanel {
 		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Menu", TitledBorder.LEFT, TitledBorder.TOP,
 				null, null));
 		setLayout(new GridLayout(0, 1, 0, 0));
-
+ 
 		Btn_entradas.setBackground(new Color(113, 142, 164));
 		Btn_principales.setBackground(new Color(113, 142, 164));
 		Btn_acompaniamiento.setBackground(new Color(113, 142, 164));

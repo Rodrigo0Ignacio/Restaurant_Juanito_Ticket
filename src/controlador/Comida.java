@@ -2,6 +2,8 @@ package controlador;
 
 public class Comida {
 	private int id_comida;
+	private int unidad;
+	private int importe;
 	private String categoria;
 	private String nombre;
 	private int precio;
@@ -17,6 +19,17 @@ public class Comida {
 		this.nombre = nombre;
 		this.precio = precio;
 		this.descripcion = descripcion;
+	}
+	
+	
+
+	public Comida(int unidad,String nombre,int precio,int importe,int id_comida) {
+		super();
+		this.id_comida = id_comida;
+		this.unidad = unidad;
+		this.importe = importe;
+		this.nombre = nombre;
+		this.precio = precio;
 	}
 
 	public Comida(int id_comida, String categoria, String nombre, int precio) {

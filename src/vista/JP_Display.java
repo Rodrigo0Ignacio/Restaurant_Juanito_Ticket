@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import org.jfree.chart.block.CenterArrangement;
+//import org.jfree.chart.block.CenterArrangement;
 
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
@@ -42,7 +42,7 @@ public class JP_Display extends JPanel implements Runnable {
 	private JLabel lblNewLabel_2 = new JLabel("Fecha:");
 	public static JLabel lbl_fecha = new JLabel("DD/MM/YYYY");
 	private JLabel lblNewLabel_5 = new JLabel("Hora:");
-	private JLabel lblNewLabel_4 = new JLabel("Mesa:");
+	private JLabel lblNewLabel_4 = new JLabel("Mesa:"); 
 	private JPanel grilla = new JPanel();
 	private JLabel lblNewLabel_8 = new JLabel("TOTAL VENTA:");
 	private JLabel lblNewLabel_9 = new JLabel("PROPINA 10%:");
@@ -219,7 +219,7 @@ public class JP_Display extends JPanel implements Runnable {
 	}
 
 	public static void estados_Pedidos(int index) {
-		String[] estados = { "", "Agregando Mesa", "Agrenado Productos", "Finalizado" };
+		String[] estados = { "", "Agregando Mesa", "Agregando Productos", "Finalizado","Editando" };
 		JP_Display.lbl_estadoMesa.setText(estados[index]);
 
 	}

@@ -18,6 +18,7 @@ public class Principal extends JFrame {
 	JP_MenuHerramientas menuH = new JP_MenuHerramientas();
 	JP_MenuComidas menuC = new JP_MenuComidas();
 	JP_Display display = new JP_Display();
+	public static int cont;
 
 	public static void main(String[] args) {
 		try {
@@ -29,7 +30,7 @@ public class Principal extends JFrame {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Error al iniciar el programa");
 		}
-
+ 
 	}
 
 	public Principal() {
@@ -50,7 +51,7 @@ public class Principal extends JFrame {
 		contentPane.setBackground(new Color(40, 83, 108));
 		menuC.setBackground(new Color(40, 83, 108));
 		menuH.setBackground(new Color(40, 83, 108));
-
+ 
 		contentPane.add(menuH, BorderLayout.NORTH);
 		contentPane.add(menuC, BorderLayout.CENTER);
 		menuC.setLayout(new GridLayout(0, 3, 5, 5));

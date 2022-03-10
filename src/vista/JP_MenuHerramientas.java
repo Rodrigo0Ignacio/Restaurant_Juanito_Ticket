@@ -28,6 +28,7 @@ import controlador.Color_RGB;
 import controlador.Comida;
 import controlador.Fecha;
 import controlador.Ticket;
+import modelo.Consultas;
 import modelo.Edicion;
 import report.Reporte;
 
@@ -54,7 +55,8 @@ public class JP_MenuHerramientas extends JPanel {
 	private String plato = null;
 	private int precio_u = 0;
 	private int total = 0;
-	private int id_mesa = 0;
+	private int id_mesa = 0; 
+	private Consultas sql = new Consultas();
 
 	
 
@@ -77,7 +79,7 @@ public class JP_MenuHerramientas extends JPanel {
 		/* establece el borde */
 		p_herramienta.setForeground(Color.BLACK);
 		p_herramienta.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.DARK_GRAY));
-		p_herramienta.setBackground(Color.GRAY);
+		p_herramienta.setBackground(Color.GRAY); 
 		// p_logo.setBackground(Color.GRAY);
 
 		/* establece color botones */
@@ -138,41 +140,69 @@ public class JP_MenuHerramientas extends JPanel {
 					JOptionPane.showMessageDialog(null, "Ingrese una mesa");
 
 				} else {
-					try {
-						JP_Display.estados_Pedidos(3);
-						/*GUARDAR EN LA BASE DE DATOS
-						 * guarda la comanda en la bd*/
-						String codigoUnico = Codigo_Aleatorio.codigo_alfanumerico_caracter();
-						
-			
-						
-						for(int i = 0 ; i < JP_Display.grillaProductos.getRowCount(); i++) {
+					
+						if(JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
+							String id_comanda = sql.buscar_id_comanda(Mesas.id_mesa_dinamico);
 							
-						 unidad = (int) JP_Display.grillaProductos.getValueAt(i, 0);
-						 plato = (String) JP_Display.grillaProductos.getValueAt(i, 1);
-						 precio_u = (int) JP_Display.grillaProductos.getValueAt(i, 2);
-						 total = (int) JP_Display.grillaProductos.getValueAt(i, 3);
-						 id_mesa = (int) JP_Display.grillaProductos.getValueAt(i, 4);
-						 
-						 /*llenamos la tabla comanda */
-						 edicionsql.insertar_comanda(codigoUnico,
-								 precio_u,fecha.fechaHora_formato2(),
-								 plato, unidad,total, id_mesa,Mesas.identificador_Mesa);
-						
-						}	
-						/*llenamos cap_datos TABLA DE REFERENCIA*/
-						edicionsql.insertar_cap_datos(codigoUnico, Mesas.identificador_Mesa);
-						
+							/*captura los datos de la edicion*/
+							for(int i = 0 ; i < JP_Display.grillaProductos.getRowCount(); i++) {
+								
+								 unidad = (int) JP_Display.grillaProductos.getValueAt(i, 0);
+								 plato = (String) JP_Display.grillaProductos.getValueAt(i, 1);
+								 precio_u = (int) JP_Display.grillaProductos.getValueAt(i, 2);
+								 total = (int) JP_Display.grillaProductos.getValueAt(i, 3);
+								 id_mesa = (int) JP_Display.grillaProductos.getValueAt(i, 4);
+								 
+								 /*llenamos la tabla comanda */
+								 edicionsql.insertar_comanda(id_comanda,
+										 precio_u,fecha.fechaHora_formato2(),
+										 plato, unidad,total, id_mesa,Mesas.identificador_Mesa);
+							}
+							Principal.cont = 0;
+							Mesas.identificador_Mesa = 0;
+							 resetDisplay();
+							
 
-						Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime",
-								"items", "subTotal", "tax", "total", "recibo", "change");
-						ticket.print();
- 
-						resetDisplay();
+							
+						}else {
+							try {
+								//JP_Display.estados_Pedidos(3);
+								/*GUARDAR EN LA BASE DE DATOS
+								 * guarda la comanda en la bd*/
+								String codigoUnico = Codigo_Aleatorio.codigo_alfanumerico_caracter();
 
-					} catch (NullPointerException q) {
-						System.out.print(q);
-					}
+								for(int i = 0 ; i < JP_Display.grillaProductos.getRowCount(); i++) {
+									
+								 unidad = (int) JP_Display.grillaProductos.getValueAt(i, 0);
+								 plato = (String) JP_Display.grillaProductos.getValueAt(i, 1);
+								 precio_u = (int) JP_Display.grillaProductos.getValueAt(i, 2);
+								 total = (int) JP_Display.grillaProductos.getValueAt(i, 3);
+								 id_mesa = (int) JP_Display.grillaProductos.getValueAt(i, 4);
+								 
+								 /*llenamos la tabla comanda */
+								 edicionsql.insertar_comanda(codigoUnico,
+										 precio_u,fecha.fechaHora_formato2(),
+										 plato, unidad,total, id_mesa,Mesas.identificador_Mesa);
+								
+								}	
+								/*llenamos cap_datos TABLA DE REFERENCIA*/
+								edicionsql.insertar_cap_datos(codigoUnico, Mesas.identificador_Mesa);
+								
+
+								Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier", "dateTime",
+										"items", "subTotal", "tax", "total", "recibo", "change");
+								ticket.print();
+								
+								Principal.cont = 0;
+								Mesas.identificador_Mesa = 0;
+								resetDisplay();
+
+							} catch (NullPointerException q) {
+								System.out.print(q);
+							}
+							
+						}
+						
 
 				}
 
@@ -190,7 +220,20 @@ public class JP_MenuHerramientas extends JPanel {
 		borrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				limpiaGUI();
+				if (JP_Display.grillaProductos.getRowCount() == 0 && JP_Display.grillaProductos.getSelectedRow() == -1) {
+	                JOptionPane.showMessageDialog(null, "La tabla esta vacia");
+	                
+	            }else if(Mesas.identificador_Mesa != 0) {
+	            	/*restablecela mesa*/
+	        		Edicion edicion = new Edicion();
+	        		edicion.mesa_Disponibilidad(Mesas.id_mesa_dinamico, Mesas.lista_Disponibilidad[0]);
+	        		resetDisplay();
+	        		
+	        		System.out.println(Mesas.identificador_Mesa);
+	            }else {
+	            	resetDisplay();
+	            }
+				
 			
 				
 			}
@@ -199,16 +242,6 @@ public class JP_MenuHerramientas extends JPanel {
 	
 	}
 	
-	public void limpiaGUI() {
-		resetDisplay();
-		/*restablecela mesa*/
-		Edicion edicion = new Edicion();
-		edicion.mesa_Disponibilidad(Mesas.id_mesa_dinamico, Mesas.lista_Disponibilidad[0]);
-		
-	}
-	
-	
-
 
 
 	public void resetDisplay() {
@@ -217,7 +250,7 @@ public class JP_MenuHerramientas extends JPanel {
 		JP_Display.lbl_propina.setText("$ 0");
 		JP_Display.lbl_totalMasPropina.setText("$ 0");
 		JP_Display.lbl_estadoMesa.setText("");
-		Fr_MenuMesas.txt_displayNumeros.setText("");
+		//Fr_MenuMesas.txt_displayNumeros.setText("");
 		JP_Display.estados_Pedidos(0);
 		
 			/* Elimina las columnas agregadas */
@@ -228,6 +261,7 @@ public class JP_MenuHerramientas extends JPanel {
 		
 	}
 	
+	
 
 	public JButton getMesa() {
 		return mesa;
@@ -236,7 +270,7 @@ public class JP_MenuHerramientas extends JPanel {
 	public void setMesa(JButton mesa) {
 		this.mesa = mesa;
 	}
-
+	
 	
 	
 	
