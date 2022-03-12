@@ -33,10 +33,11 @@ public class Edicion extends Consultas {
 		}
 
 	}
+
 	public boolean insertar_cap_datos(String id_comanda, int mesa) {
 
 		try {
-			super.query = "INSERT INTO cap_datos VALUES(NULL,'"+id_comanda+"',"+mesa+")";
+			super.query = "INSERT INTO cap_datos VALUES(NULL,'" + id_comanda + "'," + mesa + ")";
 
 			super.statement = conectar().createStatement();
 			super.resultado = super.statement.executeUpdate(query);
@@ -54,11 +55,11 @@ public class Edicion extends Consultas {
 		}
 
 	}
-	
+
 	public boolean eliminar_cap_datos(int mesa) {
 
 		try {
-			super.query = "DELETE FROM cap_datos WHERE mesa_ref = "+mesa+";";
+			super.query = "DELETE FROM cap_datos WHERE mesa_ref = " + mesa + ";";
 
 			super.statement = conectar().createStatement();
 			super.resultado = super.statement.executeUpdate(query);
@@ -76,13 +77,13 @@ public class Edicion extends Consultas {
 		}
 
 	}
-	
-	public boolean insertar_comanda(String codigo, int precio_u,String fecha_hora, String plato, int cantidad,
-			int importe,int id_comida, int nro_mesa) {
-		
+
+	public boolean insertar_comanda(String codigo, int precio_u, String fecha_hora, String plato, int cantidad,
+			int importe, int id_comida, int nro_mesa) {
 
 		try {
-			super.query = "INSERT INTO comanda VALUES('"+codigo+"',"+precio_u+",'"+fecha_hora+"','"+plato+"',"+cantidad+","+importe+","+id_comida+","+nro_mesa+");";
+			super.query = "INSERT INTO comanda VALUES('" + codigo + "'," + precio_u + ",'" + fecha_hora + "','" + plato
+					+ "'," + cantidad + "," + importe + "," + id_comida + "," + nro_mesa + ");";
 
 			super.statement = conectar().createStatement();
 			super.resultado = super.statement.executeUpdate(query);
@@ -100,6 +101,5 @@ public class Edicion extends Consultas {
 		}
 
 	}
-	
 
 }

@@ -46,12 +46,14 @@ public class Cantidad extends JFrame {
 	private int incremento = 0;
 	private final JPanel panel_abajo = new JPanel();
 	private final JButton btn_aceptar = new JButton("Aceptar");
+	private boolean estado1 = false;
 
 	private int filaExiste = 0;
 
 	Consultas consultas = new Consultas();
- 
+
 	public Cantidad() {
+		setResizable(false);
 		setType(Type.UTILITY);
 
 		setBounds(100, 100, 405, 242);
@@ -61,8 +63,6 @@ public class Cantidad extends JFrame {
 		establecerColorFondo();
 		propiedadesBotones();
 		Eventos();
-		
-		 
 
 	}
 
@@ -90,12 +90,12 @@ public class Cantidad extends JFrame {
 		panel_abajo.setBorder(new MatteBorder(10, 1, 1, 1, (Color) new Color(195, 200, 208)));
 
 		contentPane.add(panel_abajo, BorderLayout.SOUTH);
-		btn_aceptar.setBackground(new Color(95, 158, 160)); 
+		btn_aceptar.setBackground(new Color(95, 158, 160));
 		btn_aceptar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
 		panel_abajo.add(btn_aceptar);
 
-	} 
+	}
 
 	public void Eventos() {
 		btn_mas.addActionListener(new ActionListener() {
@@ -138,8 +138,6 @@ public class Cantidad extends JFrame {
 						if (!existeProducto(Fr_Comidas.idBoton, 1)) {
 
 							Fr_Comidas.cargarTabla(null, incremento, importe);
-
-							JP_Display.estados_Pedidos(2);
 
 							cerrarVentana();
 							resetCantidad();

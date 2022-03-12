@@ -37,26 +37,26 @@ public class JP_Display extends JPanel implements Runnable {
 	private JPanel titulo = new JPanel();
 	private JPanel subTitulo = new JPanel();
 	private JPanel Fecha_y_Hora = new JPanel();
-	public static JLabel lbl_hra = new JLabel("00:00:00"); 
+	public static JLabel lbl_hra = new JLabel("00:00:00");
 	private Fecha fecha = new Fecha();
 	private JLabel lblNewLabel_2 = new JLabel("Fecha:");
 	public static JLabel lbl_fecha = new JLabel("DD/MM/YYYY");
 	private JLabel lblNewLabel_5 = new JLabel("Hora:");
-	private JLabel lblNewLabel_4 = new JLabel("Mesa:"); 
+	private JLabel lblNewLabel_4 = new JLabel("Mesa:");
 	private JPanel grilla = new JPanel();
 	private JLabel lblNewLabel_8 = new JLabel("TOTAL VENTA:");
 	private JLabel lblNewLabel_9 = new JLabel("PROPINA 10%:");
 	private JLabel lblNewLabel_11 = new JLabel("TOTAL:");
-	
+
 	public static JLabel lbl_verificar = new JLabel("");
-	
+
 	private JPanel totales = new JPanel();
 
 	public static JLabel lbl_nroMesa = new JLabel("N\u00B0 ");
 
-	public static JLabel lbl_propina = new JLabel();
-	public static JLabel lbl_total = new JLabel("$ 0");
-	public static JLabel lbl_totalMasPropina = new JLabel("$ 0");
+	public static JLabel lbl_propina = new JLabel("$ 0 ");
+	public static JLabel lbl_total = new JLabel("$ 0 ");
+	public static JLabel lbl_totalMasPropina = new JLabel("$ 0 ");
 
 	private final JScrollPane scrollPane = new JScrollPane();
 	public static JTable grillaProductos = new JTable();
@@ -66,7 +66,7 @@ public class JP_Display extends JPanel implements Runnable {
 			return false;
 		};
 	};
-	private final JLabel lblNewLabel = new JLabel("Estado");
+	private final JLabel lblNewLabel = new JLabel("Estado:");
 	public static JLabel lbl_estadoMesa = new JLabel("");
 
 	public JP_Display() {
@@ -158,7 +158,6 @@ public class JP_Display extends JPanel implements Runnable {
 
 		lblNewLabel_9.setFont(new Font("Dialog", Font.PLAIN, 20));
 		totales.add(lblNewLabel_9);
-		lbl_propina.setText("$ 0");
 
 		lbl_propina.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_propina.setFont(new Font("Dialog", Font.PLAIN, 20));
@@ -199,17 +198,20 @@ public class JP_Display extends JPanel implements Runnable {
 	protected void establece_anchoColumnas() {
 
 		grillaProductos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		grillaProductos.getColumnModel().getColumn(0).setPreferredWidth(5);
+		grillaProductos.getColumnModel().getColumn(0).setPreferredWidth(55);
+		grillaProductos.getColumnModel().getColumn(0).setMaxWidth(55);
+		grillaProductos.getColumnModel().getColumn(0).setMinWidth(55);
+
 		grillaProductos.getColumnModel().getColumn(1).setPreferredWidth(100);
 		grillaProductos.getColumnModel().getColumn(2).setPreferredWidth(25);
 		grillaProductos.getColumnModel().getColumn(3).setPreferredWidth(10);
-		
-		/*mantiene "oculto" el id*/
+
+		/* mantiene "oculto" el id */
 		grillaProductos.getColumnModel().getColumn(4).setMaxWidth(0);
 		grillaProductos.getColumnModel().getColumn(4).setMinWidth(0);
 		grillaProductos.getColumnModel().getColumn(4).setPreferredWidth(0);
 
-	} 
+	}
 
 	public void centrar_datos(int col) {
 		DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
@@ -219,7 +221,7 @@ public class JP_Display extends JPanel implements Runnable {
 	}
 
 	public static void estados_Pedidos(int index) {
-		String[] estados = { "", "Agregando Mesa", "Agregando Productos", "Finalizado","Editando" };
+		String[] estados = { "", "Agregando Mesa", "Agregando Productos", "Finalizado", "Editando" };
 		JP_Display.lbl_estadoMesa.setText(estados[index]);
 
 	}

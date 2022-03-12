@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -21,8 +22,10 @@ public class Mesa_Eleccion extends JFrame {
 	private JPanel contentPane;
 	private JButton btn_cerrar = new JButton("Cerrar");
 	private JButton btn_editar = new JButton("Editar");
+	public static String opcionEditar = null;
 
 	public Mesa_Eleccion() {
+		setResizable(false);
 
 		propiedades();
 		propiedades_btn();
@@ -32,10 +35,10 @@ public class Mesa_Eleccion extends JFrame {
 
 	protected void propiedades() {
 		setType(Type.UTILITY);
-		setResizable(false);
 		setBounds(100, 100, 635, 159);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(214, 234, 248));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 10));
@@ -46,6 +49,9 @@ public class Mesa_Eleccion extends JFrame {
 	private void propiedades_btn() {
 		btn_cerrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btn_editar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+
+		btn_cerrar.setBackground(new Color(98, 162, 186));
+		btn_editar.setBackground(new Color(98, 162, 186));
 
 		btn_cerrar.setPreferredSize(new Dimension(200, 80));
 		btn_editar.setPreferredSize(new Dimension(200, 80));
@@ -62,7 +68,7 @@ public class Mesa_Eleccion extends JFrame {
 	}
 
 	public void setBtn_cerrar(JButton btn_cerrar) {
-		this.btn_cerrar = btn_cerrar; 
+		this.btn_cerrar = btn_cerrar;
 	}
 
 	public JButton getBtn_editar() {

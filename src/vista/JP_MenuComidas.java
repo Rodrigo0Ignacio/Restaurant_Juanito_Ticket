@@ -45,7 +45,7 @@ public class JP_MenuComidas extends JPanel {
 		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Menu", TitledBorder.LEFT, TitledBorder.TOP,
 				null, null));
 		setLayout(new GridLayout(0, 1, 0, 0));
- 
+
 		Btn_entradas.setBackground(new Color(113, 142, 164));
 		Btn_principales.setBackground(new Color(113, 142, 164));
 		Btn_acompaniamiento.setBackground(new Color(113, 142, 164));
@@ -62,7 +62,7 @@ public class JP_MenuComidas extends JPanel {
 		Btn_entradas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				consulta = "Entradas";
-
+				JP_Display.estados_Pedidos(2);
 				subMenuComidas.setVisible(true);
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
@@ -85,7 +85,7 @@ public class JP_MenuComidas extends JPanel {
 				 */
 
 				consulta = "Principales";
-
+				JP_Display.estados_Pedidos(2);
 				subMenuComidas.setVisible(true);
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
@@ -100,11 +100,12 @@ public class JP_MenuComidas extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				consulta = "Acompañamiento";
-
+				JP_Display.estados_Pedidos(2);
 				subMenuComidas.setVisible(true);
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
 				subMenuComidas.lbl_titulo.setText(consulta);
+
 			}
 		});
 
@@ -114,11 +115,12 @@ public class JP_MenuComidas extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				consulta = "Bebidas";
-
+				JP_Display.estados_Pedidos(2);
 				subMenuComidas.setVisible(true);
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
 				subMenuComidas.lbl_titulo.setText(consulta);
+
 			}
 		});
 
@@ -127,7 +129,7 @@ public class JP_MenuComidas extends JPanel {
 		Btn_salsas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				consulta = "Salsas";
-
+				JP_Display.estados_Pedidos(2);
 				subMenuComidas.setVisible(true);
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
@@ -141,7 +143,7 @@ public class JP_MenuComidas extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				consulta = "Aperitivos";
-
+				JP_Display.estados_Pedidos(2);
 				subMenuComidas.setVisible(true);
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
@@ -155,11 +157,12 @@ public class JP_MenuComidas extends JPanel {
 		Btn_postres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				consulta = "Postres";
-
+				JP_Display.estados_Pedidos(2);
 				subMenuComidas.setVisible(true);
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
 				subMenuComidas.lbl_titulo.setText(consulta);
+
 			}
 		});
 
@@ -169,7 +172,7 @@ public class JP_MenuComidas extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				consulta = "Bebidas Calientes";
-
+				JP_Display.estados_Pedidos(2);
 				subMenuComidas.setVisible(true);
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
@@ -182,12 +185,12 @@ public class JP_MenuComidas extends JPanel {
 		Btn_Sandwich.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				consulta = "Sandwich";
-
+				JP_Display.estados_Pedidos(2);
 				subMenuComidas.setVisible(true);
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
 				subMenuComidas.lbl_titulo.setText(consulta);
-				// Fr_Comidas.existePlato();
+
 			}
 		});
 		Btn_empanadas.setFont(new Font("Tahoma", Font.BOLD, 24));
@@ -196,11 +199,11 @@ public class JP_MenuComidas extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				consulta = "Empanadas";
+				JP_Display.estados_Pedidos(2);
 				subMenuComidas.setVisible(true);
 				subMenuComidas.consultas(consulta);
 				subMenuComidas.setTitle(consulta);
 				subMenuComidas.lbl_titulo.setText(consulta);
-				// Fr_Comidas.existePlato();
 
 			}
 		});

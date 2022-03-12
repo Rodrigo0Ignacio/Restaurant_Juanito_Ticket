@@ -20,10 +20,8 @@ public class Comida {
 		this.precio = precio;
 		this.descripcion = descripcion;
 	}
-	
-	
 
-	public Comida(int unidad,String nombre,int precio,int importe,int id_comida) {
+	public Comida(int unidad, String nombre, int precio, int importe, int id_comida) {
 		super();
 		this.id_comida = id_comida;
 		this.unidad = unidad;

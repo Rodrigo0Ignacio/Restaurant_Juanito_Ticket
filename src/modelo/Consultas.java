@@ -232,12 +232,13 @@ public class Consultas extends Conexion {
 		return lista;
 
 	}
+
 	public int contrar_mesas(String parm1) {
 
 		int total = 0;
 
 		try {
-			query = "SELECT COUNT(*) as total FROM mesa WHERE estado = '"+parm1+"';";
+			query = "SELECT COUNT(*) as total FROM mesa WHERE estado = '" + parm1 + "';";
 			statement = (Statement) conectar().prepareStatement(query);
 			rs = statement.executeQuery(query);
 
@@ -254,13 +255,13 @@ public class Consultas extends Conexion {
 		return total;
 
 	}
-	
+
 	public String buscar_id_comanda(int mesa) {
 
 		String id_comanda = null;
 
 		try {
-			query = "SELECT * FROM cap_datos where mesa_ref = "+mesa+";";
+			query = "SELECT * FROM cap_datos where mesa_ref = " + mesa + ";";
 
 			statement = (Statement) conectar().prepareStatement(query);
 			rs = statement.executeQuery(query);
@@ -274,33 +275,24 @@ public class Consultas extends Conexion {
 		} catch (SQLException W) {
 			JOptionPane.showMessageDialog(null, "Error al ejecutar BD");
 
-
 		}
 		return id_comanda;
 
 	}
 
-	
-	
 	public ArrayList<Comanda> buscar_productos(String id_comanda) {
 		ArrayList<Comanda> listaComanda = new ArrayList<Comanda>();
 
-
 		try {
-			query = "SELECT * FROM comanda WHERE id_comanda = '"+id_comanda+"';";
+			query = "SELECT * FROM comanda WHERE id_comanda = '" + id_comanda + "';";
 
 			statement = (Statement) conectar().prepareStatement(query);
 			rs = statement.executeQuery(query);
 
 			while (rs.next()) {
-				listaComanda.add(new Comanda(
-						rs.getString("id_comanda"),
-						rs.getInt("precio_unitario"),
-						rs.getString("plato"),
-						rs.getInt("cantidad"),
-						rs.getInt("importe"),
-						rs.getInt("fk_comida"),
-						rs.getInt("fk_mesa")));	
+				listaComanda.add(new Comanda(rs.getString("id_comanda"), rs.getInt("precio_unitario"),
+						rs.getString("plato"), rs.getInt("cantidad"), rs.getInt("importe"), rs.getInt("fk_comida"),
+						rs.getInt("fk_mesa")));
 
 			}
 			desconectar();
@@ -308,27 +300,9 @@ public class Consultas extends Conexion {
 		} catch (SQLException W) {
 			JOptionPane.showMessageDialog(null, "Error al ejecutar BD");
 
-
 		}
 		return listaComanda;
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

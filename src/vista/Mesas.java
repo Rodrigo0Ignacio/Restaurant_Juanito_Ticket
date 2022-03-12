@@ -61,6 +61,7 @@ public class Mesas extends JFrame {
 	private JP_MenuHerramientas meHerramientas;
 	private int contadorVentana = 0;
 	private Edicion edicionsql = new Edicion();
+	public boolean estadobtn = false;
 
 	public Mesas() {
 		propiedades();
@@ -125,6 +126,12 @@ public class Mesas extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		/* pintar paneles */
+		this.setBackground(new Color(214, 234, 248));
+		contentPane.setBackground(new Color(214, 234, 248));
+		panel_cabecera.setBackground(new Color(214, 234, 248));
+		panel_mesas.setBackground(new Color(214, 234, 248));
+		/* =================================================== */
 		contentPane.add(panel_cabecera, BorderLayout.NORTH);
 		FlowLayout flowLayout = (FlowLayout) panel_mesas.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
@@ -154,6 +161,7 @@ public class Mesas extends JFrame {
 
 				if (!JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ")) {
 					btn_mesas.setEnabled(false);
+					estadobtn = true;
 				}
 
 			} else if (m.getEstado().equalsIgnoreCase("Ocupado")) {
@@ -188,13 +196,11 @@ public class Mesas extends JFrame {
 						}
 
 					} else {
-						eleccion.setVisible(true);
-						Principal.cont++;
-						
-						if(Principal.cont == 2) {
-							eleccion.getBtn_editar().setEnabled(false);
-							Principal.cont = 0;
-							
+						if (estadobtn) {
+							JOptionPane.showMessageDialog(null, "Por favor finalice la orden ");
+
+						} else {
+							eleccion.setVisible(true);
 						}
 
 					}
@@ -212,7 +218,7 @@ public class Mesas extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Mesas.class.getResource("/img/cuchilleria.png")));
 	}
 
-	public int extraerNumeros(String frase) {
+	public static int extraerNumeros(String frase) {
 		char[] cadena = frase.toCharArray();
 		String nros = "";
 
@@ -247,24 +253,21 @@ public class Mesas extends JFrame {
 		eleccion.getBtn_cerrar().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-					estado_disponible();
-					eleccion.setVisible(false);
-					
-					JP_Display.lbl_nroMesa.setText("N\u00B0 ");
-					cerrarVentana();
-					/*borramos los datos almacenados temporalmente de la bd de la tabla cap_datos*/
-					edicionsql.eliminar_cap_datos(identificador_Mesa);
-					
-					
 
-					/*
-					 * IMPRIME BOLETA FINAL . . .
-					 */
-					meHerramientas.resetDisplay();
-					
-				
-				
+				estado_disponible();
+				eleccion.setVisible(false);
+
+				JP_Display.lbl_nroMesa.setText("N\u00B0 ");
+				cerrarVentana();
+				/*
+				 * borramos los datos almacenados temporalmente de la bd de la tabla cap_datos
+				 */
+				edicionsql.eliminar_cap_datos(identificador_Mesa);
+
+				/*
+				 * IMPRIME BOLETA FINAL . . .
+				 */
+				meHerramientas.resetDisplay();
 
 			}
 		});
@@ -272,31 +275,26 @@ public class Mesas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Comanda> listaComanda = new ArrayList<Comanda>();
-				
 				Calculos cal = new Calculos();
+				Principal.editando = true;
 
 				String id_comanda = sql.buscar_id_comanda(id_mesa_dinamico);
 				listaComanda = sql.buscar_productos(id_comanda);
 				int nroMesa = 0;
+				Mesa_Eleccion.opcionEditar = "Editando";
 				JP_Display.estados_Pedidos(4);
-				
-				if(JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
-					
-					JP_Display.lbl_nroMesa.setText("N\u00B0 "+identificador_Mesa);
+
+				meHerramientas.resetDisplay_borrar();
+
+				if (JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
+
+					JP_Display.lbl_nroMesa.setText("N\u00B0 " + identificador_Mesa);
 					cal.establecerValores();
-					
-					
+
 					eleccion.cerrarVentana();
 					cerrarVentana();
-	
-					
-				}
-				
-				
-				
 
-				
-				
+				}
 
 			}
 		});
@@ -328,7 +326,5 @@ public class Mesas extends JFrame {
 	public void setContadorVentana(int contadorVentana) {
 		this.contadorVentana = contadorVentana;
 	}
-	
-
 
 }

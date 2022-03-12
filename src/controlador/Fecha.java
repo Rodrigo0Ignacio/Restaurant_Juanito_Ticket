@@ -19,19 +19,19 @@ public class Fecha {
 
 		return formatoFecha.format(fecha);
 	}
+
 	public String fechaActual_formato2() {
 		Date fecha = new Date();
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("YYYY-MM-dd");
 
 		return formatoFecha.format(fecha);
 	}
-	
+
 	public String fechaHora_formato2() {
-		String fecha_hora = fechaActual_formato2()+" "+horaActual();
-		
+		String fecha_hora = fechaActual_formato2() + " " + horaActual();
+
 		return fecha_hora;
 	}
-	
 
 	public String horaActual() {
 		Calendar calendario = new GregorianCalendar();

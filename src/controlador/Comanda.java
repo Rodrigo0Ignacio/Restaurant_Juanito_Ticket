@@ -10,7 +10,7 @@ public class Comanda {
 	private int id_comida;
 	private int mesa;
 
-	public Comanda(String id, int precio, String plato, int cantidad,int importe, int id_comida, int mesa) {
+	public Comanda(String id, int precio, String plato, int cantidad, int importe, int id_comida, int mesa) {
 		this.id = id;
 		this.precio = precio;
 		this.plato = plato;
@@ -79,6 +79,5 @@ public class Comanda {
 	public void setImporte(int importe) {
 		this.importe = importe;
 	}
-	
 
 }
