@@ -35,7 +35,12 @@ public class Principal extends JFrame {
 	}
 
 	public Principal() {
+		propiedades();
 
+
+	}
+	
+	protected void propiedades() {
 		cerrarVentana();
 		setTitle("Restaurant Juanito");
 		setBounds(100, 100, 900, 600);
@@ -60,8 +65,6 @@ public class Principal extends JFrame {
 
 		contentPane.add(display, BorderLayout.WEST);
 
-		/* CerrarPrograma(); */
-
 	}
 
 	public void cerrarVentana() {
@@ -78,6 +81,7 @@ public class Principal extends JFrame {
 			e.printStackTrace();
 		}
 	}
+	
 
 	protected void confirmarSalida() {
 		int valor = JOptionPane.showConfirmDialog(this, "¿Está seguro de cerrar el programa?", "advertencia",

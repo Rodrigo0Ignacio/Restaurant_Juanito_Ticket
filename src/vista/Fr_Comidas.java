@@ -57,7 +57,7 @@ public class Fr_Comidas extends JFrame {
 	public static ArrayList<Comida> atributosComida = new ArrayList<Comida>();
 	private ArrayList<String> indice = new ArrayList<String>();
 
-	JPanel pn_dinamicos = new JPanel();
+	public JPanel pn_dinamicos = new JPanel();
 	JPanel panel = new JPanel();
 	public static JLabel lbl_titulo = new JLabel("");
 

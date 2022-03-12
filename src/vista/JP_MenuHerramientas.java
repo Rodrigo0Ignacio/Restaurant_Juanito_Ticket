@@ -57,6 +57,7 @@ public class JP_MenuHerramientas extends JPanel {
 	private int id_mesa = 0;
 	private Consultas sql = new Consultas();
 	private JButton cancelar = new JButton("Cancelar operacion");
+	private Consultas consultassql = new Consultas();
 
 	public JP_MenuHerramientas() {
 
@@ -237,6 +238,28 @@ public class JP_MenuHerramientas extends JPanel {
 
 			}
 		});
+		
+		cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(Principal.editando) {
+					resetDisplay_cancelar();
+					JOptionPane.showMessageDialog(null, "Estado Editando cancelado");
+					
+				}else if(JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Agregando Mesa")
+						|| JP_Display.estadoMesas.getText().equalsIgnoreCase("Agregando Mesa")) {
+					
+					JP_Display.estadoMesas.setText("");
+					resetDisplay_cancelar();
+					edicionsql.mesa_Disponibilidad(Mesas.identificador_Mesa,"Disponible");
+					JOptionPane.showMessageDialog(null, "orden cancelada");
+					
+					
+				}
+	
+				
+			}
+		});
 
 	}
 
@@ -247,6 +270,17 @@ public class JP_MenuHerramientas extends JPanel {
 		JP_Display.lbl_totalMasPropina.setText("$ 0 ");
 		JP_Display.lbl_estadoMesa.setText("");
 		// Fr_MenuMesas.txt_displayNumeros.setText("");
+		JP_Display.estados_Pedidos(0);
+
+		limpiarTabla();
+
+	}
+	public void resetDisplay_cancelar() {
+		JP_Display.lbl_nroMesa.setText("N\u00B0 ");
+		JP_Display.lbl_total.setText("$ 0 ");
+		JP_Display.lbl_propina.setText("$ 0 ");
+		JP_Display.lbl_totalMasPropina.setText("$ 0 ");
+		JP_Display.lbl_estadoMesa.setText("");
 		JP_Display.estados_Pedidos(0);
 
 		limpiarTabla();
@@ -276,5 +310,15 @@ public class JP_MenuHerramientas extends JPanel {
 	public void setMesa(JButton mesa) {
 		this.mesa = mesa;
 	}
+
+	public JButton getCancelar() {
+		return cancelar;
+	}
+
+	public void setCancelar(JButton cancelar) {
+		this.cancelar = cancelar;
+	}
+	
+	
 
 }

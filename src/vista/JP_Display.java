@@ -47,6 +47,7 @@ public class JP_Display extends JPanel implements Runnable {
 	private JLabel lblNewLabel_8 = new JLabel("TOTAL VENTA:");
 	private JLabel lblNewLabel_9 = new JLabel("PROPINA 10%:");
 	private JLabel lblNewLabel_11 = new JLabel("TOTAL:");
+	public static JLabel estadoMesas = new JLabel();
 
 	public static JLabel lbl_verificar = new JLabel("");
 

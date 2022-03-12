@@ -279,6 +279,61 @@ public class Consultas extends Conexion {
 		return id_comanda;
 
 	}
+	
+	public boolean buscar_id_comanda_restriccion(int mesa) {
+
+		boolean id_comanda = false;
+
+		try {
+			query = "SELECT * FROM cap_datos where mesa_ref = " + mesa + ";";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				id_comanda = rs.next();
+
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar BD");
+
+		}
+		return id_comanda;
+
+	}
+	
+	public String buscar_estado_mesa(int mesa) {
+
+		String estado = null;
+
+		try {
+			query = "select estado from mesa WHERE id_mesa = "+mesa+";";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				
+				if(rs.getString("estado").equalsIgnoreCase("Disponible")) {
+					estado = "Disponible";
+
+				}else if(rs.getString("estado").equalsIgnoreCase("Ocupado")) {
+					estado = "Ocupado";
+					
+				}
+
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar BD");
+
+		}
+		return estado;
+
+	}
 
 	public ArrayList<Comanda> buscar_productos(String id_comanda) {
 		ArrayList<Comanda> listaComanda = new ArrayList<Comanda>();

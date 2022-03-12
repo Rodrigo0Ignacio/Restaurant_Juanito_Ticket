@@ -190,6 +190,8 @@ public class Mesas extends JFrame {
 							estado_Ocupado();
 							JP_Display.lbl_nroMesa.setText("N\u00B0 " + identificador_Mesa);
 							JP_Display.estados_Pedidos(1);
+							JP_Display.estadoMesas.setText("Agregando Mesa");
+							
 							cerrarVentana_mesas();
 							JP_Display.lbl_verificar.setText("0");
 
@@ -277,7 +279,7 @@ public class Mesas extends JFrame {
 				ArrayList<Comanda> listaComanda = new ArrayList<Comanda>();
 				Calculos cal = new Calculos();
 				Principal.editando = true;
-
+				
 				String id_comanda = sql.buscar_id_comanda(id_mesa_dinamico);
 				listaComanda = sql.buscar_productos(id_comanda);
 				int nroMesa = 0;
@@ -293,6 +295,7 @@ public class Mesas extends JFrame {
 
 					eleccion.cerrarVentana();
 					cerrarVentana();
+					
 
 				}
 

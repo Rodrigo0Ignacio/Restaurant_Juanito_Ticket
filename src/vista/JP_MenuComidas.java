@@ -34,176 +34,131 @@ public class JP_MenuComidas extends JPanel {
 	private JButton Btn_postres = new JButton("Postres");
 	private JButton Btn_bCalientes = new JButton("Bebidas calientes");
 	private int indice = 0;
-	Fr_Comidas subMenuComidas = new Fr_Comidas();
+	Fr_Comidas subMenuComidas;
 
 	private JButton Btn_Sandwich = new JButton("Sandwich");
 	private JButton Btn_empanadas = new JButton("Empanadas");
 	private String consulta = null;
 
 	public JP_MenuComidas() {
+		subMenuComidas = new Fr_Comidas();
+		
+		propiedades();
+		propiedades_elementos();
+		eventos_botones();
+		eventos_raton();
+
+		add(Btn_bCalientes);
+		add(Btn_salsas);
+		add(Btn_Sandwich);
+		add(Btn_empanadas);
+		add(Btn_entradas);
+		add(Btn_principales);
+		add(Btn_acompaniamiento);
+		add(Btn_bebidas);
+		add(Btn_aperitivos);
+		add(Btn_postres);
+
+	}
+	protected void propiedades() {
 		setBackground(Color.GRAY);
 		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Menu", TitledBorder.LEFT, TitledBorder.TOP,
 				null, null));
 		setLayout(new GridLayout(0, 1, 0, 0));
-
-		Btn_entradas.setBackground(new Color(113, 142, 164));
-		Btn_principales.setBackground(new Color(113, 142, 164));
-		Btn_acompaniamiento.setBackground(new Color(113, 142, 164));
-		Btn_bebidas.setBackground(new Color(113, 142, 164));
-		Btn_salsas.setBackground(new Color(113, 142, 164));
-		Btn_aperitivos.setBackground(new Color(113, 142, 164));
-		Btn_postres.setBackground(new Color(113, 142, 164));
-		Btn_bCalientes.setBackground(new Color(113, 142, 164));
-		Btn_Sandwich.setBackground(new Color(113, 142, 164));
-		Btn_empanadas.setBackground(new Color(113, 142, 164));
-
-		Btn_entradas.setFont(new Font("Tahoma", Font.BOLD, 24));
-
+	}
+	
+	private void eventos_botones() {
 		Btn_entradas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consulta = "Entradas";
-				JP_Display.estados_Pedidos(2);
-				subMenuComidas.setVisible(true);
-				subMenuComidas.consultas(consulta);
-				subMenuComidas.setTitle(consulta);
-				subMenuComidas.lbl_titulo.setText(consulta);
+				
+				propiedades_instancia("Entradas");
 
 			}
 		});
 
-		add(Btn_entradas);
-		Btn_principales.setFont(new Font("Tahoma", Font.BOLD, 24));
+		
+		
 		Btn_principales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				/*
-				 * // PRUEBA DE METODOS DE LA CLASE CONSULTAS Mesa mesas = new Mesa(); Consultas
-				 * con = new Consultas();
-				 * 
-				 * for(Mesa m : con.obtenerMesa()) {
-				 * System.out.println(m.getId_mesa()+" "+" "+m.getEstado()); }
-				 */
-
-				consulta = "Principales";
-				JP_Display.estados_Pedidos(2);
-				subMenuComidas.setVisible(true);
-				subMenuComidas.consultas(consulta);
-				subMenuComidas.setTitle(consulta);
-				subMenuComidas.lbl_titulo.setText(consulta);
-
+				propiedades_instancia("Principales");
+				
 			}
 		});
 
-		add(Btn_principales);
-		Btn_acompaniamiento.setFont(new Font("Tahoma", Font.BOLD, 24));
+		
+		
 		Btn_acompaniamiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				consulta = "Acompañamiento";
-				JP_Display.estados_Pedidos(2);
-				subMenuComidas.setVisible(true);
-				subMenuComidas.consultas(consulta);
-				subMenuComidas.setTitle(consulta);
-				subMenuComidas.lbl_titulo.setText(consulta);
+				propiedades_instancia("Acompañamiento");
 
 			}
 		});
 
-		add(Btn_acompaniamiento);
-		Btn_bebidas.setFont(new Font("Tahoma", Font.BOLD, 24));
+		
+		
 		Btn_bebidas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				consulta = "Bebidas";
-				JP_Display.estados_Pedidos(2);
-				subMenuComidas.setVisible(true);
-				subMenuComidas.consultas(consulta);
-				subMenuComidas.setTitle(consulta);
-				subMenuComidas.lbl_titulo.setText(consulta);
+                
+				propiedades_instancia("Bebidas");
 
 			}
 		});
 
-		add(Btn_bebidas);
-		Btn_salsas.setFont(new Font("Tahoma", Font.BOLD, 24));
+		
+		
 		Btn_salsas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consulta = "Salsas";
-				JP_Display.estados_Pedidos(2);
-				subMenuComidas.setVisible(true);
-				subMenuComidas.consultas(consulta);
-				subMenuComidas.setTitle(consulta);
-				subMenuComidas.lbl_titulo.setText(consulta);
+				
+				propiedades_instancia("Salsas");
 
 			}
 		});
-		add(Btn_salsas);
-		Btn_aperitivos.setFont(new Font("Tahoma", Font.BOLD, 24));
+		
+		
 		Btn_aperitivos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				consulta = "Aperitivos";
-				JP_Display.estados_Pedidos(2);
-				subMenuComidas.setVisible(true);
-				subMenuComidas.consultas(consulta);
-				subMenuComidas.setTitle(consulta);
-				subMenuComidas.lbl_titulo.setText(consulta);
+					
+				propiedades_instancia("Aperitivos");
 
 			}
 		});
 
-		add(Btn_aperitivos);
-		Btn_postres.setFont(new Font("Tahoma", Font.BOLD, 24));
+		
+		
 		Btn_postres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consulta = "Postres";
-				JP_Display.estados_Pedidos(2);
-				subMenuComidas.setVisible(true);
-				subMenuComidas.consultas(consulta);
-				subMenuComidas.setTitle(consulta);
-				subMenuComidas.lbl_titulo.setText(consulta);
+				
+				propiedades_instancia("Postres");
 
 			}
 		});
 
-		add(Btn_postres);
-		Btn_bCalientes.setFont(new Font("Tahoma", Font.BOLD, 24));
+		
+		
 		Btn_bCalientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				consulta = "Bebidas Calientes";
-				JP_Display.estados_Pedidos(2);
-				subMenuComidas.setVisible(true);
-				subMenuComidas.consultas(consulta);
-				subMenuComidas.setTitle(consulta);
-				subMenuComidas.lbl_titulo.setText(consulta);
+				
+				propiedades_instancia("Bebidas Calientes");
 
 			}
 		});
 
-		Btn_Sandwich.setFont(new Font("Tahoma", Font.BOLD, 24));
+		
 		Btn_Sandwich.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consulta = "Sandwich";
-				JP_Display.estados_Pedidos(2);
-				subMenuComidas.setVisible(true);
-				subMenuComidas.consultas(consulta);
-				subMenuComidas.setTitle(consulta);
-				subMenuComidas.lbl_titulo.setText(consulta);
+
+				propiedades_instancia("Sandwich");
 
 			}
 		});
-		Btn_empanadas.setFont(new Font("Tahoma", Font.BOLD, 24));
+		
 
 		Btn_empanadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				consulta = "Empanadas";
-				JP_Display.estados_Pedidos(2);
-				subMenuComidas.setVisible(true);
-				subMenuComidas.consultas(consulta);
-				subMenuComidas.setTitle(consulta);
-				subMenuComidas.lbl_titulo.setText(consulta);
+				propiedades_instancia("Empanadas");
 
 			}
 		});
@@ -249,6 +204,10 @@ public class JP_MenuComidas extends JPanel {
 			}
 		});
 
+	}
+
+	
+    private void eventos_raton() {
 		Btn_bebidas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -342,13 +301,6 @@ public class JP_MenuComidas extends JPanel {
 				Btn_empanadas.setBackground(new Color(113, 142, 164));
 			}
 		});
-
-		add(Btn_bCalientes);
-		add(Btn_salsas);
-		add(Btn_salsas);
-		add(Btn_Sandwich);
-		add(Btn_empanadas);
-
 	}
 
 	public void estado_botones(boolean activa) {
@@ -362,6 +314,41 @@ public class JP_MenuComidas extends JPanel {
 		Btn_bCalientes.setEnabled(activa);
 		Btn_Sandwich.setEnabled(activa);
 		Btn_empanadas.setEnabled(activa);
+	}
+	
+	private void propiedades_instancia(String con) {
+		subMenuComidas.pn_dinamicos.updateUI();
+		subMenuComidas.pn_dinamicos.removeAll();
+		JP_Display.estados_Pedidos(2);
+		subMenuComidas.setVisible(true);
+		subMenuComidas.consultas(con);
+		subMenuComidas.setTitle(con);
+		subMenuComidas.lbl_titulo.setText(con);
+	}
+	
+	private void propiedades_elementos() {
+		Btn_entradas.setBackground(new Color(113, 142, 164));
+		Btn_principales.setBackground(new Color(113, 142, 164));
+		Btn_acompaniamiento.setBackground(new Color(113, 142, 164));
+		Btn_bebidas.setBackground(new Color(113, 142, 164));
+		Btn_salsas.setBackground(new Color(113, 142, 164));
+		Btn_aperitivos.setBackground(new Color(113, 142, 164));
+		Btn_postres.setBackground(new Color(113, 142, 164));
+		Btn_bCalientes.setBackground(new Color(113, 142, 164));
+		Btn_Sandwich.setBackground(new Color(113, 142, 164));
+		Btn_empanadas.setBackground(new Color(113, 142, 164));
+
+		Btn_entradas.setFont(new Font("Tahoma", Font.BOLD, 24));
+		Btn_principales.setFont(new Font("Tahoma", Font.BOLD, 24));
+		Btn_acompaniamiento.setFont(new Font("Tahoma", Font.BOLD, 24));
+		Btn_bebidas.setFont(new Font("Tahoma", Font.BOLD, 24));
+		Btn_salsas.setFont(new Font("Tahoma", Font.BOLD, 24));
+		Btn_aperitivos.setFont(new Font("Tahoma", Font.BOLD, 24));
+		Btn_postres.setFont(new Font("Tahoma", Font.BOLD, 24));
+		Btn_bCalientes.setFont(new Font("Tahoma", Font.BOLD, 24));
+		Btn_Sandwich.setFont(new Font("Tahoma", Font.BOLD, 24));
+		Btn_empanadas.setFont(new Font("Tahoma", Font.BOLD, 24));
+		
 	}
 
 }
