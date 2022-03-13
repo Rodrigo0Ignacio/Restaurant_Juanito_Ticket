@@ -67,7 +67,7 @@ public class JP_Display extends JPanel implements Runnable {
 			return false;
 		};
 	};
-	private final JLabel lblNewLabel = new JLabel("Estado:");
+	private final JLabel estado2 = new JLabel("Estado:");
 	public static JLabel lbl_estadoMesa = new JLabel("");
 
 	public JP_Display() {
@@ -127,12 +127,12 @@ public class JP_Display extends JPanel implements Runnable {
 
 		lbl_nroMesa.setFont(new Font("Dialog", Font.PLAIN, 18));
 		Fecha_y_Hora.add(lbl_nroMesa);
-		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+		estado2.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-		Fecha_y_Hora.add(lblNewLabel);
+		//Fecha_y_Hora.add(estado2);
 		lbl_estadoMesa.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-		Fecha_y_Hora.add(lbl_estadoMesa);
+		//Fecha_y_Hora.add(lbl_estadoMesa);
 		Fecha_y_Hora.updateUI();
 
 		grilla.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -225,6 +225,12 @@ public class JP_Display extends JPanel implements Runnable {
 		String[] estados = { "", "Agregando Mesa", "Agregando Productos", "Finalizado", "Editando" };
 		JP_Display.lbl_estadoMesa.setText(estados[index]);
 
+	}
+	
+	public void ocultar_estado_informacion() {
+		lbl_estadoMesa.setVisible(false);
+		estado2.setVisible(false);
+		
 	}
 
 }

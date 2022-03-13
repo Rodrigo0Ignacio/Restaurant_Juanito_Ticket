@@ -56,8 +56,9 @@ public class JP_MenuHerramientas extends JPanel {
 	private int total = 0;
 	private int id_mesa = 0;
 	private Consultas sql = new Consultas();
-	private JButton cancelar = new JButton("Cancelar operacion");
+	private JButton cancelar = new JButton("Cancelar");
 	private Consultas consultassql = new Consultas();
+	private Mesa_Eleccion meleccion = new Mesa_Eleccion();
 
 	public JP_MenuHerramientas() {
 
@@ -148,7 +149,8 @@ public class JP_MenuHerramientas extends JPanel {
 
 				} else {
 
-					if (Principal.editando) {
+					if (JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
+						
 						String id_comanda = sql.buscar_id_comanda(Mesas.id_mesa_dinamico);
 
 						unidad = 0;
@@ -174,7 +176,7 @@ public class JP_MenuHerramientas extends JPanel {
 						Principal.editando = false;
 						resetDisplay();
 
-					} else {
+					} else if(JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Agregando Mesa")) {
 						try {
 							// JP_Display.estados_Pedidos(3);
 							/*
@@ -205,6 +207,7 @@ public class JP_MenuHerramientas extends JPanel {
 							Principal.cont = 0;
 							Mesas.identificador_Mesa = 0;
 							resetDisplay();
+							JP_Display.estados_Pedidos(0);
 
 						} catch (NullPointerException q) {
 							System.out.print(q);
@@ -242,7 +245,7 @@ public class JP_MenuHerramientas extends JPanel {
 		cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(Principal.editando) {
+				if(JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
 					resetDisplay_cancelar();
 					JOptionPane.showMessageDialog(null, "Estado Editando cancelado");
 					

@@ -4,6 +4,7 @@ import controlador.Color_RGB;
 import controlador.Comanda;
 import controlador.Comida;
 import controlador.Mesa;
+import controlador.Pre_boleta;
 import controlador.Producto;
 import java.sql.*;
 import java.util.ArrayList;
@@ -357,6 +358,36 @@ public class Consultas extends Conexion {
 
 		}
 		return listaComanda;
+
+	}
+	
+	public ArrayList<Pre_boleta> listar_boleta() {
+		ArrayList<Pre_boleta> lista = new ArrayList<Pre_boleta>();
+
+		try {
+			query = "select * from pre_boleta;";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				lista.add(new Pre_boleta(
+						rs.getString("id_pre_boleta"),
+						rs.getString("fecha_hora"),
+						rs.getInt("propina"),
+						rs.getInt("total"),
+						rs.getInt("fk_mesa"),
+						rs.getString("fk_comanda")
+						));
+
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar pre_boleta leer");
+
+		}
+		return lista;
 
 	}
 

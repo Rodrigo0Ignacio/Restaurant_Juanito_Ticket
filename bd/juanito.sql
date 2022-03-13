@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-03-2022 a las 01:47:26
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Tiempo de generación: 13-03-2022 a las 10:05:45
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `juanito`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_boleta` (IN `id` VARCHAR(100))  SELECT
+pre_boleta.id_pre_boleta, pre_boleta.fecha_hora, comanda.id_comanda,
+comanda.plato, comanda.cantidad, comanda.precio_unitario, comanda.fk_mesa,
+pre_boleta.propina, pre_boleta.total
+FROM comanda INNER JOIN pre_boleta ON comanda.id_comanda = pre_boleta.fk_comanda
+WHERE comanda.id_comanda = id ORDER BY comanda.precio_unitario ASC$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -95,6 +108,9 @@ CREATE TABLE `comanda` (
   `fk_mesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `comanda`
+--
 -- --------------------------------------------------------
 
 --
@@ -222,21 +238,17 @@ INSERT INTO `mesa` (`id_mesa`, `estado`) VALUES
 --
 
 CREATE TABLE `pre_boleta` (
-  `id_boleta` varchar(100) NOT NULL,
+  `id_pre_boleta` varchar(100) NOT NULL,
   `fecha_hora` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `total` int(11) NOT NULL,
   `propina` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
   `fk_mesa` int(11) NOT NULL,
-  `fk_comanda` int(11) NOT NULL
+  `fk_comanda` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `pre_boleta`
 --
-
-INSERT INTO `pre_boleta` (`id_boleta`, `fecha_hora`, `total`, `propina`, `fk_mesa`, `fk_comanda`) VALUES
-('erwewerwr', '2022-03-11 00:35:31', 200000, 30000, 3, 4234232),
-('rwerwerwr', '2022-03-11 00:35:31', 42343, 4343, 4343, 4343);
 
 --
 -- Índices para tablas volcadas
@@ -248,6 +260,7 @@ INSERT INTO `pre_boleta` (`id_boleta`, `fecha_hora`, `total`, `propina`, `fk_mes
 ALTER TABLE `cap_datos`
   ADD PRIMARY KEY (`id_datos`),
   ADD UNIQUE KEY `fk_comanda_2` (`comanda_ref`),
+  ADD UNIQUE KEY `mesa_ref` (`mesa_ref`),
   ADD KEY `fk_comanda` (`comanda_ref`);
 
 --
@@ -283,9 +296,9 @@ ALTER TABLE `mesa`
 -- Indices de la tabla `pre_boleta`
 --
 ALTER TABLE `pre_boleta`
-  ADD PRIMARY KEY (`id_boleta`),
-  ADD KEY `fk_comanda` (`fk_comanda`),
-  ADD KEY `fk_mesa` (`fk_mesa`);
+  ADD PRIMARY KEY (`id_pre_boleta`),
+  ADD UNIQUE KEY `fk_comanda` (`fk_comanda`),
+  ADD KEY `pk_pre_boleta1` (`fk_mesa`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -295,7 +308,7 @@ ALTER TABLE `pre_boleta`
 -- AUTO_INCREMENT de la tabla `cap_datos`
 --
 ALTER TABLE `cap_datos`
-  MODIFY `id_datos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_datos` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `mesa`
@@ -319,6 +332,13 @@ ALTER TABLE `comanda`
 --
 ALTER TABLE `comida`
   ADD CONSTRAINT `fk_comida` FOREIGN KEY (`fk_categoria`) REFERENCES `categoria` (`categoria`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `pre_boleta`
+--
+ALTER TABLE `pre_boleta`
+  ADD CONSTRAINT `pk_pre_boleta1` FOREIGN KEY (`fk_mesa`) REFERENCES `mesa` (`id_mesa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pk_pre_boleta2` FOREIGN KEY (`fk_comanda`) REFERENCES `comanda` (`id_comanda`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

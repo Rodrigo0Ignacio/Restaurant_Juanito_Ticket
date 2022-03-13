@@ -11,7 +11,9 @@ import report.Reporte;
 public class Edicion extends Consultas {
 	private Reporte reporte = new Reporte();
 	private Fecha fecha = new Fecha();
-
+	private boolean error;
+	
+	
 	public boolean mesa_Disponibilidad(int id, String disponibilidad) {
 
 		try {
@@ -21,7 +23,9 @@ public class Edicion extends Consultas {
 			super.resultado = super.statement.executeUpdate(query);
 
 		} catch (SQLException W) {
+			error = true;
 			JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta mesa_disponibilidad");
+			
 
 		}
 
@@ -43,7 +47,7 @@ public class Edicion extends Consultas {
 			super.resultado = super.statement.executeUpdate(query);
 
 		} catch (SQLException W) {
-			JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta mesa cap_datos");
+			JOptionPane.showMessageDialog(null, "Error inesperado, por favor cancele la operación y vuelva a intentarlo");
 
 		}
 
@@ -101,5 +105,37 @@ public class Edicion extends Consultas {
 		}
 
 	}
+	
+	public boolean insertar_boleta(String id, String fecha_hora, int propina, int total,
+			int mesa, String id_comanda) {
+
+		try {
+			super.query = "INSERT INTO pre_boleta VALUES('"+id+"','"+fecha_hora+"',"+propina+","+total+","+mesa+",'"+id_comanda+"');";
+
+			super.statement = conectar().createStatement();
+			super.resultado = super.statement.executeUpdate(query);
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta inserta_boleta");
+
+		}
+
+		if (super.resultado == 1) {
+			return true;
+
+		} else {
+			return false;
+		}
+
+	}
+
+	public boolean isError() {
+		return error;
+	}
+
+	public void setError(boolean error) {
+		this.error = error;
+	}
+	
 
 }

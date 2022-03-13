@@ -73,9 +73,9 @@ public class Fr_Comidas extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(10, 10));
 
-		contentPane.setBackground(new Color(109, 146, 160));
+		contentPane.setBackground(new Color(214, 234, 248));
 		pn_dinamicos.setBackground(new Color(40, 83, 108));
-		panel.setBackground(new Color(109, 146, 160));
+		panel.setBackground(new Color(214, 234, 248));
 
 		contentPane.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -105,8 +105,7 @@ public class Fr_Comidas extends JFrame {
 			public void windowClosing(WindowEvent e) {
 
 				cantidad.cerrarVentana();
-				JP_Display.estados_Pedidos(0);
-
+				
 				if (JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
 					JP_Display.estados_Pedidos(4);
 

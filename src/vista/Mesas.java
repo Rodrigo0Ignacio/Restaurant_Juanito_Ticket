@@ -26,9 +26,12 @@ import javax.swing.border.EmptyBorder;
 //import org.bouncycastle.jcajce.provider.symmetric.CAST5;
 
 import controlador.Calculos;
+import controlador.Calculos_boleta;
+import controlador.Codigo_Aleatorio;
 import controlador.Color_RGB;
 import controlador.Comanda;
 import controlador.Comida;
+import controlador.Fecha;
 import controlador.Mesa;
 //import groovyjarjarantlr.debug.NewLineEvent;
 import modelo.Consultas;
@@ -62,6 +65,10 @@ public class Mesas extends JFrame {
 	private int contadorVentana = 0;
 	private Edicion edicionsql = new Edicion();
 	public boolean estadobtn = false;
+	private String editando2 = null;
+	private Fecha fecha = new Fecha();
+	private Calculos_boleta boleta = new Calculos_boleta();
+	private Calculos cal = new Calculos();
 
 	public Mesas() {
 		propiedades();
@@ -260,7 +267,19 @@ public class Mesas extends JFrame {
 				eleccion.setVisible(false);
 
 				JP_Display.lbl_nroMesa.setText("N\u00B0 ");
+				
 				cerrarVentana();
+				int propina = (int) (boleta.total(edicionsql.buscar_id_comanda(identificador_Mesa)) * cal.getPROPINA());
+
+				/*insertamos los parametros de la boleta*/
+				edicionsql.insertar_boleta(
+						Codigo_Aleatorio.codigo_alfanumerico_numero()
+						,fecha.fechaHora_formato2()
+						,propina
+						, boleta.total(edicionsql.buscar_id_comanda(identificador_Mesa))
+						,identificador_Mesa
+						, edicionsql.buscar_id_comanda(identificador_Mesa));
+			
 				/*
 				 * borramos los datos almacenados temporalmente de la bd de la tabla cap_datos
 				 */
@@ -270,6 +289,7 @@ public class Mesas extends JFrame {
 				 * IMPRIME BOLETA FINAL . . .
 				 */
 				meHerramientas.resetDisplay();
+				identificador_Mesa = 0;
 
 			}
 		});
@@ -279,6 +299,7 @@ public class Mesas extends JFrame {
 				ArrayList<Comanda> listaComanda = new ArrayList<Comanda>();
 				Calculos cal = new Calculos();
 				Principal.editando = true;
+				 editando2 = e.getActionCommand();
 				
 				String id_comanda = sql.buscar_id_comanda(id_mesa_dinamico);
 				listaComanda = sql.buscar_productos(id_comanda);
@@ -287,17 +308,12 @@ public class Mesas extends JFrame {
 				JP_Display.estados_Pedidos(4);
 
 				meHerramientas.resetDisplay_borrar();
-
-				if (JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
-
+				
+				/*Editando mesa*/
 					JP_Display.lbl_nroMesa.setText("N\u00B0 " + identificador_Mesa);
 					cal.establecerValores();
-
 					eleccion.cerrarVentana();
 					cerrarVentana();
-					
-
-				}
 
 			}
 		});
@@ -329,5 +345,15 @@ public class Mesas extends JFrame {
 	public void setContadorVentana(int contadorVentana) {
 		this.contadorVentana = contadorVentana;
 	}
+
+	public String getEditando2() {
+		return editando2;
+	}
+
+	public void setEditando2(String editando2) {
+		this.editando2 = editando2;
+	}
+	
+	
 
 }

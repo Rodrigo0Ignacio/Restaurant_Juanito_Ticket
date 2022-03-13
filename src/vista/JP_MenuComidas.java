@@ -319,7 +319,7 @@ public class JP_MenuComidas extends JPanel {
 	private void propiedades_instancia(String con) {
 		subMenuComidas.pn_dinamicos.updateUI();
 		subMenuComidas.pn_dinamicos.removeAll();
-		JP_Display.estados_Pedidos(2);
+		//JP_Display.estados_Pedidos(2);
 		subMenuComidas.setVisible(true);
 		subMenuComidas.consultas(con);
 		subMenuComidas.setTitle(con);

@@ -45,13 +45,16 @@ public class Login extends JFrame {
 		contentPane.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		this.setBackground(new Color(214, 234, 248));
 
 		JPanel panel_cntral = new JPanel();
-		panel_cntral.setBackground(new Color(195, 200, 208));
+		panel_cntral.setBackground(new Color(214, 234, 248));
 		contentPane.add(panel_cntral, BorderLayout.CENTER);
 		panel_cntral.setLayout(null);
 
 		JLabel lblNewLabel_1 = new JLabel("Contrase\u00F1a:");
+		lblNewLabel_1.setBackground(new Color(214, 234, 248));
+		
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_1.setBounds(103, 11, 166, 23);
 		panel_cntral.add(lblNewLabel_1);

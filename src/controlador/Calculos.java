@@ -53,4 +53,12 @@ public class Calculos {
 		JP_Display.lbl_totalMasPropina.setText("" + formatoImporte.format(total()));
 	}
 
+	public double getPROPINA() {
+		return PROPINA;
+	}
+	
+	
+	
+	
+
 }
