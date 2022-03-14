@@ -68,7 +68,7 @@ public class Consultas extends Conexion {
 	public boolean verificaContenido(String parm1, String parm2) {
 
 		try {
-			query = "SELECT id_boleta,fecha_hora,total,fk_mesa FROM pre_boleta WHERE fecha_hora BETWEEN '" + parm1
+			query = "SELECT id_pre_boleta,fecha_hora,total,fk_mesa FROM pre_boleta WHERE fecha_hora BETWEEN '" + parm1
 					+ "' AND '" + parm2 + "' ORDER BY fecha_hora DESC";
 
 			statement = (Statement) conectar().prepareStatement(query);

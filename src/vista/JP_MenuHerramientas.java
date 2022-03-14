@@ -171,8 +171,9 @@ public class JP_MenuHerramientas extends JPanel {
 							/* llenamos la tabla comanda */
 							edicionsql.insertar_comanda(id_comanda, precio_u, fecha.fechaHora_formato2(), plato, unidad,
 									total, id_mesa, Mesas.identificador_Mesa);
+	
 						}
-
+	
 						Principal.editando = false;
 						resetDisplay();
 
@@ -199,6 +200,9 @@ public class JP_MenuHerramientas extends JPanel {
 							}
 							/* llenamos cap_datos TABLA DE REFERENCIA */
 							edicionsql.insertar_cap_datos(codigoUnico, Mesas.identificador_Mesa);
+							
+							/*llenamos la tabla carga boleta*/
+							edicionsql.insertar_cargaTabla_boleta(codigoUnico);
 
 							Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier",
 									"dateTime", "items", "subTotal", "tax", "total", "recibo", "change");

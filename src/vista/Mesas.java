@@ -152,6 +152,9 @@ public class Mesas extends JFrame {
 	public void btn_Eventos() {
 
 		listaMesa = sql.listarMesas();
+		
+		panel_mesas.removeAll();
+		panel_mesas.updateUI();
 
 		for (Mesa m : listaMesa) {
 
@@ -218,6 +221,7 @@ public class Mesas extends JFrame {
 			});
 
 			panel_mesas.add(btn_mesas);
+			
 
 		}
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-03-2022 a las 10:05:45
+-- Tiempo de generación: 14-03-2022 a las 07:21:31
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `juanito`
+-- Base de datos: `prueba_juanito2`
 --
 
 DELIMITER $$
@@ -29,7 +29,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_boleta` (IN `id` VARCHAR(100
 pre_boleta.id_pre_boleta, pre_boleta.fecha_hora, comanda.id_comanda,
 comanda.plato, comanda.cantidad, comanda.precio_unitario, comanda.fk_mesa,
 pre_boleta.propina, pre_boleta.total
-FROM comanda INNER JOIN pre_boleta ON comanda.id_comanda = pre_boleta.fk_comanda
+FROM comanda INNER JOIN pre_boleta ON comanda.id_comanda = pre_boleta.fk_comanda_cargar
 WHERE comanda.id_comanda = id ORDER BY comanda.precio_unitario ASC$$
 
 DELIMITER ;
@@ -67,6 +67,28 @@ CREATE TABLE `cap_datos` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `carga_boleta`
+--
+
+CREATE TABLE `carga_boleta` (
+  `id_carga` int(11) NOT NULL,
+  `fk_comanda` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `carga_boleta`
+--
+
+INSERT INTO `carga_boleta` (`id_carga`, `fk_comanda`) VALUES
+(24, '30B3A38B3E-G'),
+(22, '397167629E-Y'),
+(25, '4E52A6093A-Y'),
+(21, '8F82329F7D-J'),
+(23, 'B75DC68F19-E');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `categoria`
 --
 
@@ -98,6 +120,7 @@ INSERT INTO `categoria` (`id_cat`, `categoria`) VALUES
 --
 
 CREATE TABLE `comanda` (
+  `id_unico` int(11) NOT NULL,
   `id_comanda` varchar(100) NOT NULL,
   `precio_unitario` int(11) NOT NULL,
   `fecha_hora` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -111,6 +134,19 @@ CREATE TABLE `comanda` (
 --
 -- Volcado de datos para la tabla `comanda`
 --
+
+INSERT INTO `comanda` (`id_unico`, `id_comanda`, `precio_unitario`, `fecha_hora`, `plato`, `cantidad`, `importe`, `fk_comida`, `fk_mesa`) VALUES
+(58, '8F82329F7D-J', 1500, '2022-03-14 06:06:22', 'Leche', 2, 3000, 62, 8),
+(59, '8F82329F7D-J', 2200, '2022-03-14 06:06:22', 'Jugo natural 1/2Litro', 3, 6600, 63, 8),
+(60, '397167629E-Y', 2200, '2022-03-14 06:19:17', 'Salsa margarita', 2, 4400, 48, 9),
+(61, 'B75DC68F19-E', 2200, '2022-03-14 06:19:33', 'Salsa margarita', 2, 4400, 48, 9),
+(62, '30B3A38B3E-G', 2200, '2022-03-14 06:19:47', 'Salsa margarita', 3, 6600, 48, 9),
+(63, '30B3A38B3E-G', 1800, '2022-03-14 06:19:47', 'salsa de champignon', 2, 3600, 49, 9),
+(64, '30B3A38B3E-G', 2800, '2022-03-14 06:19:47', 'salsa de roquefotr', 3, 8400, 50, 9),
+(65, '4E52A6093A-Y', 2100, '2022-03-14 06:20:10', 'Empanadas de marisco', 2, 4200, 2, 9),
+(66, '4E52A6093A-Y', 8900, '2022-03-14 06:20:10', 'ensalada de camarones', 2, 17800, 7, 9),
+(67, '4E52A6093A-Y', 9800, '2022-03-14 06:20:10', 'mariscal frio', 2, 19600, 8, 9);
+
 -- --------------------------------------------------------
 
 --
@@ -243,12 +279,19 @@ CREATE TABLE `pre_boleta` (
   `propina` int(11) NOT NULL,
   `total` int(11) NOT NULL,
   `fk_mesa` int(11) NOT NULL,
-  `fk_comanda` varchar(100) NOT NULL
+  `fk_comanda_cargar` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `pre_boleta`
 --
+
+INSERT INTO `pre_boleta` (`id_pre_boleta`, `fecha_hora`, `propina`, `total`, `fk_mesa`, `fk_comanda_cargar`) VALUES
+('057165C205-7', '2022-03-14 06:20:52', 4160, 41600, 9, '4E52A6093A-Y'),
+('36B060A977-0', '2022-03-14 06:19:22', 440, 4400, 9, '397167629E-Y'),
+('9B036B26FA-6', '2022-03-14 06:19:51', 1860, 18600, 9, '30B3A38B3E-G'),
+('EFC5E08543-6', '2022-03-14 06:06:40', 960, 9600, 8, '8F82329F7D-J'),
+('F11FA1B230-5', '2022-03-14 06:19:37', 440, 4400, 9, 'B75DC68F19-E');
 
 --
 -- Índices para tablas volcadas
@@ -264,6 +307,14 @@ ALTER TABLE `cap_datos`
   ADD KEY `fk_comanda` (`comanda_ref`);
 
 --
+-- Indices de la tabla `carga_boleta`
+--
+ALTER TABLE `carga_boleta`
+  ADD PRIMARY KEY (`id_carga`),
+  ADD UNIQUE KEY `fk_comanda` (`fk_comanda`),
+  ADD KEY `id_comanda` (`fk_comanda`);
+
+--
 -- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
@@ -274,6 +325,7 @@ ALTER TABLE `categoria`
 -- Indices de la tabla `comanda`
 --
 ALTER TABLE `comanda`
+  ADD PRIMARY KEY (`id_unico`),
   ADD KEY `id_comanda` (`id_comanda`),
   ADD KEY `fk_comida` (`fk_comida`),
   ADD KEY `fk_mesa` (`fk_mesa`);
@@ -297,8 +349,9 @@ ALTER TABLE `mesa`
 --
 ALTER TABLE `pre_boleta`
   ADD PRIMARY KEY (`id_pre_boleta`),
-  ADD UNIQUE KEY `fk_comanda` (`fk_comanda`),
-  ADD KEY `pk_pre_boleta1` (`fk_mesa`);
+  ADD UNIQUE KEY `fk_comanda_cargar_2` (`fk_comanda_cargar`),
+  ADD KEY `fk_comanda_cargar` (`fk_comanda_cargar`),
+  ADD KEY `fk_mesa` (`fk_mesa`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -308,7 +361,19 @@ ALTER TABLE `pre_boleta`
 -- AUTO_INCREMENT de la tabla `cap_datos`
 --
 ALTER TABLE `cap_datos`
-  MODIFY `id_datos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_datos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de la tabla `carga_boleta`
+--
+ALTER TABLE `carga_boleta`
+  MODIFY `id_carga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT de la tabla `comanda`
+--
+ALTER TABLE `comanda`
+  MODIFY `id_unico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT de la tabla `mesa`
@@ -319,6 +384,12 @@ ALTER TABLE `mesa`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `carga_boleta`
+--
+ALTER TABLE `carga_boleta`
+  ADD CONSTRAINT `carga_boleta_ibfk_1` FOREIGN KEY (`fk_comanda`) REFERENCES `comanda` (`id_comanda`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `comanda`
@@ -338,7 +409,7 @@ ALTER TABLE `comida`
 --
 ALTER TABLE `pre_boleta`
   ADD CONSTRAINT `pk_pre_boleta1` FOREIGN KEY (`fk_mesa`) REFERENCES `mesa` (`id_mesa`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pk_pre_boleta2` FOREIGN KEY (`fk_comanda`) REFERENCES `comanda` (`id_comanda`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pre_boleta_ibfk_1` FOREIGN KEY (`fk_comanda_cargar`) REFERENCES `carga_boleta` (`fk_comanda`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

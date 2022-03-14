@@ -86,7 +86,7 @@ public class Edicion extends Consultas {
 			int importe, int id_comida, int nro_mesa) {
 
 		try {
-			super.query = "INSERT INTO comanda VALUES('" + codigo + "'," + precio_u + ",'" + fecha_hora + "','" + plato
+			super.query = "INSERT INTO comanda VALUES(NULL,'" + codigo + "'," + precio_u + ",'" + fecha_hora + "','" + plato
 					+ "'," + cantidad + "," + importe + "," + id_comida + "," + nro_mesa + ");";
 
 			super.statement = conectar().createStatement();
@@ -104,6 +104,19 @@ public class Edicion extends Consultas {
 			return false;
 		}
 
+	}
+	public void insertar_cargaTabla_boleta(String codigo) {
+
+		try {
+			super.query = "INSERT INTO carga_boleta VALUES(NULL,'"+codigo+"');";
+
+			super.statement = conectar().createStatement();
+			super.resultado = super.statement.executeUpdate(query);
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta carga_tabla");
+
+		}
 	}
 	
 	public boolean insertar_boleta(String id, String fecha_hora, int propina, int total,
