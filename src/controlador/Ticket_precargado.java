@@ -28,7 +28,7 @@ public class Ticket_precargado extends Ticket {
 			
 			propina = p.getPropina();
 			total = p.getTotal();
-			producto += "["+cal.establecerFormato((double) p.getPrecio_unitario())+"]"+" "+p.getCantidad() +"X "+ p.getProducto()+"\n";
+			producto += "["+cal.establecerFormato((double) p.getPrecio_unitario())+"]"+" X"+p.getCantidad() +" "+ p.getProducto()+"\n";
 		}
 		}
 	

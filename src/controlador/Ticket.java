@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class Ticket {
 
 	// Ticket attribute content
-	private String contentTicket ="RESTAURANT JUANITO\n"
+	public String contentTicket ="RESTAURANT JUANITO\n"
 			+ "DOMICILIO : GREGORIO MIRA 69.\n" 
 			+ "RUT       : 013886707-2\n"
 			+ "=============================\n"
