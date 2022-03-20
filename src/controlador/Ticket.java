@@ -14,31 +14,40 @@ import javax.swing.JOptionPane;
 public class Ticket {
 
 	// Ticket attribute content
-	private String contentTicket = "VINATERIA {{nameLocal}}\n" + "EXPEDIDO EN: {{expedition}}\n"
-			+ "DOMICILIO CONOCIDO MERIDA, YUC.\n" + "=============================\n" + "MERIDA, XXXXXXXXXXXX\n"
-			+ "RFC: XXX-020226-XX9\n" + "Caja # {{box}} - Ticket # {{ticket}}\n" + "LE ATENDIO: {{cajero}}\n"
-			+ "{{dateTime}}\n" + "=============================\n" + "{{items}}\n" + "=============================\n"
-			+ "SUBTOTAL: {{subTotal}}\n" + "IVA: {{tax}}\n" + "TOTAL: {{total}}\n\n" + "RECIBIDO: {{recibo}}\n"
-			+ "CAMBIO: {{change}}\n\n" + "=============================\n" + "GRACIAS POR SU COMPRA...\n"
-			+ "ESPERAMOS SU VISITA NUEVAMENTE {{nameLocal}}\n" + "\n" + "\n";
+	private String contentTicket ="RESTAURANT JUANITO\n"
+			+ "DOMICILIO : GREGORIO MIRA 69.\n" 
+			+ "RUT       : 013886707-2\n"
+			+ "=============================\n"
+			+ "Ticket : {{nro_ticket}}\n"
+			+ "Mesa   : {{mesa}}\n"
+			+ "Fecha  : {{fecha}}\n" 
+			+ "Hora   : {{hora}}\n"
+			+ "=============================\n" 
+            + "Productos :        \n{{items}}"
+			+ "=============================\n"
+			+ "PROPINA  : {{propina}}\n" 
+			+ "IVA      : {{iva}}\n" 
+			+ "SUBTOTAL : {{total}}\n\n"
+            + "=============================\n" 
+            + "GRACIAS POR SU PREFERENCIA...\n";
 
 	// El constructor que setea los valores a la instancia
-	public Ticket(String nameLocal, String expedition, String box, String ticket, String caissier, String dateTime,
-			String items, String subTotal, String tax, String total, String recibo, String change) {
-		this.contentTicket = this.contentTicket.replace("{{nameLocal}}", nameLocal);
-		this.contentTicket = this.contentTicket.replace("{{expedition}}", expedition);
-		this.contentTicket = this.contentTicket.replace("{{box}}", box);
-		this.contentTicket = this.contentTicket.replace("{{ticket}}", ticket);
-		this.contentTicket = this.contentTicket.replace("{{cajero}}", caissier);
-		this.contentTicket = this.contentTicket.replace("{{dateTime}}", dateTime);
+	public Ticket(String nro_ticket,String mesa,
+			String fecha,String hora,String items, String propina,
+			String iva, String total){
+		
+		this.contentTicket = this.contentTicket.replace("{{nro_ticket}}", nro_ticket);
+		this.contentTicket = this.contentTicket.replace("{{mesa}}", mesa);
+		this.contentTicket = this.contentTicket.replace("{{fecha}}", fecha);
+		this.contentTicket = this.contentTicket.replace("{{hora}}", hora);
 		this.contentTicket = this.contentTicket.replace("{{items}}", items);
-		this.contentTicket = this.contentTicket.replace("{{subTotal}}", subTotal);
-		this.contentTicket = this.contentTicket.replace("{{tax}}", tax);
+		this.contentTicket = this.contentTicket.replace("{{propina}}", propina);
+		this.contentTicket = this.contentTicket.replace("{{iva}}", iva);
 		this.contentTicket = this.contentTicket.replace("{{total}}", total);
-		this.contentTicket = this.contentTicket.replace("{{recibo}}", recibo);
-		this.contentTicket = this.contentTicket.replace("{{change}}", change);
-	}
 
+	}
+	
+	
 	public Ticket() {
 
 	}
@@ -71,7 +80,7 @@ public class Ticket {
 		// el arreglo de bytes
 		Doc doc = new SimpleDoc(bytes, flavor, null);
 
-		// Creamos un trabajo de impresi�n
+		// Creamos un trabajo de impresion
 		DocPrintJob job = service.createPrintJob();
 
 		// Imprimimos dentro de un try de a huevo

@@ -59,6 +59,7 @@ public class JP_MenuHerramientas extends JPanel {
 	private JButton cancelar = new JButton("Cancelar");
 	private Consultas consultassql = new Consultas();
 	private Mesa_Eleccion meleccion = new Mesa_Eleccion();
+	private Ticket tikectTicket;
 
 	public JP_MenuHerramientas() {
 
@@ -203,10 +204,9 @@ public class JP_MenuHerramientas extends JPanel {
 							
 							/*llenamos la tabla carga boleta*/
 							edicionsql.insertar_cargaTabla_boleta(codigoUnico);
+							
+							/*A QUI SE DEBE INSERTAR CODIGO DEL TIKECT*/
 
-							Ticket ticket = new Ticket("nameLocal", "expedition", "box", "ticket", "caissier",
-									"dateTime", "items", "subTotal", "tax", "total", "recibo", "change");
-							ticket.print();
 
 							Principal.cont = 0;
 							Mesas.identificador_Mesa = 0;

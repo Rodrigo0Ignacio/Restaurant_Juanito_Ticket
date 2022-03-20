@@ -390,5 +390,38 @@ public class Consultas extends Conexion {
 		return lista;
 
 	}
+	
+	public ArrayList<Pre_boleta> sp_listar(String id_comanda) {
+		ArrayList<Pre_boleta> lista = new ArrayList<Pre_boleta>();
+
+		try {
+			query = "CALL `listar_boleta`('"+id_comanda+"');";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				lista.add(new Pre_boleta(
+						rs.getString(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getInt(5),
+						rs.getInt(6),
+						rs.getInt(7),
+						rs.getInt(8),
+						rs.getInt(9)
+						));
+
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar el procedimiento");
+
+		}
+		return lista;
+
+	}
 
 }

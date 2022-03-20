@@ -33,6 +33,8 @@ import controlador.Comanda;
 import controlador.Comida;
 import controlador.Fecha;
 import controlador.Mesa;
+import controlador.Ticket;
+import controlador.Ticket_precargado;
 //import groovyjarjarantlr.debug.NewLineEvent;
 import modelo.Consultas;
 import modelo.Edicion;
@@ -69,6 +71,8 @@ public class Mesas extends JFrame {
 	private Fecha fecha = new Fecha();
 	private Calculos_boleta boleta = new Calculos_boleta();
 	private Calculos cal = new Calculos();
+	private Ticket_precargado precargado = new Ticket_precargado();
+
 
 	public Mesas() {
 		propiedades();
@@ -284,14 +288,28 @@ public class Mesas extends JFrame {
 						,identificador_Mesa
 						, edicionsql.buscar_id_comanda(identificador_Mesa));
 			
-				/*
-				 * borramos los datos almacenados temporalmente de la bd de la tabla cap_datos
-				 */
-				edicionsql.eliminar_cap_datos(identificador_Mesa);
 
 				/*
 				 * IMPRIME BOLETA FINAL . . .
 				 */
+				/*busca y carga datos*/
+				precargado.boleta(edicionsql.buscar_id_comanda(identificador_Mesa));
+
+				Ticket t = new Ticket(
+		                Codigo_Aleatorio.codigo_alfanumerico_numero(),
+		                String.valueOf(identificador_Mesa),
+		                fecha.fechaActual(),fecha.horaActual(),
+		                precargado.getProducto(),precargado.propina(),precargado.calculaIVA(),
+		                precargado.sub_total()
+		                );
+				t.print(); 
+
+				
+
+				/*
+				 * borramos los datos almacenados temporalmente de la bd de la tabla cap_datos
+				 */
+				edicionsql.eliminar_cap_datos(identificador_Mesa);
 				meHerramientas.resetDisplay();
 				identificador_Mesa = 0;
 
