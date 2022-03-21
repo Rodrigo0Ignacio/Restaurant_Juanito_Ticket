@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.0.final using JasperReports Library version 6.19.0-646c68931cebf1a58bc65c4359d1f0ca223c5e94  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Boleta_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="36314987-6007-4741-88e5-17209f5e4081">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="src\Ticket\Boleta.jrdax"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="555"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="431"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="codigo" class="java.lang.String"/>
+	<parameter name="mesa" class="java.lang.String"/>
+	<parameter name="neto" class="java.lang.String"/>
+	<parameter name="iva" class="java.lang.String"/>
+	<parameter name="propina" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<parameter name="idComanda" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[CALL listar_boleta( $P{idComanda} );]]>
+	</queryString>
+	<field name="id_pre_boleta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="id_pre_boleta"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_pre_boleta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pre_boleta"/>
+	</field>
+	<field name="fecha_hora" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_hora"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_hora"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pre_boleta"/>
+	</field>
+	<field name="id_comanda" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="id_comanda"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_comanda"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comanda"/>
+	</field>
+	<field name="plato" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="plato"/>
+		<property name="com.jaspersoft.studio.field.label" value="plato"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comanda"/>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cantidad"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comanda"/>
+	</field>
+	<field name="precio_unitario" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="precio_unitario"/>
+		<property name="com.jaspersoft.studio.field.label" value="precio_unitario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comanda"/>
+	</field>
+	<field name="fk_mesa" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="fk_mesa"/>
+		<property name="com.jaspersoft.studio.field.label" value="fk_mesa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comanda"/>
+	</field>
+	<field name="propina" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="propina"/>
+		<property name="com.jaspersoft.studio.field.label" value="propina"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pre_boleta"/>
+	</field>
+	<field name="total" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="total"/>
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pre_boleta"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="560" height="20" uuid="2d3ff5a9-5851-4270-bb5f-e3d36f4f72f8"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ROSA ELVIRA SOLIS AMESTICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="560" height="20" uuid="a25ccc42-5f86-4a89-9810-66722473adfe"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[PEDRO MONTT 66]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="40" width="560" height="1" uuid="6437321b-ff05-4554-ab1b-8e20c6346f89"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="-1" width="560" height="19" uuid="58974b9d-c3f1-4163-87b9-aacbf9bd9239"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[EDUARDO AZOCAR GONZALEZ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="18" width="560" height="19" uuid="70ae941c-3bdf-4bbd-a1ab-6bdfe3830ef4"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[RUT: 13886707-2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="37" width="560" height="19" uuid="e4427d40-a925-4cd3-9d23-9f0c31845582"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Giro: RESTAURANT ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="560" height="5" uuid="7cb7b149-2705-4ceb-ba88-0b2098283b43"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[PASEO DEL MAR 125]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-3" y="70" width="560" height="1" uuid="2655418c-8f61-4f5b-a79d-3d0ea771fa41"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="75" width="130" height="19" uuid="101655bb-3c21-42c6-9800-b9236992b02a">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[CODIGO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="95" width="130" height="20" uuid="22d134b9-1da9-48ba-948d-f87e342c0a90"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[FECHA DE EMISIÓN:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="75" width="170" height="19" uuid="fb72049b-c0fe-43c4-a9e7-852e1a3f0273"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="96" width="170" height="20" uuid="bb2a0bb5-d4c1-4bc1-9338-c5b4dcbf6826"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="115" width="170" height="20" uuid="ab7d1222-5467-46ad-a551-cbc980d8c03f"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mesa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="115" width="130" height="20" uuid="2e857276-2f75-44b1-baee-6e2e9a3100a7"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[MESA:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="135" width="557" height="1" uuid="0a4a04d6-81be-4700-876b-e9a825510a06"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="260" height="20" uuid="1c6acd75-4fcd-4277-acb5-4844ddf447d3"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="0" width="90" height="20" uuid="e44ad130-9939-4321-8ef7-747ab71eda5e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CANT.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="0" width="100" height="21" uuid="a4041ccb-c3ec-4bfb-bf0f-a4d143dd020a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="0" width="107" height="20" uuid="00284772-9521-4d08-9ae7-128fbe289053"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<textField>
+				<reportElement x="0" y="0" width="260" height="20" uuid="f23faca3-2fff-4590-bbfe-33b9e54b4526"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{plato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="90" height="20" uuid="a970596c-d370-4175-b602-0e8cf8182060"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="0" width="100" height="20" uuid="16c59208-5c82-4d74-b3bf-14640a685988"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio_unitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="107" height="20" uuid="687d6120-8c8a-4853-bc76-e20a753d29a9"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio_unitario}*$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="107" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="10" width="557" height="1" uuid="4ce32ec3-3d67-4fff-9682-2bcc0bd3f8bc"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="20" width="450" height="20" uuid="c034265e-c542-4b92-9228-f9a4767dc905"/>
+				<textElement textAlignment="Right">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NETO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="450" height="20" uuid="a1795ceb-4480-487b-9ec5-3c28d2d42cba"/>
+				<textElement textAlignment="Right">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IVA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="450" height="20" uuid="735f86d5-6f26-43a6-b3f6-4ac0f9b42400"/>
+				<textElement textAlignment="Right">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROPINA 10% OPC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="450" height="20" uuid="e2b2591a-fbc2-4d8d-b7e4-8c5b1d661b1f"/>
+				<textElement textAlignment="Right">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="20" width="107" height="20" uuid="21f6ae0f-8846-4db2-b4d4-ab50a4bab881"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{neto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="40" width="107" height="20" uuid="78fa77eb-bea3-4d17-81a7-7aa14ccb210e"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{iva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="60" width="107" height="20" uuid="5205c2a5-6bcc-43af-b47b-28515c56f859"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{propina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="80" width="107" height="20" uuid="0db1e5f1-edb5-450a-beec-7a22ca8025d1"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-3" y="106" width="557" height="1" uuid="731d4c3e-8a77-4cb0-9ddc-5352304d8e4e"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="-3" y="10" width="557" height="39" uuid="79810f94-68c5-4535-a9c9-3b2adba39759"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[GRACIAS POR SU PREFERENCIA...]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

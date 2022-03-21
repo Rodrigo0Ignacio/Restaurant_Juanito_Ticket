@@ -22,6 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
+import Ticket.Pre_Boleta;
+
 //import org.bouncycastle.jcajce.provider.asymmetric.ec.SignatureSpi.ecDetDSA512;
 //import org.bouncycastle.jcajce.provider.symmetric.CAST5;
 
@@ -34,10 +36,10 @@ import controlador.Comida;
 import controlador.Fecha;
 import controlador.Mesa;
 import controlador.Ticket;
-import controlador.Ticket_precargado;
 //import groovyjarjarantlr.debug.NewLineEvent;
 import modelo.Consultas;
 import modelo.Edicion;
+import net.sf.jasperreports.engine.JRException;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -71,7 +73,6 @@ public class Mesas extends JFrame {
 	private Fecha fecha = new Fecha();
 	private Calculos_boleta boleta = new Calculos_boleta();
 	private Calculos cal = new Calculos();
-	private Ticket_precargado precargado = new Ticket_precargado();
 
 
 	public Mesas() {
@@ -271,47 +272,13 @@ public class Mesas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				estado_disponible();
-				eleccion.setVisible(false);
-
-				JP_Display.lbl_nroMesa.setText("N\u00B0 ");
+				try {
+					confirmaBoleta();
+				} catch (JRException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
-				cerrarVentana();
-				int propina = (int) (boleta.total(edicionsql.buscar_id_comanda(identificador_Mesa)) * cal.getPROPINA());
-
-				/*insertamos los parametros de la boleta*/
-				edicionsql.insertar_boleta(
-						Codigo_Aleatorio.codigo_alfanumerico_numero()
-						,fecha.fechaHora_formato2()
-						,propina
-						, boleta.total(edicionsql.buscar_id_comanda(identificador_Mesa))
-						,identificador_Mesa
-						, edicionsql.buscar_id_comanda(identificador_Mesa));
-			
-
-				/*
-				 * IMPRIME BOLETA FINAL . . .
-				 */
-				/*busca y carga datos*/
-				precargado.boleta(edicionsql.buscar_id_comanda(identificador_Mesa));
-
-				Ticket t = new Ticket(
-		                Codigo_Aleatorio.codigo_alfanumerico_numero(),
-		                String.valueOf(identificador_Mesa),
-		                fecha.fechaActual(),fecha.horaActual(),
-		                precargado.getProducto(),precargado.propina(),precargado.calculaIVA(),
-		                precargado.sub_total()
-		                );
-				t.print(); 
-
-				
-
-				/*
-				 * borramos los datos almacenados temporalmente de la bd de la tabla cap_datos
-				 */
-				edicionsql.eliminar_cap_datos(identificador_Mesa);
-				meHerramientas.resetDisplay();
-				identificador_Mesa = 0;
 
 			}
 		});
@@ -374,6 +341,53 @@ public class Mesas extends JFrame {
 
 	public void setEditando2(String editando2) {
 		this.editando2 = editando2;
+	}
+	
+	protected void confirmaBoleta() throws JRException {
+		int valor = JOptionPane.showConfirmDialog(this, "¿Está seguro de cerrar la mesa?", "advertencia",
+				JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		
+		if (valor == JOptionPane.YES_OPTION) {
+			eleccion.setVisible(false);
+
+			JP_Display.lbl_nroMesa.setText("N\u00B0 ");
+			
+			cerrarVentana();
+			estado_disponible();
+			
+			int propina = (int) (boleta.total(edicionsql.buscar_id_comanda(identificador_Mesa)) * cal.getPROPINA());
+
+			/*insertamos los parametros de la boleta*/
+			edicionsql.insertar_boleta(
+					Codigo_Aleatorio.codigo_alfanumerico_numero()
+					,fecha.fechaHora_formato2()
+					,propina
+					, boleta.total(edicionsql.buscar_id_comanda(identificador_Mesa))
+					,identificador_Mesa
+					, edicionsql.buscar_id_comanda(identificador_Mesa));
+		
+
+			/*
+			 * IMPRIME BOLETA FINAL . . .
+			/*carga la boleta para ser imprimida y almacenada*/
+			Pre_Boleta.cargarBoleta(edicionsql.buscar_id_comanda(identificador_Mesa)
+					,String.valueOf(identificador_Mesa));
+
+			
+
+			/*
+			 * borramos los datos almacenados temporalmente de la bd de la tabla cap_datos
+			 */
+			edicionsql.eliminar_cap_datos(identificador_Mesa);
+			meHerramientas.resetDisplay();
+			identificador_Mesa = 0;	
+			
+		}else {
+			eleccion.setVisible(false);
+			
+		}
+		
+		
 	}
 	
 	
