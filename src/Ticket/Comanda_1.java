@@ -1,7 +1,6 @@
 package Ticket;
 
 import java.io.File;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,19 +18,18 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
-import report.Reporte;
 
-public class Pre_Boleta {
+public class Comanda_1 {
 	
-	public static void cargarBoleta(String id_comanda, String nro_mesa) throws JRException {
+	
+	public static void cargarComanda(String id_comanda, String nro_mesa) throws JRException {
 
 		Consultas consultas = new Consultas();
 		Conexion con = new Conexion();
 		Calculos calculos = new Calculos();
-		String codigo_Generado = Codigo_Aleatorio.codigo_alfanumerico_numero();
 
 		Fecha fecha = new Fecha();
-		File dir = new File("C:/Boletas Generadas");
+		File dir = new File("C:/Comandas Generadas");
 		// E:/Rodrigo/Escritorio/informes diarios
 		try {
 			dir.mkdir();
@@ -40,34 +38,42 @@ public class Pre_Boleta {
 			e.printStackTrace();
 		}
 
-			JasperReport archivo = JasperCompileManager.compileReport("src\\Ticket\\Boleta_1.jrxml");
+			JasperReport archivo = JasperCompileManager.compileReport("src\\Ticket\\Comanda.jrxml");
 			Map<String, Object> map = new HashMap<String, Object>();
 
-			map.put("fecha", fecha.fechaActual());
-			map.put("codigo", codigo_Generado);
+			map.put("codigo", id_comanda);
+			map.put("fecha",fecha.fechaActual());
+			map.put("hora", fecha.horaActual());
 			map.put("mesa", nro_mesa);
-			map.put("neto", "8");
-			map.put("iva", "8");
-			map.put("propina", "8");
 			map.put("total", "8");
-			map.put("idComanda", id_comanda);
 
 			JasperPrint print = JasperFillManager.fillReport(archivo, map, con.conectar());
 			JasperPrintManager.printReport(print, false); // impresion
-			JasperExportManager.exportReportToPdfFile(print, "C:/Boletas Generadas/boleta - "+codigo_Generado+
-					"_fecha "+ fecha.fechaActual_reporte()+".pdf");
+			JasperExportManager.exportReportToPdfFile(print, "C:/Comandas Generadas/Comanda - "+id_comanda
+					+ fecha.fechaActual_reporte() + " hrs " + fecha.horaActual_reporte() + ".pdf");
 
-			JOptionPane.showMessageDialog(null, "Informe Generado exitosamente");
+			//JOptionPane.showMessageDialog(null, "Informe Generado exitosamente");
 
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
-	/* CONVIERTE UN STRING A TIMESTAMP */
-	public static Timestamp convierte_fechas(String parm1) {
-		Timestamp timestamp = Timestamp.valueOf(parm1);
-
-		return timestamp;
-	}
 }
-	
-	

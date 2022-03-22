@@ -24,12 +24,15 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import vista.Fr_Reporte;
 
 /**
  *
  * @author Rodrigo
  */
 public class Reporte {
+	
+	
 
 	public static void cargarReporte(String parm1, String parm2) throws JRException {
 
@@ -51,7 +54,6 @@ public class Reporte {
 
 			int sub_total = consultas.sub_totales(parm1, parm2);
 			int cantidad_registros = consultas.contarRegistros(parm1, parm2);
-			System.out.print(cantidad_registros);
 
 			double totalpropina = sub_total * 0.10;
 

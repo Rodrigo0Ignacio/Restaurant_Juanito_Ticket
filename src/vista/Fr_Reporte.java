@@ -75,7 +75,16 @@ public class Fr_Reporte extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
-					Reporte.cargarReporte(convertirFecha(dateChooser_fecha1), convertirFecha(dateChooser_fecha2));
+					if(dateChooser_fecha1.getDate() != null && dateChooser_fecha2.getDate() != null ) {
+						
+						Reporte.cargarReporte(convertirFecha(dateChooser_fecha1), convertirFecha(dateChooser_fecha2));
+						dateChooser_fecha1.setDate(null);
+						dateChooser_fecha2.setDate(null);
+					}else {
+						JOptionPane.showMessageDialog(null, "ingrese fechas");
+					}
+					
+					
 
 				} catch (JRException e1) {
 
@@ -125,6 +134,10 @@ public class Fr_Reporte extends JFrame {
 		}
 
 		return fechas1;
+	}
+	
+	public void cerrarVentana() {
+		this.setVisible(false);
 	}
 
 }
