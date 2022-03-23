@@ -151,6 +151,7 @@ public class Fr_Comidas extends JFrame {
 							idBoton = e.getActionCommand();
 
 							cantidad = new Cantidad();
+							cantidad.setTitle(idBoton);				
 							cantidad.setVisible(true);
 
 						}

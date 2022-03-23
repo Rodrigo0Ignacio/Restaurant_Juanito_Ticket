@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -44,6 +45,7 @@ public class Mesa_Eleccion extends JFrame {
 		setType(Type.UTILITY);
 		setBounds(100, 100, 635, 159);
 		setLocationRelativeTo(null);
+		setIconImage(new ImageIcon(getClass().getResource("/img/cuchilleria.png")).getImage());
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(214, 234, 248));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

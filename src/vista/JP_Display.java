@@ -33,7 +33,7 @@ import javax.swing.JProgressBar;
 public class JP_Display extends JPanel implements Runnable {
 	private Thread hilo;
 	private String mesa = null;
-	private JLabel lbl_subtitulo = new JLabel("Ticket de pedido");
+	private JLabel lbl_subtitulo = new JLabel("Gestion de comandas");
 	private JPanel titulo = new JPanel();
 	private JPanel subTitulo = new JPanel();
 	private JPanel Fecha_y_Hora = new JPanel();

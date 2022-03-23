@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl">
+  <name>Comanda_editar</name>
+  <classpath>C:\Users\Rodrigo\eclipse-workspace\Restaurant_Juanito_Ticket\Librerias\mysql 8.0.26\mysql-connector-java-8.0.26.jar</classpath>
+  <driver>com.mysql.jdbc.Driver</driver>
+  <username>root</username>
+  <password></password>
+  <url>jdbc:mysql://localhost/juanito</url>
+  <database></database>
+  <savePassword>true</savePassword>
+  <serverAddress></serverAddress>
+</jdbcDataAdapter>
