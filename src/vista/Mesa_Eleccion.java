@@ -9,11 +9,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import modelo.Consultas;
+import modelo.Edicion;
+
 import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
@@ -23,6 +28,8 @@ public class Mesa_Eleccion extends JFrame {
 	private JButton btn_cerrar = new JButton("Cerrar");
 	private JButton btn_editar = new JButton("Editar");
 	public static String opcionEditar = null;
+	private Consultas con = new Consultas();
+	private Edicion edi = new Edicion();
 
 	public Mesa_Eleccion() {
 		setResizable(false);
@@ -44,6 +51,21 @@ public class Mesa_Eleccion extends JFrame {
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 10));
 		contentPane.add(btn_cerrar);
 		contentPane.add(btn_editar);
+		
+		addWindowListener(new WindowAdapter() {
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				String id_comanda = con.buscar_id_comanda(Mesas.id_mesa_dinamico);
+				
+				if(con.verificaDatos_comanda_editando(id_comanda)) {
+					edi.eliminarDatos_comanda_editando(id_comanda);
+				}
+							
+				
+			}
+
+		});
 	}
 
 	private void propiedades_btn() {

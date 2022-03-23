@@ -22,14 +22,17 @@ import javax.swing.border.TitledBorder;
 
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
+import Ticket.Comanda_1;
 import controlador.Calculos;
 import controlador.Codigo_Aleatorio;
 import controlador.Color_RGB;
+import controlador.Comanda;
 import controlador.Comida;
 import controlador.Fecha;
 import controlador.Ticket;
 import modelo.Consultas;
 import modelo.Edicion;
+import net.sf.jasperreports.engine.JRException;
 import report.Reporte;
 
 import javax.swing.border.BevelBorder;
@@ -172,8 +175,21 @@ public class JP_MenuHerramientas extends JPanel {
 							/* llenamos la tabla comanda */
 							edicionsql.insertar_comanda(id_comanda, precio_u, fecha.fechaHora_formato2(), plato, unidad,
 									total, id_mesa, Mesas.identificador_Mesa);
-	
+							
+							/*llenamos una tabla auxiliar */
+							edicionsql.insertar_Comanda_editando(id_comanda, precio_u, fecha.fechaHora_formato2(), plato, unidad,
+									total, id_mesa, Mesas.identificador_Mesa);
+
 						}
+						
+						try {
+							Comanda_1.cargarComanda_editar(id_comanda, String.valueOf(Mesas.identificador_Mesa));
+						} catch (JRException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						/*elimina datos antiguos de la tabla de referencia*/
+						edicionsql.eliminarDatos_comanda_editando(id_comanda);
 	
 						Principal.editando = false;
 						resetDisplay();
@@ -206,6 +222,7 @@ public class JP_MenuHerramientas extends JPanel {
 							edicionsql.insertar_cargaTabla_boleta(codigoUnico);
 							
 							/*A QUI SE DEBE INSERTAR CODIGO DEL TIKECT*/
+							Comanda_1.cargarComanda(codigoUnico, String.valueOf(Mesas.identificador_Mesa));
 
 
 							Principal.cont = 0;
@@ -215,6 +232,9 @@ public class JP_MenuHerramientas extends JPanel {
 
 						} catch (NullPointerException q) {
 							System.out.print(q);
+						} catch (JRException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
 						}
 
 					}
@@ -251,7 +271,7 @@ public class JP_MenuHerramientas extends JPanel {
 				
 				if(JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
 					resetDisplay_cancelar();
-					JOptionPane.showMessageDialog(null, "Estado Editando cancelado");
+					JOptionPane.showMessageDialog(null, "Estado editando cancelado");
 					
 				}else if(JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Agregando Mesa")
 						|| JP_Display.estadoMesas.getText().equalsIgnoreCase("Agregando Mesa")) {

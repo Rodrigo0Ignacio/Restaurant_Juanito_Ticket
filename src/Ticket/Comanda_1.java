@@ -45,14 +45,47 @@ public class Comanda_1 {
 			map.put("fecha",fecha.fechaActual());
 			map.put("hora", fecha.horaActual());
 			map.put("mesa", nro_mesa);
-			map.put("total", "8");
 
 			JasperPrint print = JasperFillManager.fillReport(archivo, map, con.conectar());
 			JasperPrintManager.printReport(print, false); // impresion
 			JasperExportManager.exportReportToPdfFile(print, "C:/Comandas Generadas/Comanda - "+id_comanda
 					+ fecha.fechaActual_reporte() + " hrs " + fecha.horaActual_reporte() + ".pdf");
 
-			//JOptionPane.showMessageDialog(null, "Informe Generado exitosamente");
+			JOptionPane.showMessageDialog(null, "Comanda generada exitosamente");
+
+
+	}
+	
+	public static void cargarComanda_editar(String id_comanda, String nro_mesa) throws JRException {
+
+		Consultas consultas = new Consultas();
+		Conexion con = new Conexion();
+		Calculos calculos = new Calculos();
+
+		Fecha fecha = new Fecha();
+		File dir = new File("C:/Comandas Generadas");
+		// E:/Rodrigo/Escritorio/informes diarios
+		try {
+			dir.mkdir();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+			JasperReport archivo = JasperCompileManager.compileReport("src\\Ticket\\Comanda_editar.jrxml");
+			Map<String, Object> map = new HashMap<String, Object>();
+
+			map.put("codigo", id_comanda);
+			map.put("fecha",fecha.fechaActual());
+			map.put("hora", fecha.horaActual());
+			map.put("mesa", nro_mesa);
+
+			JasperPrint print = JasperFillManager.fillReport(archivo, map, con.conectar());
+			JasperPrintManager.printReport(print, false); // impresion
+			JasperExportManager.exportReportToPdfFile(print, "C:/Comandas Generadas/Comanda_editada - "+id_comanda
+					+ fecha.fechaActual_reporte() + " hrs " + fecha.horaActual_reporte() + ".pdf");
+
+			JOptionPane.showMessageDialog(null, "Comanda generada exitosamente");
 
 
 	}

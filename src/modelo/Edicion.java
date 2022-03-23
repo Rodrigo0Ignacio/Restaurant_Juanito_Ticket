@@ -141,6 +141,30 @@ public class Edicion extends Consultas {
 		}
 
 	}
+	
+	public boolean insertar_Comanda_editando(String id_comanda, int precio_unitario, String fecha_hora, String plato,
+			int cantidad, int importe, int fk_comida, int fk_mesa) {
+
+		try {
+			super.query = "INSERT INTO comanda_edicion VALUES('"+id_comanda+"',"+precio_unitario+",'"+fecha_hora+"','"+plato+"',"+cantidad+","+importe+","+fk_comida+","+fk_mesa+");";
+
+			super.statement = conectar().createStatement();
+			super.resultado = super.statement.executeUpdate(query);
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error insertar_comanda_E");
+
+		}
+
+		if (super.resultado == 1) {
+			return true;
+
+		} else {
+			return false;
+		}
+	}
+	
+
 
 	public boolean isError() {
 		return error;
@@ -152,3 +176,5 @@ public class Edicion extends Consultas {
 	
 
 }
+	
+

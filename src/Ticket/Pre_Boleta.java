@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import org.apache.xmlbeans.impl.xb.xsdschema.TotalDigitsDocument.TotalDigits;
+
 import controlador.Calculos;
 import controlador.Codigo_Aleatorio;
 import controlador.Fecha;
@@ -32,24 +34,29 @@ public class Pre_Boleta {
 
 		Fecha fecha = new Fecha();
 		File dir = new File("C:/Boletas Generadas");
-		// E:/Rodrigo/Escritorio/informes diarios
 		try {
 			dir.mkdir();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		/*CALCULO DE TOTALES*/
+		int neto = consultas.sub_total_preBoleta(id_comanda);
+		int propina = (int) (neto * Calculos.PROPINA);
+		int total = (neto + propina);
+		/*-------------------*/
+		
 
 			JasperReport archivo = JasperCompileManager.compileReport("src\\Ticket\\Boleta_1.jrxml");
 			Map<String, Object> map = new HashMap<String, Object>();
 
 			map.put("fecha", fecha.fechaActual());
+			map.put("hora",fecha.horaActual());
 			map.put("codigo", codigo_Generado);
 			map.put("mesa", nro_mesa);
-			map.put("neto", "8");
-			map.put("iva", "8");
-			map.put("propina", "8");
-			map.put("total", "8");
+			map.put("neto", calculos.establecerFormato(neto));
+			map.put("propina", calculos.establecerFormato(propina));
+			map.put("total", calculos.establecerFormato(total));
 			map.put("idComanda", id_comanda);
 
 			JasperPrint print = JasperFillManager.fillReport(archivo, map, con.conectar());
@@ -57,17 +64,19 @@ public class Pre_Boleta {
 			JasperExportManager.exportReportToPdfFile(print, "C:/Boletas Generadas/boleta - "+codigo_Generado+
 					"_fecha "+ fecha.fechaActual_reporte()+".pdf");
 
-			JOptionPane.showMessageDialog(null, "Informe Generado exitosamente");
+			JOptionPane.showMessageDialog(null, "Boleta generada exitosamente");
 
 
 	}
+	
 
-	/* CONVIERTE UN STRING A TIMESTAMP */
-	public static Timestamp convierte_fechas(String parm1) {
-		Timestamp timestamp = Timestamp.valueOf(parm1);
 
-		return timestamp;
-	}
+	
+
+	
+	
 }
+
+
 	
 	

@@ -6,7 +6,7 @@ import vista.JP_Display;
 
 public class Calculos {
 
-	private final double PROPINA = 0.10;
+	public static final double PROPINA = 0.10;
 	private NumberFormat formatoImporte = NumberFormat.getCurrencyInstance();
 	private NumberFormat formatoPropina = NumberFormat.getCurrencyInstance();
 	private NumberFormat formatoTotal = NumberFormat.getCurrencyInstance();

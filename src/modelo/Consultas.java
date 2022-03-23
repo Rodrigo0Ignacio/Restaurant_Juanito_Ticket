@@ -2,6 +2,7 @@ package modelo;
 
 import controlador.Color_RGB;
 import controlador.Comanda;
+import controlador.Comanda_Editando;
 import controlador.Comida;
 import controlador.Mesa;
 import controlador.Pre_boleta;
@@ -361,6 +362,28 @@ public class Consultas extends Conexion {
 
 	}
 	
+	public int sub_total_preBoleta(String id_boleta) {
+		int total = 0;
+
+		try {
+			query = "select total from pre_boleta WHERE fk_comanda_cargar = '"+id_boleta+"';";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				total = rs.getInt("total");
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar BD");
+
+		}
+		return total;
+
+	}
+	
 	public ArrayList<Pre_boleta> listar_boleta() {
 		ArrayList<Pre_boleta> lista = new ArrayList<Pre_boleta>();
 
@@ -423,5 +446,102 @@ public class Consultas extends Conexion {
 		return lista;
 
 	}
+	
+	/*clase Comanda_editando*/
+	
+	public ArrayList<Comanda_Editando> capturarDatos_comanda_editando() {
+		ArrayList<Comanda_Editando> lista = new ArrayList<Comanda_Editando>();
+
+		try {
+			query = "select * from comanda_edicion;";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				lista.add(new Comanda_Editando(
+						rs.getString(1),
+						rs.getInt(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getInt(5),
+						rs.getInt(6),
+						rs.getInt(7),
+						rs.getInt(8)
+						));
+
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar el comanda_editando");
+
+		}
+		return lista;
+
+	}
+	
+	public boolean verificaDatos_comanda_editando(String id_comanda) {
+
+		try {
+			query = "SELECT * FROM comanda_edicion WHERE id = '"+id_comanda+"';";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+				if(rs.next()) {
+					return true;
+				}else {
+					return false;
+				}
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar el comanda_editando verificar datos");
+
+		}
+		return false;
+
+
+	}
+	
+	public void eliminarDatos_comanda_editando(String id_comanda) {
+
+		try {
+			query = "CALL eliminar_datos_comanda_edicion('"+id_comanda+"');";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al eliminar datos - comanda_editando");
+
+		}
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
