@@ -50,7 +50,7 @@ public class Comanda_1 {
 
 			JasperPrint print = JasperFillManager.fillReport(archivo, map, con.conectar());
 			/*IMPRIME 2 COMANDAS*/
-			JasperPrintManager.printReport(print, false);
+			//JasperPrintManager.printReport(print, false);
 			JasperPrintManager.printReport(print, false);// impresion
 			/*-------------------------------------------------------------*/
 			
@@ -93,7 +93,7 @@ public class Comanda_1 {
 			JasperPrint print = JasperFillManager.fillReport(archivo, map, con.conectar());
 			/*IMPRIME 2 COMANDAS*/
 			JasperPrintManager.printReport(print, false);
-			JasperPrintManager.printReport(print, false);// impresion
+			//JasperPrintManager.printReport(print, false);// impresion
 			/*-------------------------------------------------------------*/
 			
 			/*

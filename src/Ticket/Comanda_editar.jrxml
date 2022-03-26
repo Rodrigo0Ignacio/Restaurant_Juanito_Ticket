@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.19.0.final using JasperReports Library version 6.19.0-646c68931cebf1a58bc65c4359d1f0ca223c5e94  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comanda" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="193d8859-57e0-4b5b-b71f-4374e4fde612">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comanda" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="30" isIgnorePagination="true" uuid="193d8859-57e0-4b5b-b71f-4374e4fde612">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="src\Ticket\Comanda.jrdax"/>
 	<parameter name="codigo" class="java.lang.String"/>
@@ -8,130 +8,110 @@
 	<parameter name="hora" class="java.lang.String"/>
 	<parameter name="mesa" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[CALL listar_comanda_edicion ( $P{codigo} );]]>
+		<![CDATA[CALL listar_comanda_edicion ( $P{codigo} )]]>
 	</queryString>
-	<field name="id" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="id"/>
-		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="comanda_edicion"/>
-	</field>
-	<field name="precio_unitario" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="precio_unitario"/>
-		<property name="com.jaspersoft.studio.field.label" value="precio_unitario"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="comanda_edicion"/>
-	</field>
-	<field name="fecha_hora" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.name" value="fecha_hora"/>
-		<property name="com.jaspersoft.studio.field.label" value="fecha_hora"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="comanda_edicion"/>
-	</field>
 	<field name="plato" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="plato"/>
 		<property name="com.jaspersoft.studio.field.label" value="plato"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="comanda_edicion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comanda"/>
 	</field>
 	<field name="cantidad" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="cantidad"/>
 		<property name="com.jaspersoft.studio.field.label" value="cantidad"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="comanda_edicion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comanda"/>
+	</field>
+	<field name="precio_unitario" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="precio_unitario"/>
+		<property name="com.jaspersoft.studio.field.label" value="precio_unitario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comanda"/>
 	</field>
 	<field name="importe" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="importe"/>
 		<property name="com.jaspersoft.studio.field.label" value="importe"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="comanda_edicion"/>
-	</field>
-	<field name="fk_comida" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="fk_comida"/>
-		<property name="com.jaspersoft.studio.field.label" value="fk_comida"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="comanda_edicion"/>
-	</field>
-	<field name="fk_mesa" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="fk_mesa"/>
-		<property name="com.jaspersoft.studio.field.label" value="fk_mesa"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="comanda_edicion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comanda"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="48" splitType="Stretch">
+		<band height="43" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="557" height="20" uuid="51730345-d2a1-42a3-89cd-6c668a1626a6"/>
+				<reportElement x="-11" y="0" width="211" height="20" uuid="51730345-d2a1-42a3-89cd-6c668a1626a6"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RESTAURANT JUANITO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="20" width="557" height="20" uuid="434d4a45-6c8a-41bc-8a6f-7174892a873f"/>
+				<reportElement x="-11" y="20" width="211" height="20" uuid="434d4a45-6c8a-41bc-8a6f-7174892a873f"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[TICKET COMANDA]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="40" width="557" height="1" uuid="5b3d15f8-6eaa-4354-8a2d-72185b5c19c0"/>
+				<reportElement x="-11" y="40" width="211" height="1" uuid="5b3d15f8-6eaa-4354-8a2d-72185b5c19c0"/>
 			</line>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="81" splitType="Stretch">
+		<band height="83" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="130" height="19" uuid="8fbdea09-77e1-43d7-b0e0-07715f6f459b">
+				<reportElement x="-11" y="0" width="91" height="19" uuid="8fbdea09-77e1-43d7-b0e0-07715f6f459b">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Left">
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[CODIGO:]]></text>
+				<text><![CDATA[ CODIGO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="20" width="130" height="20" uuid="8f83e441-dace-4d37-897b-daa9b7238f14"/>
+				<reportElement x="-11" y="19" width="91" height="20" uuid="8f83e441-dace-4d37-897b-daa9b7238f14"/>
 				<textElement textAlignment="Left">
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[FECHA:]]></text>
+				<text><![CDATA[ FECHA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="40" width="130" height="20" uuid="789b0673-398c-402b-a00d-e6c5472b25ce"/>
+				<reportElement x="-11" y="39" width="91" height="20" uuid="789b0673-398c-402b-a00d-e6c5472b25ce"/>
 				<textElement textAlignment="Left">
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[HORA:]]></text>
+				<text><![CDATA[ HORA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="60" width="130" height="20" uuid="8dc31875-2a63-4656-a4dc-2da360281aff"/>
+				<reportElement x="-11" y="59" width="91" height="20" uuid="8dc31875-2a63-4656-a4dc-2da360281aff"/>
 				<textElement textAlignment="Left">
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[MESA:]]></text>
+				<text><![CDATA[ MESA:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="80" width="557" height="1" uuid="e7401c40-dc39-4d4e-b02c-297f731b21c3"/>
+				<reportElement x="-11" y="82" width="211" height="1" uuid="e7401c40-dc39-4d4e-b02c-297f731b21c3"/>
 			</line>
 			<textField>
-				<reportElement x="130" y="1" width="170" height="19" uuid="b4d1d29b-91ae-417a-9c6d-fb6b6a961f52"/>
+				<reportElement x="80" y="0" width="120" height="19" uuid="b4d1d29b-91ae-417a-9c6d-fb6b6a961f52"/>
 				<textElement textAlignment="Left">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="130" y="22" width="170" height="20" uuid="651f8a45-d3f5-4be1-952d-d959024fdf02"/>
+				<reportElement x="80" y="19" width="120" height="20" uuid="651f8a45-d3f5-4be1-952d-d959024fdf02"/>
 				<textElement textAlignment="Left">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="130" y="41" width="170" height="20" uuid="9b7c043c-8d63-4fc7-8c66-8aec78aa34da"/>
+				<reportElement x="80" y="39" width="120" height="20" uuid="9b7c043c-8d63-4fc7-8c66-8aec78aa34da"/>
 				<textElement textAlignment="Left">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{hora}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="130" y="60" width="170" height="20" uuid="a472ec3a-6c26-4a81-906a-4c901172e700"/>
+				<reportElement x="80" y="59" width="120" height="20" uuid="a472ec3a-6c26-4a81-906a-4c901172e700"/>
 				<textElement textAlignment="Left">
 					<font size="12"/>
 				</textElement>
@@ -142,34 +122,34 @@
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="380" height="20" uuid="0a739d3d-ce82-4cdd-895d-c66a2ee8ec83"/>
+				<reportElement x="-11" y="-1" width="161" height="21" uuid="0a739d3d-ce82-4cdd-895d-c66a2ee8ec83"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[DESCRIPCIÓN]]></text>
+				<text><![CDATA[ DESCRIPCIÓN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="0" width="177" height="20" uuid="9c4d13f6-7627-4340-8c1a-fd2fc20725a8"/>
+				<reportElement x="150" y="0" width="50" height="20" uuid="9c4d13f6-7627-4340-8c1a-fd2fc20725a8"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CANTIDAD]]></text>
+				<text><![CDATA[CANT.]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="380" height="20" uuid="4711d8db-2df3-4d91-877c-aaaaf47ee1a7"/>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="-10" y="0" width="160" height="20" uuid="4711d8db-2df3-4d91-877c-aaaaf47ee1a7"/>
 				<textElement>
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{plato}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="3" width="177" height="20" uuid="6fa9e90c-4e89-4ab9-a5d5-9d6cbfa7ea3b"/>
+				<reportElement x="150" y="0" width="50" height="20" uuid="6fa9e90c-4e89-4ab9-a5d5-9d6cbfa7ea3b"/>
 				<textElement textAlignment="Center">
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
@@ -178,11 +158,11 @@
 	<columnFooter>
 		<band height="5" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="0" width="557" height="1" uuid="d7316757-0248-47d9-8a6e-0a1cfc434b4b"/>
+				<reportElement x="-11" y="-3" width="211" height="1" uuid="d7316757-0248-47d9-8a6e-0a1cfc434b4b"/>
 			</line>
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="3" splitType="Stretch"/>
+		<band height="8" splitType="Stretch"/>
 	</pageFooter>
 </jasperReport>
