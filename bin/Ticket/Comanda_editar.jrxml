@@ -126,7 +126,7 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ DESCRIPCIÓN]]></text>
+				<text><![CDATA[PRODUCTOS:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="150" y="0" width="50" height="20" uuid="9c4d13f6-7627-4340-8c1a-fd2fc20725a8"/>
