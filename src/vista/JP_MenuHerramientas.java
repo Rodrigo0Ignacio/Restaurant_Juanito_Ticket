@@ -21,7 +21,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
-
 import Ticket.Comanda_1;
 import controlador.Calculos;
 import controlador.Codigo_Aleatorio;

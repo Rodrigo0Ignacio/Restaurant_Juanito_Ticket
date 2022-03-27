@@ -61,6 +61,7 @@ public class Pre_Boleta {
 
 			JasperPrint print = JasperFillManager.fillReport(archivo, map, con.conectar());
 			JasperPrintManager.printReport(print, false); // impresion
+			JasperPrintManager.printReport(print, false); // impresion
 			JasperExportManager.exportReportToPdfFile(print, "C:/Boletas Generadas/boleta - "+codigo_Generado+
 					"_fecha "+ fecha.fechaActual_reporte()+".pdf");
 
