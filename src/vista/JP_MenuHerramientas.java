@@ -42,10 +42,10 @@ public class JP_MenuHerramientas extends JPanel {
 
 	private JPanel p_logo = new JPanel();
 	private JPanel p_herramienta = new JPanel();
-	private JButton borrar = new JButton("Borrar");
-	private JButton imprimir = new JButton("Comandar");
+	private JButton borrar = new JButton("<html> <center> Borrar tabla </html>");
+	private JButton imprimir = new JButton("<html> <center> Comandar orden </html>");
 	private JButton informeDiario = new JButton("Informe");
-	private JButton mesa = new JButton("Mesa");
+	private JButton mesa = new JButton("Mesas");
 	private JLabel lbl_titulo = new JLabel("Restaurant Juanito");
 	private JLabel lbl_icono = new JLabel("");
 	private ArrayList<String> indice = new ArrayList<String>();
@@ -58,7 +58,7 @@ public class JP_MenuHerramientas extends JPanel {
 	private int total = 0;
 	private int id_mesa = 0;
 	private Consultas sql = new Consultas();
-	private JButton cancelar = new JButton("Cancelar");
+	private JButton cancelar = new JButton("<html> <center>Cancelar orden </html>");
 	private Consultas consultassql = new Consultas();
 	private Mesa_Eleccion meleccion = new Mesa_Eleccion();
 	private Ticket tikectTicket;
