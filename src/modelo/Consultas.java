@@ -1,5 +1,6 @@
 package modelo;
 
+import controlador.Categorias;
 import controlador.Color_RGB;
 import controlador.Comanda;
 import controlador.Comanda_Editando;
@@ -516,6 +517,31 @@ public class Consultas extends Conexion {
 			JOptionPane.showMessageDialog(null, "Error al eliminar datos - comanda_editando");
 
 		}
+
+	}
+	
+	public ArrayList<Categorias> datos_Categorias() {
+		ArrayList<Categorias> lista = new ArrayList<Categorias>();
+
+		try {
+			query = "SELECT * FROM categoria;";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+					lista.add(new Categorias(
+							rs.getInt(1),
+							rs.getString(2)
+							));	
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar el dato_categorias");
+
+		}
+		return lista;
 
 	}
 	

@@ -94,6 +94,7 @@ public class JP_Display extends JPanel implements Runnable {
 
 		add(titulo);
 		titulo.setLayout(new GridLayout(0, 1, 0, 0));
+		subTitulo.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 		subTitulo.setBackground(new Color(195, 200, 208));
 
 		titulo.add(subTitulo);
@@ -104,7 +105,7 @@ public class JP_Display extends JPanel implements Runnable {
 		lbl_subtitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		subTitulo.add(lbl_subtitulo);
 		Fecha_y_Hora.setBackground(new Color(195, 200, 208));
-		Fecha_y_Hora.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
+		Fecha_y_Hora.setBorder(new EmptyBorder(0, 5, 0, 5));
 
 		titulo.add(Fecha_y_Hora);
 		Fecha_y_Hora.setLayout(new GridLayout(0, 2, 6, 6));
@@ -135,7 +136,7 @@ public class JP_Display extends JPanel implements Runnable {
 		//Fecha_y_Hora.add(lbl_estadoMesa);
 		Fecha_y_Hora.updateUI();
 
-		grilla.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		grilla.setBorder(new EmptyBorder(0, 3, 0, 3));
 		grilla.setBackground(Color.LIGHT_GRAY);
 
 		add(grilla);
@@ -144,7 +145,7 @@ public class JP_Display extends JPanel implements Runnable {
 
 		scrollPane.setViewportView(grillaProductos);
 		totales.setBackground(new Color(195, 200, 208));
-		totales.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
+		totales.setBorder(new EmptyBorder(0, 5, 0, 5));
 
 		totales.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		add(totales);

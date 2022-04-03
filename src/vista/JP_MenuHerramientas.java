@@ -64,6 +64,7 @@ public class JP_MenuHerramientas extends JPanel {
 	private Ticket tikectTicket;
 
 	public JP_MenuHerramientas() {
+		setBorder(new EmptyBorder(15, 0, 15, 0));
 
 		propiedades();
 		eventos();
@@ -74,7 +75,7 @@ public class JP_MenuHerramientas extends JPanel {
 		setBackground(Color.GRAY);
 		/* DESABILITAR BOTON DE IMPRESION */
 		imprimir.setFont(new Font("Tahoma", Font.BOLD, 18));
-		setLayout(new GridLayout(0, 2, 5, 5));
+		setLayout(new GridLayout(0, 2, 20, 20));
 
 		/* establece el borde */
 		p_herramienta.setForeground(Color.BLACK);
@@ -96,7 +97,7 @@ public class JP_MenuHerramientas extends JPanel {
 		p_logo.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		lbl_titulo.setForeground(Color.WHITE);
 		lbl_titulo.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbl_titulo.setFont(new Font("Times New Roman", Font.BOLD, 38));
+		lbl_titulo.setFont(new Font("Times New Roman", Font.BOLD, 40));
 
 		p_logo.add(lbl_titulo);
 		lbl_icono.setIcon(new ImageIcon("src/img/mariscos.png"));
@@ -104,7 +105,7 @@ public class JP_MenuHerramientas extends JPanel {
 		p_logo.add(lbl_icono);
 
 		add(p_herramienta);
-		p_herramienta.setLayout(new GridLayout(1, 1, 6, 6));
+		p_herramienta.setLayout(new GridLayout(1, 1, 6, 20));
 
 		cancelar.setFont(new Font("Tahoma", Font.BOLD, 18));
 		p_herramienta.add(cancelar);

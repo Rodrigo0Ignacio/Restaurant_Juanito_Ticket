@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
@@ -42,6 +43,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
+import javax.swing.BoxLayout;
 
 public class Fr_Comidas extends JFrame {
 
@@ -63,6 +65,9 @@ public class Fr_Comidas extends JFrame {
 
 	Cantidad cantidad = new Cantidad();
 	public static String idBoton = null;
+	private JScrollPane ScrollPane ;
+	public JPanel sub_panel = new JPanel();
+	
 
 	public Fr_Comidas() {
 		setType(Type.POPUP);
@@ -74,6 +79,9 @@ public class Fr_Comidas extends JFrame {
 		contentPane.setLayout(new BorderLayout(10, 10));
 
 		contentPane.setBackground(new Color(214, 234, 248));
+		FlowLayout flowLayout = (FlowLayout) pn_dinamicos.getLayout();
+		flowLayout.setVgap(30);
+		flowLayout.setHgap(30);
 		pn_dinamicos.setBackground(new Color(40, 83, 108));
 		panel.setBackground(new Color(214, 234, 248));
 
@@ -82,12 +90,15 @@ public class Fr_Comidas extends JFrame {
 
 		lbl_titulo.setFont(new Font("Tahoma", Font.PLAIN, 36));
 		panel.add(lbl_titulo);
+		
 		pn_dinamicos.setBorder(new EtchedBorder(EtchedBorder.RAISED, Color.BLACK, Color.BLACK));
-
-		contentPane.add(pn_dinamicos, BorderLayout.CENTER);
-		FlowLayout fl_pn_dinamicos = new FlowLayout(FlowLayout.LEFT, 5, 5);
-		fl_pn_dinamicos.setAlignOnBaseline(true);
-		pn_dinamicos.setLayout(fl_pn_dinamicos);
+		JScrollPane scrollPane = new JScrollPane(pn_dinamicos);
+		contentPane.add(scrollPane, BorderLayout.CENTER);
+		sub_panel.setBorder(new EmptyBorder(0, 0, 0, 30));
+		
+		sub_panel.setOpaque(false);
+		pn_dinamicos.add(sub_panel);
+		sub_panel.setLayout(new GridLayout(0, 5, 5, 5));
 
 		indice.add("Unidad");
 		indice.add("Nombre");
@@ -105,9 +116,10 @@ public class Fr_Comidas extends JFrame {
 			public void windowClosing(WindowEvent e) {
 
 				cantidad.cerrarVentana();
-				
+	
 				if (JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
 					JP_Display.estados_Pedidos(4);
+					
 
 				}
 
@@ -120,7 +132,8 @@ public class Fr_Comidas extends JFrame {
 
 		/* REMUEVE LAS INTANCIAS ANTES COLOCADAS EN EL MARCO */
 		// principal.removeAll();
-		pn_dinamicos.removeAll();
+		
+		sub_panel.removeAll();
 		Consultas consultas = new Consultas();
 
 		if (consultas.verificarSiExitenPlatos(categoria)) { // verifica si exiten platos
@@ -137,12 +150,12 @@ public class Fr_Comidas extends JFrame {
 				while (rs.next()) {
 
 					btn = new JButton(rs.getString("nombre"));
-					btn.setFont(new Font("Tahoma", Font.BOLD, 16));
+					btn.setFont(new Font("Tahoma", Font.BOLD, 14));
 
-					pn_dinamicos.add(btn);
+					sub_panel.add(btn);
 
 					btn.setPreferredSize(new Dimension(250, 150));
-					btn.setBackground(new Color(134, 147, 147));
+					btn.setBackground(new Color(154, 176, 211));
 
 					/* EVENTO DE BOTONES DINAMICOS */
 					btn.addActionListener(new ActionListener() {
@@ -170,6 +183,7 @@ public class Fr_Comidas extends JFrame {
 			JOptionPane.showMessageDialog(null, "No existen platos");
 			this.setVisible(false);
 		}
+		
 
 	}
 
