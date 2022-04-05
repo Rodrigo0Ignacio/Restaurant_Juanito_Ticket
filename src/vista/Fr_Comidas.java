@@ -72,7 +72,7 @@ public class Fr_Comidas extends JFrame {
 	public Fr_Comidas() {
 		setType(Type.POPUP);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(600, 700, 1081, 715);
+		setBounds(600, 700, 1200, 780);
 		setLocationRelativeTo(null);
 		setIconImage(new ImageIcon(getClass().getResource("/img/cuchilleria.png")).getImage());
 		setContentPane(contentPane);
@@ -80,13 +80,14 @@ public class Fr_Comidas extends JFrame {
 
 		contentPane.setBackground(new Color(214, 234, 248));
 		FlowLayout flowLayout = (FlowLayout) pn_dinamicos.getLayout();
-		flowLayout.setVgap(30);
-		flowLayout.setHgap(30);
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		flowLayout.setVgap(10);
+		flowLayout.setHgap(10);
 		pn_dinamicos.setBackground(new Color(40, 83, 108));
 		panel.setBackground(new Color(214, 234, 248));
 
 		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
 		lbl_titulo.setFont(new Font("Tahoma", Font.PLAIN, 36));
 		panel.add(lbl_titulo);
@@ -94,7 +95,7 @@ public class Fr_Comidas extends JFrame {
 		pn_dinamicos.setBorder(new EtchedBorder(EtchedBorder.RAISED, Color.BLACK, Color.BLACK));
 		JScrollPane scrollPane = new JScrollPane(pn_dinamicos);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
-		sub_panel.setBorder(new EmptyBorder(0, 0, 0, 30));
+		sub_panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
 		sub_panel.setOpaque(false);
 		pn_dinamicos.add(sub_panel);

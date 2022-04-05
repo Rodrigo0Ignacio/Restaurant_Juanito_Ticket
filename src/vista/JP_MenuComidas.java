@@ -20,6 +20,7 @@ import modelo.Consultas;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.awt.event.MouseEvent;
@@ -40,7 +41,7 @@ public class JP_MenuComidas extends JPanel {
 
 	public JP_MenuComidas() {
 		setLayout(new GridLayout(0, 1, 30, 30));
-		botones.setBorder(new EmptyBorder(0, 23, 0, 0));
+		botones.setBorder(new EmptyBorder(0, 0, 0, 0));
 		botones.setOpaque(false);
 		
 		add(botones);
@@ -63,7 +64,7 @@ public class JP_MenuComidas extends JPanel {
 		lista = con.datos_Categorias();
 		for (Categorias cat : lista) {
 			btn = new JButton(""+cat.getCategorias());
-			tamanio_btn(140,200);
+			tamanio_btn(150,320);
 			propiedades_btn();
 			
 			botones.add(btn);	
@@ -99,6 +100,7 @@ public class JP_MenuComidas extends JPanel {
 		
 		//JP_Display.estados_Pedidos(2);
 		subMenuComidas.setVisible(true);
+		//subMenuComidas.setExtendedState(Frame.MAXIMIZED_BOTH);
 		subMenuComidas.consultas(con);
 		subMenuComidas.setTitle(con);
 		subMenuComidas.lbl_titulo.setText(con);
