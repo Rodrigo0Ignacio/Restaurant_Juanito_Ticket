@@ -538,36 +538,125 @@ public class Consultas extends Conexion {
 			desconectar();
 
 		} catch (SQLException W) {
-			JOptionPane.showMessageDialog(null, "Error al ejecutar el dato_categorias");
+			JOptionPane.showMessageDialog(null, "Error al ejecutar dato_categorias");
 
 		}
 		return lista;
 
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void revisar_datos_comanda(String id, String plato) {
 	
 
+		try {
+			query = "SELECT plato FROM comanda WHERE id_comanda = '"+id+"' AND  plato = '"+plato+"'";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				
+				
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar revisar_datos_comanda");
+
+		}
+
+	}
+	
+	public int revisar_comanda_platos(String id, String plato) {
+		int r = 0;
+
+		try {
+			query = "CALL `sp_verificar_contenido`('"+id+"','"+plato+"');";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				r = rs.getInt("contar");
+				
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar revisar_comanda_platos");
+
+		}
+		return r;
+
 }
+
+	public int contar_comanda(String id, String plato) {
+		int r = 0;
+
+		try {
+			query = "CALL `contar_registros_comanda`('"+id+"','"+plato+"');";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				r = rs.getInt("contar");
+				
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar revisar_comanda_platos");
+
+		}
+		return r;
+
+}
+	
+	public int precio_comanda(String id, String plato) {
+		int r = 0;
+		/*busca el importe de un producto especifico en la tabla comanda*/
+
+		try {
+			query = "SELECT importe FROM comanda WHERE id_comanda = '"+id+"' AND plato = '"+plato+"';";
+
+			statement = (Statement) conectar().prepareStatement(query);
+			rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				r = rs.getInt("importe");
+				
+			}
+			desconectar();
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar precio_comanda");
+
+		}
+		return r;
+
+}
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -84,6 +84,15 @@ public class Edicion extends Consultas {
 
 	public boolean insertar_comanda(String codigo, int precio_u, String fecha_hora, String plato, int cantidad,
 			int importe, int id_comida, int nro_mesa) {
+		
+		 if (revisar_comanda_platos(codigo,plato) == 1) {
+			 
+			 incremento_comanda(codigo, plato,
+					 (contar_comanda(codigo, plato)+cantidad),
+					 (precio_comanda(codigo, plato)+importe));
+			 
+			 return true;
+		 }else {
 
 		try {
 			super.query = "INSERT INTO comanda VALUES(NULL,'" + codigo + "'," + precio_u + ",'" + fecha_hora + "','" + plato
@@ -103,6 +112,7 @@ public class Edicion extends Consultas {
 		} else {
 			return false;
 		}
+		 }
 
 	}
 	public void insertar_cargaTabla_boleta(String codigo) {
@@ -162,6 +172,22 @@ public class Edicion extends Consultas {
 		} else {
 			return false;
 		}
+	}
+	
+	public void incremento_comanda(String id, String plato, int incremento, int importe) {
+
+		try {
+			super.query = "UPDATE comanda SET cantidad = "+incremento+" , importe = "+importe+"  WHERE id_comanda = '"+id+"' AND plato = '"+plato+"';";
+
+			super.statement = conectar().createStatement();
+			super.resultado = super.statement.executeUpdate(query);
+
+		} catch (SQLException W) {
+			JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta incremento_comanda");
+			
+
+		}
+
 	}
 	
 
