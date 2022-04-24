@@ -40,7 +40,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 
-public class JP_MenuHerramientas extends JPanel implements Runnable {
+public class JP_MenuHerramientas extends JPanel {
 
 	private JPanel p_logo = new JPanel();
 	private JPanel p_herramienta = new JPanel();
@@ -72,13 +72,10 @@ public class JP_MenuHerramientas extends JPanel implements Runnable {
 
 		propiedades();
 		eventos();
-		cancelar.setEnabled(false);
-		
-		hilo = new Thread(this);
-		hilo.start();
 			
 
 	}
+	/*
 	 @Override
 	    public void run() {
 		 Thread current = Thread.currentThread();
@@ -92,6 +89,7 @@ public class JP_MenuHerramientas extends JPanel implements Runnable {
 		 }
 		
 	    }
+	    */
 
 	protected void propiedades() {
 		setBackground(Color.GRAY);
@@ -305,9 +303,10 @@ public class JP_MenuHerramientas extends JPanel implements Runnable {
 					JP_Display.estadoMesas.setText("");
 					resetDisplay_cancelar();
 					edicionsql.mesa_Disponibilidad(Mesas.identificador_Mesa,"Disponible");
-					JOptionPane.showMessageDialog(null, "orden cancelada");
+					JOptionPane.showMessageDialog(null, "orden cancelada");	
 					
-					
+				}else {
+					JOptionPane.showMessageDialog(null,"<html> <center>operación invalida</center> </html>","Alerta",JOptionPane.WARNING_MESSAGE);
 				}
 
 

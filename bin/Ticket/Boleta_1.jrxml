@@ -234,14 +234,15 @@
 				<text><![CDATA[NETO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-10" y="30" width="110" height="20" uuid="735f86d5-6f26-43a6-b3f6-4ac0f9b42400"/>
-				<textElement textAlignment="Right">
+				<reportElement x="-10" y="30" width="110" height="30" uuid="735f86d5-6f26-43a6-b3f6-4ac0f9b42400"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font size="10" isBold="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.0"/>
 				</textElement>
-				<text><![CDATA[PROPINA 10%:]]></text>
+				<text><![CDATA[PROPINA 10% OPCIONAL:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-10" y="50" width="110" height="20" uuid="e2b2591a-fbc2-4d8d-b7e4-8c5b1d661b1f"/>
+				<reportElement x="-10" y="60" width="110" height="20" uuid="e2b2591a-fbc2-4d8d-b7e4-8c5b1d661b1f"/>
 				<textElement textAlignment="Right">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -255,24 +256,24 @@
 				<textFieldExpression><![CDATA[$P{neto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="30" width="80" height="20" uuid="5205c2a5-6bcc-43af-b47b-28515c56f859"/>
-				<textElement textAlignment="Right">
+				<reportElement x="100" y="30" width="80" height="30" uuid="5205c2a5-6bcc-43af-b47b-28515c56f859"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{propina}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="50" width="80" height="20" uuid="0db1e5f1-edb5-450a-beec-7a22ca8025d1"/>
+				<reportElement x="100" y="60" width="80" height="20" uuid="0db1e5f1-edb5-450a-beec-7a22ca8025d1"/>
 				<textElement textAlignment="Right">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="-11" y="70" width="211" height="1" uuid="47071868-b009-4e9f-90f9-172638f2fd9b"/>
+				<reportElement x="-10" y="80" width="211" height="1" uuid="47071868-b009-4e9f-90f9-172638f2fd9b"/>
 			</line>
 			<staticText>
-				<reportElement x="-11" y="75" width="211" height="39" uuid="79810f94-68c5-4535-a9c9-3b2adba39759"/>
+				<reportElement x="-10" y="80" width="211" height="39" uuid="79810f94-68c5-4535-a9c9-3b2adba39759"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
