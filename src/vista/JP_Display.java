@@ -180,7 +180,7 @@ public class JP_Display extends JPanel implements Runnable {
 		Fecha hora = new Fecha();
 
 		while (current == hilo) {
-
+		
 			lbl_hra.setText(hora.horaActual());
 
 		}

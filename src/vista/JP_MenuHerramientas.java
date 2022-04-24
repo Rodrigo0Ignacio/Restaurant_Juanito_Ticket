@@ -20,6 +20,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import org.apache.commons.collections4.functors.CatchAndRethrowClosure;
+
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import Ticket.Comanda_1;
 import controlador.Calculos;
@@ -38,7 +40,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 
-public class JP_MenuHerramientas extends JPanel {
+public class JP_MenuHerramientas extends JPanel implements Runnable {
 
 	private JPanel p_logo = new JPanel();
 	private JPanel p_herramienta = new JPanel();
@@ -62,14 +64,34 @@ public class JP_MenuHerramientas extends JPanel {
 	private Consultas consultassql = new Consultas();
 	private Mesa_Eleccion meleccion = new Mesa_Eleccion();
 	private Ticket tikectTicket;
+	private boolean tabla_aux = true;
+	private Thread hilo;
 
 	public JP_MenuHerramientas() {
 		setBorder(new EmptyBorder(15, 0, 15, 0));
 
 		propiedades();
 		eventos();
+		cancelar.setEnabled(false);
+		
+		hilo = new Thread(this);
+		hilo.start();
+			
 
 	}
+	 @Override
+	    public void run() {
+		 Thread current = Thread.currentThread();
+		 
+		 while (current == hilo) {
+			 if(ops()) {
+				 cancelar.setEnabled(false); 
+			 }else {
+				 cancelar.setEnabled(true);
+			 }
+		 }
+		
+	    }
 
 	protected void propiedades() {
 		setBackground(Color.GRAY);
@@ -143,65 +165,26 @@ public class JP_MenuHerramientas extends JPanel {
 
 		imprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+					if (JP_Display.grillaProductos.getRowCount() == 0
+							&& JP_Display.grillaProductos.getSelectedRow() == -1) {
+						JOptionPane.showMessageDialog(null, "Ingrese al menos un producto");
 
-				if (JP_Display.grillaProductos.getRowCount() == 0
-						&& JP_Display.grillaProductos.getSelectedRow() == -1) {
-					JOptionPane.showMessageDialog(null, "Ingrese al menos un producto");
+					} else if (JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ")) {
+						JOptionPane.showMessageDialog(null, "Ingrese una mesa");
 
-				} else if (JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ")) {
-					JOptionPane.showMessageDialog(null, "Ingrese una mesa");
+					} else {
 
-				} else {
+						if (JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
+							try {
+							String id_comanda = sql.buscar_id_comanda(Mesas.id_mesa_dinamico);
+							unidad = 0;
+							plato = null;
+							precio_u = 0;
+							total = 0;
+							id_mesa = 0;
 
-					if (JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
-						
-						String id_comanda = sql.buscar_id_comanda(Mesas.id_mesa_dinamico);
-
-						unidad = 0;
-						plato = null;
-						precio_u = 0;
-						total = 0;
-						id_mesa = 0;
-
-						/* captura los datos de la edicion */
-						for (int i = 0; i < JP_Display.grillaProductos.getRowCount(); i++) {
-
-							unidad = (int) JP_Display.grillaProductos.getValueAt(i, 0);
-							plato = (String) JP_Display.grillaProductos.getValueAt(i, 1);
-							precio_u = (int) JP_Display.grillaProductos.getValueAt(i, 2);
-							total = (int) JP_Display.grillaProductos.getValueAt(i, 3);
-							id_mesa = (int) JP_Display.grillaProductos.getValueAt(i, 4);
-
-							/* llenamos la tabla comanda */
-							edicionsql.insertar_comanda(id_comanda, precio_u, fecha.fechaHora_formato2(), plato, unidad,
-									total, id_mesa, Mesas.identificador_Mesa);
-							
-							/*llenamos una tabla auxiliar */
-							edicionsql.insertar_Comanda_editando(id_comanda, precio_u, fecha.fechaHora_formato2(), plato, unidad,
-									total, id_mesa, Mesas.identificador_Mesa);
-
-						}
-						
-						try {
-							Comanda_1.cargarComanda_editar(id_comanda, String.valueOf(Mesas.identificador_Mesa));
-						} catch (JRException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						/*elimina datos antiguos de la tabla de referencia*/
-						edicionsql.eliminarDatos_comanda_editando(id_comanda);
-	
-						Principal.editando = false;
-						resetDisplay();
-
-					} else if(JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Agregando Mesa")) {
-						try {
-							// JP_Display.estados_Pedidos(3);
-							/*
-							 * GUARDAR EN LA BASE DE DATOS guarda la comanda en la bd
-							 */
-							String codigoUnico = Codigo_Aleatorio.codigo_alfanumerico_caracter();
-
+							/* captura los datos de la edicion */
 							for (int i = 0; i < JP_Display.grillaProductos.getRowCount(); i++) {
 
 								unidad = (int) JP_Display.grillaProductos.getValueAt(i, 0);
@@ -210,38 +193,82 @@ public class JP_MenuHerramientas extends JPanel {
 								total = (int) JP_Display.grillaProductos.getValueAt(i, 3);
 								id_mesa = (int) JP_Display.grillaProductos.getValueAt(i, 4);
 
-								/* llenamos la tabla comanda */
-								edicionsql.insertar_comanda(codigoUnico, precio_u, fecha.fechaHora_formato2(), plato,
-										unidad, total, id_mesa, Mesas.identificador_Mesa);
+								/* llenamos la tabla comanda*/
+								edicionsql.insertar_comanda(id_comanda, precio_u, fecha.fechaHora_formato2(), plato, unidad,
+										total, id_mesa, Mesas.identificador_Mesa);
+
+								/* llenamos una tabla auxiliar */
+								tabla_aux = edicionsql.insertar_Comanda_editando(id_comanda, precio_u,
+										fecha.fechaHora_formato2(), plato, unidad, total, id_mesa,
+										Mesas.identificador_Mesa);
 
 							}
-							/* llenamos cap_datos TABLA DE REFERENCIA */
-							edicionsql.insertar_cap_datos(codigoUnico, Mesas.identificador_Mesa);
+								Comanda_1.cargarComanda_editar(id_comanda, String.valueOf(Mesas.identificador_Mesa));
 							
-							/*llenamos la tabla carga boleta*/
-							edicionsql.insertar_cargaTabla_boleta(codigoUnico);
-							
-							/*A QUI SE DEBE INSERTAR CODIGO DEL TIKECT*/
-							Comanda_1.cargarComanda(codigoUnico, String.valueOf(Mesas.identificador_Mesa));
+							/* elimina datos antiguos de la tabla de referencia */
+							edicionsql.eliminarDatos_comanda_editando(id_comanda);
 
-
-							Principal.cont = 0;
-							Mesas.identificador_Mesa = 0;
+							Principal.editando = false;
 							resetDisplay();
-							JP_Display.estados_Pedidos(0);
+							
+							}catch (Exception oi) {
+								JOptionPane.showMessageDialog(null, "Error al editar la mesa"
+										,"Algo salio mal",JOptionPane.ERROR_MESSAGE);
+								cancelar_orden();
+							}
 
-						} catch (NullPointerException q) {
-							System.out.print(q);
-						} catch (JRException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+						} else if (JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Agregando Mesa")) {
+
+							try {
+
+								// JP_Display.estados_Pedidos(3);
+								/*
+								 * GUARDAR EN LA BASE DE DATOS guarda la comanda en la bd
+								 */
+								String codigoUnico = Codigo_Aleatorio.codigo_alfanumerico_caracter();
+								
+								/* llenamos cap_datos TABLA DE REFERENCIA */
+								tabla_aux = edicionsql.insertar_cap_datos(codigoUnico, Mesas.identificador_Mesa);
+
+								for (int i = 0; i < JP_Display.grillaProductos.getRowCount(); i++) {
+
+									unidad = (int) JP_Display.grillaProductos.getValueAt(i, 0);
+									plato = (String) JP_Display.grillaProductos.getValueAt(i, 1);
+									precio_u = (int) JP_Display.grillaProductos.getValueAt(i, 2);
+									total = (int) JP_Display.grillaProductos.getValueAt(i, 3);
+									id_mesa = (int) JP_Display.grillaProductos.getValueAt(i, 4);
+
+									/* llenamos la tabla comanda*/
+									edicionsql.insertar_comanda(codigoUnico, precio_u, fecha.fechaHora_formato2(), plato,
+											unidad, total, id_mesa, Mesas.identificador_Mesa);
+
+								}
+
+								/* llenamos la tabla carga boleta */
+								edicionsql.insertar_cargaTabla_boleta(codigoUnico);
+
+								/* A QUI SE DEBE INSERTAR CODIGO DEL TIKECT */
+								Comanda_1.cargarComanda(codigoUnico, String.valueOf(Mesas.identificador_Mesa));
+
+								Principal.cont = 0;
+								Mesas.identificador_Mesa = 0;
+								resetDisplay();
+								JP_Display.estados_Pedidos(0);
+								
+							}catch (Exception o) {
+								JOptionPane.showMessageDialog(null, "<html> <center> Error inesperado,"
+										+ " por favor intentelo nuevamente </center> </hml>","Algo salio mal",JOptionPane.ERROR_MESSAGE);
+								cancelar_orden();
+							}
+							
+
 						}
 
 					}
-
-				}
-
+					
+				
 			}
+			
 		});
 
 		informeDiario.addActionListener(new ActionListener() {
@@ -265,10 +292,9 @@ public class JP_MenuHerramientas extends JPanel {
 
 			}
 		});
-		
+
 		cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				if(JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
 					resetDisplay_cancelar();
 					JOptionPane.showMessageDialog(null, "Estado editando cancelado");
@@ -283,8 +309,8 @@ public class JP_MenuHerramientas extends JPanel {
 					
 					
 				}
-	
-				
+
+
 			}
 		});
 
@@ -302,6 +328,7 @@ public class JP_MenuHerramientas extends JPanel {
 		limpiarTabla();
 
 	}
+
 	public void resetDisplay_cancelar() {
 		JP_Display.lbl_nroMesa.setText("N\u00B0 ");
 		JP_Display.lbl_total.setText("$ 0 ");
@@ -329,6 +356,37 @@ public class JP_MenuHerramientas extends JPanel {
 			JP_Display.modelo.removeRow(i);
 		}
 	}
+	
+	private int cancelar_orden() {
+
+		if (JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
+			resetDisplay_cancelar();
+			//JOptionPane.showMessageDialog(null, "Estado editando cancelado");
+			return 1;
+
+		} else if (JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Agregando Mesa")
+				|| JP_Display.estadoMesas.getText().equalsIgnoreCase("Agregando Mesa")) {
+
+			JP_Display.estadoMesas.setText("");
+			resetDisplay_cancelar();
+			edicionsql.mesa_Disponibilidad(Mesas.identificador_Mesa, "Disponible");
+			//JOptionPane.showMessageDialog(null, "orden cancelada");
+			return 2;
+
+		}
+		return 0;
+	}
+	
+	private boolean ops() {
+		if (JP_Display.lbl_total.getText().equalsIgnoreCase("$ 0 ")
+				|| JP_Display.lbl_nroMesa.getText().equalsIgnoreCase("N\u00B0 ") ) {
+				return true;
+
+		}else {
+			return false;
+		}
+
+	}
 
 	public JButton getMesa() {
 		return mesa;
@@ -345,7 +403,6 @@ public class JP_MenuHerramientas extends JPanel {
 	public void setCancelar(JButton cancelar) {
 		this.cancelar = cancelar;
 	}
-	
-	
+
 
 }

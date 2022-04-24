@@ -38,18 +38,14 @@ public class Edicion extends Consultas {
 
 	}
 
-	public boolean insertar_cap_datos(String id_comanda, int mesa) {
+	public boolean insertar_cap_datos(String id_comanda, int mesa) throws SQLException {
 
-		try {
+		
 			super.query = "INSERT INTO cap_datos VALUES(NULL,'" + id_comanda + "'," + mesa + ")";
 
 			super.statement = conectar().createStatement();
 			super.resultado = super.statement.executeUpdate(query);
 
-		} catch (SQLException W) {
-			JOptionPane.showMessageDialog(null, "Error inesperado, por favor cancele la operación y vuelva a intentarlo");
-
-		}
 
 		if (super.resultado == 1) {
 			return true;

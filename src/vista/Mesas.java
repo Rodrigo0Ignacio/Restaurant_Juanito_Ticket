@@ -73,6 +73,7 @@ public class Mesas extends JFrame {
 	private Fecha fecha = new Fecha();
 	private Calculos_boleta boleta = new Calculos_boleta();
 	private Calculos cal = new Calculos();
+	public static boolean ventana = false;
 
 
 	public Mesas() {
@@ -112,6 +113,7 @@ public class Mesas extends JFrame {
 				eleccion.cerrarVentana();
 				setVisible(false);
 				JP_Display.lbl_verificar.setText("");
+				ventana = true;
 
 			}
 
