@@ -207,7 +207,9 @@ public class JP_MenuHerramientas extends JPanel {
 							edicionsql.eliminarDatos_comanda_editando(id_comanda);
 
 							Principal.editando = false;
+							JP_Display.estados_Pedidos(0);
 							resetDisplay();
+							
 							
 							}catch (Exception oi) {
 								JOptionPane.showMessageDialog(null, "Error al editar la mesa"
@@ -250,8 +252,9 @@ public class JP_MenuHerramientas extends JPanel {
 
 								Principal.cont = 0;
 								Mesas.identificador_Mesa = 0;
-								resetDisplay();
 								JP_Display.estados_Pedidos(0);
+								resetDisplay();
+								
 								
 							}catch (Exception o) {
 								JOptionPane.showMessageDialog(null, "<html> <center> Error inesperado,"
@@ -316,25 +319,27 @@ public class JP_MenuHerramientas extends JPanel {
 	}
 
 	public void resetDisplay() {
+		JP_Display.estados_Pedidos(0);
 		JP_Display.lbl_nroMesa.setText("N\u00B0 ");
 		JP_Display.lbl_total.setText("$ 0 ");
 		JP_Display.lbl_propina.setText("$ 0 ");
 		JP_Display.lbl_totalMasPropina.setText("$ 0 ");
 		JP_Display.lbl_estadoMesa.setText("");
 		// Fr_MenuMesas.txt_displayNumeros.setText("");
-		JP_Display.estados_Pedidos(0);
+		
 
 		limpiarTabla();
 
 	}
 
 	public void resetDisplay_cancelar() {
+		JP_Display.estados_Pedidos(0);
 		JP_Display.lbl_nroMesa.setText("N\u00B0 ");
 		JP_Display.lbl_total.setText("$ 0 ");
 		JP_Display.lbl_propina.setText("$ 0 ");
 		JP_Display.lbl_totalMasPropina.setText("$ 0 ");
 		JP_Display.lbl_estadoMesa.setText("");
-		JP_Display.estados_Pedidos(0);
+		
 
 		limpiarTabla();
 

@@ -158,7 +158,7 @@ public class Cantidad extends JFrame {
 								importe += importeCelda;
 								JP_Display.grillaProductos.setValueAt(importe, filaExiste, 3);
 
-								JP_Display.estados_Pedidos(2);
+								//JP_Display.estados_Pedidos(2);
 
 								cerrarVentana();
 								resetCantidad();

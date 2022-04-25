@@ -106,6 +106,11 @@ public class JP_Display extends JPanel implements Runnable {
 		subTitulo.add(lbl_subtitulo);
 		Fecha_y_Hora.setBackground(new Color(195, 200, 208));
 		Fecha_y_Hora.setBorder(new EmptyBorder(0, 5, 0, 5));
+		
+		/*================PROBANDO====================*/
+		lbl_estadoMesa.setForeground(Color.red);
+		Fecha_y_Hora.add(lbl_estadoMesa);
+		/*=========================================*/
 
 		titulo.add(Fecha_y_Hora);
 		Fecha_y_Hora.setLayout(new GridLayout(0, 2, 6, 6));
@@ -180,6 +185,7 @@ public class JP_Display extends JPanel implements Runnable {
 		Fecha hora = new Fecha();
 
 		while (current == hilo) {
+			
 		
 			lbl_hra.setText(hora.horaActual());
 
@@ -223,6 +229,7 @@ public class JP_Display extends JPanel implements Runnable {
 	}
 
 	public static void estados_Pedidos(int index) {
+		
 		String[] estados = { "", "Agregando Mesa", "Agregando Productos", "Finalizado", "Editando" };
 		JP_Display.lbl_estadoMesa.setText(estados[index]);
 

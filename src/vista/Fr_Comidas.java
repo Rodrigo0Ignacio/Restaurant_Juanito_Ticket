@@ -120,8 +120,6 @@ public class Fr_Comidas extends JFrame {
 	
 				if (JP_Display.lbl_estadoMesa.getText().equalsIgnoreCase("Editando")) {
 					JP_Display.estados_Pedidos(4);
-					
-
 				}
 
 			}
